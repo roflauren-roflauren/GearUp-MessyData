@@ -1,16 +1,14 @@
 format: jb-book
 root: intro
 parts:
-  - caption: test 1 
-  chapters:
+  - caption: WORKSHOP INTRO 
+    chapters:
     - file: fall_2022/0_motivation.ipynb
-  
-  - caption: test 2
-  chapters:
+  - caption: DATA BEST PRACTICES
+    chapters:
     - file: fall_2022/1_dataSourcing.ipynb
     - file: fall_2022/2_dataContinuity.ipynb
     - file: fall_2022/3_dataTimeliness.ipynb
-  
-  - caption: test 3
-  chapters:
+  - caption: APPENDIX
+    chapters:
     - file: fall_2022/appendix_vectorize
