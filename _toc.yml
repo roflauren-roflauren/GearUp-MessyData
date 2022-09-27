@@ -1,15 +1,16 @@
-# Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
-
 format: jb-book
 root: intro
 parts:
-- caption: Workshop Intro
+  - caption: test 1 
   chapters:
-  - file: fall_2022/chp0_motivation
-- caption: GearUp Fall 2022
+    - file: fall_2022/0_motivation.ipynb
+  
+  - caption: test 2
   chapters:
-  - file: fall_2022/chp1_dataSourcing
-  - file: fall_2022/chp2_dataContinuity
-  - file: fall_2022/chp3_dataTimeliness
-  - file: fall_2022/appendix_vectorize
+    - file: fall_2022/1_dataSourcing.ipynb
+    - file: fall_2022/2_dataContinuity.ipynb
+    - file: fall_2022/3_dataTimeliness.ipynb
+  
+  - caption: test 3
+  chapters:
+    - file: fall_2022/appendix_vectorize
