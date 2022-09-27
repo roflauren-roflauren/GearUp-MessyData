@@ -1,0 +1,1555 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Appendix: Optimizing data filling via Vectorization &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Understanding Messy Time Series Data [Gear-Up]</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to TAML!
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/roflauren-roflauren/GearUp-MessyData/master?urlpath=tree/fall_2022/chapters/appendix_vectorize.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData/issues/new?title=Issue%20on%20page%20%2Ffall_2022/chapters/appendix_vectorize.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/fall_2022/chapters/appendix_vectorize.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-imports">
+   <em>
+    <strong>
+     Chapter Imports
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface">
+   <em>
+    <strong>
+     PREFACE:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-1">
+   <em>
+    <strong>
+     DISCUSSION 1:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-2">
+   <em>
+    <strong>
+     DISCUSSION 2:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-3">
+   <em>
+    <strong>
+     DISCUSSION 3:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-4">
+   <em>
+    <strong>
+     DISCUSSION 4:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coding-exercise">
+   <em>
+    <strong>
+     CODING EXERCISE:
+    </strong>
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#looping-with-iterrows">
+     <em>
+      <strong>
+       1. Looping with
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         iterrows()
+        </span>
+       </code>
+       :
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#better-looping-with-apply">
+     <em>
+      <strong>
+       2. Better looping with
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         apply()
+        </span>
+       </code>
+       :
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#basic-vectorization">
+     <em>
+      <strong>
+       3. Basic vectorization:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vectorization-with-numpy">
+     <em>
+      <strong>
+       4. Vectorization with NumPy:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-5">
+   <em>
+    <strong>
+     DISCUSSION 5:
+    </strong>
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vectorization-frameworks">
+     <em>
+      <strong>
+       Vectorization frameworks:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vectorization-with-non-numeric-data">
+     <em>
+      <strong>
+       Vectorization with non-numeric data:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#benefits-of-and-improving-looping">
+     <em>
+      <strong>
+       Benefits of and improving looping:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   <em>
+    <strong>
+     CONCLUSION:
+    </strong>
+   </em>
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Appendix: Optimizing data filling via Vectorization</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-imports">
+   <em>
+    <strong>
+     Chapter Imports
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface">
+   <em>
+    <strong>
+     PREFACE:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-1">
+   <em>
+    <strong>
+     DISCUSSION 1:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-2">
+   <em>
+    <strong>
+     DISCUSSION 2:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-3">
+   <em>
+    <strong>
+     DISCUSSION 3:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-4">
+   <em>
+    <strong>
+     DISCUSSION 4:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coding-exercise">
+   <em>
+    <strong>
+     CODING EXERCISE:
+    </strong>
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#looping-with-iterrows">
+     <em>
+      <strong>
+       1. Looping with
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         iterrows()
+        </span>
+       </code>
+       :
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#better-looping-with-apply">
+     <em>
+      <strong>
+       2. Better looping with
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         apply()
+        </span>
+       </code>
+       :
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#basic-vectorization">
+     <em>
+      <strong>
+       3. Basic vectorization:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vectorization-with-numpy">
+     <em>
+      <strong>
+       4. Vectorization with NumPy:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-5">
+   <em>
+    <strong>
+     DISCUSSION 5:
+    </strong>
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vectorization-frameworks">
+     <em>
+      <strong>
+       Vectorization frameworks:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vectorization-with-non-numeric-data">
+     <em>
+      <strong>
+       Vectorization with non-numeric data:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#benefits-of-and-improving-looping">
+     <em>
+      <strong>
+       Benefits of and improving looping:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   <em>
+    <strong>
+     CONCLUSION:
+    </strong>
+   </em>
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="appendix-optimizing-data-filling-via-vectorization">
+<h1>Appendix: Optimizing data filling via Vectorization<a class="headerlink" href="#appendix-optimizing-data-filling-via-vectorization" title="Permalink to this headline">#</a></h1>
+<div>
+<img src="../imgs/vectorization.png" width="500"/>
+<figcaption><em>If you're too busy to read the chapter, this is basically it!</em></figcaption>
+<div><section id="chapter-imports">
+<h2><em><strong>Chapter Imports</strong></em><a class="headerlink" href="#chapter-imports" title="Permalink to this headline">#</a></h2>
+<p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pandas
+<span class="o">%</span><span class="k">pip</span> install numpy
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.4.3)
+Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2022.1)
+Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
+Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
+Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.22.4)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preface">
+<h2><em><strong>PREFACE:</strong></em><a class="headerlink" href="#preface" title="Permalink to this headline">#</a></h2>
+<p>In our running examples with GDP data, we’ve typically dealt with datasets that are fairly small by data science standards (~1000 rows or less).</p>
+<p>Modern personal machines and shared computing resources (like Stanford’s <a class="reference external" href="https://www.sherlock.stanford.edu/">Sherlock</a>) are ridiculously powerful, and they can quickly chew through almost any code that you write - even if it has zero optimization.</p>
+<p>But what happens if you’re dealing with truly massive datasets with hundreds of thousands of rows? With such datasets, code runtime can actually become a constraint on research progression and completion if processing scripts are written suboptimally.</p>
+<p>Although the defintion of optimal code and the processing of writing it varies with context, here we’re going to learn a technique that can be applied in many situations: <em>vectorization.</em></p>
+</section>
+<section id="discussion-1">
+<h2><em><strong>DISCUSSION 1:</strong></em><a class="headerlink" href="#discussion-1" title="Permalink to this headline">#</a></h2>
+<p>A natural first question to ask is, <em>what is vectorizing/vectorization?</em> You may have heard of vectors before in a mathematics class, where vectors are a series of ordered values like this: [3, 2, 5] or [4, 7, 11, 8].</p>
+<p>In computer science, vectorization is a technique related to the mathematical definition of a vector - it’s the process of converting an algorithm from a scalar implementation (which performs operations on, at most, a pair of operands at once) to a vectorized one (which performs operations on a series of values at once). For a quick example:</p>
+<p>The processing of a scalar implementation of the instruction, “add two to every element in this list,” would look like:</p>
+<div class="math notranslate nohighlight">
+\[input: [3, 2, 5] → [3 + 2 = 5, 2, 5] → [5, 2 + 2 = 4, 5] → [5, 4, 5 + 2 = 7] → output: [5, 4, 7]\]</div>
+<p>while the processing of a vectorized implementation of the same instruction would look like:</p>
+<div class="math notranslate nohighlight">
+\[input: [3, 2, 5] → [3 + 2 = 5, 2 + 2 = 4, 5 + 2 = 7] → output: [5, 4, 7]\]</div>
+<p>(where different processors in your machine carry out the ‘+2’ instruction on each element concurrently.)</p>
+<p>If the previous example makes sense to you, congratulations! You understand vectorization. Feel free to come up with your own quicker working definition (mine is, “make computer do same thing to many things at same time instead of on things one-by-one.”</p>
+</section>
+<section id="discussion-2">
+<h2><em><strong>DISCUSSION 2:</strong></em><a class="headerlink" href="#discussion-2" title="Permalink to this headline">#</a></h2>
+<p>In Python, (almost) any looped operation can be vectorized, but why do we need vectorization in the first place?</p>
+<div>
+<img src="../imgs/pythonloop.png" width="500"/>
+<div><p>While loops are a wonderful and flexible programatic idiom, they’re also inherently slow due to the <strong>dynamically typed nature of Python.</strong> What does this mean? Let’s take a look in the context of executing a program:</p>
+<p>When you execute a program in Python, Python:</p>
+<ul class="simple">
+<li><p>First goes line-by-line through your code;</p></li>
+<li><p>Compiles it into a machine-readable version of itself called bytecod*; and</p></li>
+<li><p>Then this bytecode is executed to actually run the program.</p></li>
+</ul>
+<p>Suppose your code has a block where you loop over and perform some operation on the elements in a list. As Python is dynamically typed, <em>it does not know the type of the objects present in the list until it accesses each element.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># nothing about the variable name &#39;a&#39; denotes the type of the contained value. it could be: </span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="c1"># an int</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;vectorization rocks!&quot;</span> 
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="c1"># a string </span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="s2">&quot;vectorization&quot;</span> <span class="p">:</span> <span class="s2">&quot;rocks!&quot;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="c1"># a dictionary of strings</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;int&#39;&gt;
+&lt;class &#39;str&#39;&gt;
+&lt;class &#39;dict&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>For any object in Python, the typing information is stored in the the object itself. Therefore, for each iteration in the loop, Python has to perform a series of overhead operations (like determining element type, resolving scope, checking for invalid operations, etc.) until it can carry out the actual operation you instructed it to. As you might imagine, repeatedly performing these overhead operations on massive datasets results in a significantly increased runtime.</p>
+<p><em>A quick aside:</em> A <strong>statically typed</strong> programming language like C avoids this recurring overhead cost by compelling programmers to explicitly denote the type of every object you use. But, these languages come with their own drawbacks. For example, if two external libraries provide functionality for the same concept with differently-typed implementations, library users will have to provide their own translation layer to allow the two libraries to interoperate. In Python, no/few such interoperability issues arise:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># both pandas and numpy implement an array-type collection</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+
+<span class="c1"># instantiating a numpy array and a pandas Series: </span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+
+<span class="c1"># we can use both array variables at the same time, with no confusion from Python!</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The conductor says: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;And then: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The conductor says: [1 2 3 4]
+And then: [5 6 7 8]
+And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion-3">
+<h2><em><strong>DISCUSSION 3:</strong></em><a class="headerlink" href="#discussion-3" title="Permalink to this headline">#</a></h2>
+<p>As we continue to run through our list of interrogatives, we’ve learned the <em>what</em> and <em>why</em> of vectorization - now it’s time to learn the <em>when!</em></p>
+<p>If you recall, we earlier learned that almost any looped operation in Python can be vectorized. To understand the exceptions, we can first classify all looped operations into two types:</p>
+<ol class="simple">
+<li><p>Order-dependent operations; and</p></li>
+<li><p>Order-independent operations.</p></li>
+</ol>
+<p>As the names suggest, the required order (or lack thereof) of the iterations of a looped operation determines its eligibility for vectorization. Consider the following example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># suppose we have a Anthony-Land GDP dataset with some discontinuities: </span>
+<span class="n">gdp_data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="p">(</span><span class="mi">1992</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="p">(</span><span class="mi">1993</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span> <span class="p">(</span><span class="mi">1995</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span> <span class="p">(</span><span class="mi">1996</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span> <span class="p">(</span><span class="mi">1997</span><span class="p">,</span> <span class="mi">63</span><span class="p">),</span> <span class="p">(</span><span class="mi">1999</span><span class="p">,</span> <span class="mi">67</span><span class="p">)]</span> <span class="c1"># data for the years 1994 and 1998 are missing! </span>
+
+<span class="c1"># if we want to calculate average % increase in gdp from 1990-1999, we have to fill these gaps first! </span>
+<span class="c1">#   fill method: gdp_X = avg. of past four years&#39; GDP measurements. </span>
+
+<span class="c1"># 1994 data fill: </span>
+<span class="n">gdp_data</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">1994</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">gdp_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">4</span><span class="p">)))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After imputing the 1994 data point:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">gdp_data</span><span class="p">))</span>
+
+<span class="c1"># 1998 data fill: </span>
+<span class="n">gdp_data</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="p">(</span><span class="mi">1998</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">gdp_data</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">4</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After imputing the 1998 data point:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">gdp_data</span><span class="p">))</span>
+
+<span class="c1"># avg % increase in gdp: </span>
+<span class="n">percent_increase</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gdp_data</span><span class="p">)):</span> 
+    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="n">percent_increase</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">gdp_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">gdp_data</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">gdp_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Average </span><span class="si">% i</span><span class="s2">ncrease in GDP: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">percent_increase</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">percent_increase</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>After imputing the 1994 data point:[(1990, 45), (1991, 46), (1992, 48), (1993, 52), (1994, 48), (1995, 55), (1996, 60), (1997, 63), (1999, 67)]
+After imputing the 1998 data point:[(1990, 45), (1991, 46), (1992, 48), (1993, 52), (1994, 48), (1995, 55), (1996, 60), (1997, 63), (1998, 56), (1999, 67)]
+Average % increase in GDP: 3.94
+</pre></div>
+</div>
+</div>
+</div>
+<p>What if we computed filled the two data points in reverse-order?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># same data: </span>
+<span class="n">gdp_data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="p">(</span><span class="mi">1992</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="p">(</span><span class="mi">1993</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span> <span class="p">(</span><span class="mi">1995</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span> <span class="p">(</span><span class="mi">1996</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span> <span class="p">(</span><span class="mi">1997</span><span class="p">,</span> <span class="mi">63</span><span class="p">),</span> <span class="p">(</span><span class="mi">1999</span><span class="p">,</span> <span class="mi">67</span><span class="p">)]</span> <span class="c1"># data for the years 1994 and 1998 are missing! </span>
+
+<span class="c1"># same fill method: gdp_X = avg. of past four years&#39; GDP measurements. </span>
+
+<span class="c1"># 1998 data fill: </span>
+<span class="n">gdp_data</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="p">(</span><span class="mi">1998</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">gdp_data</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">4</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After imputing the 1998 data point:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">gdp_data</span><span class="p">))</span>
+
+<span class="c1"># 1994 data fill: </span>
+<span class="n">gdp_data</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">1994</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">gdp_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gdp_data</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">4</span><span class="p">)))</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After imputing the 1994 data point:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">gdp_data</span><span class="p">))</span>
+
+<span class="c1"># avg % increase in gdp: </span>
+<span class="n">percent_increase</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gdp_data</span><span class="p">)):</span> 
+    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="n">percent_increase</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">gdp_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">gdp_data</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">gdp_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Average </span><span class="si">% i</span><span class="s2">ncrease in GDP: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">percent_increase</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">percent_increase</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>After imputing the 1998 data point:[(1990, 45), (1991, 46), (1992, 48), (1993, 52), (1995, 55), (1996, 60), (1997, 63), (1998, 58), (1999, 67)]
+After imputing the 1994 data point:[(1990, 45), (1991, 46), (1992, 48), (1993, 52), (1994, 48), (1995, 55), (1996, 60), (1997, 63), (1998, 58), (1999, 67)]
+Average % increase in GDP: 4.04
+</pre></div>
+</div>
+</div>
+</div>
+<p>A-ha! As you can see, reversing the order that the datapoints were filled in does change the final resulting figure. This is because filling the 1994 data point first makes a 1994 GDP value available as a sample datapoint for imputing the 1998 GDP value, whereas reversing the order of imputation does not.</p>
+<p>As such, the operation we just performed is order-dependent (i.e., the final result is contingent upon the order in which any sub-operations are performed) and ineligible for vectorization. Reason being, <em>when an operation is vectorized, Python provides no constraints on the order in which the sub-operations are carried out.</em></p>
+<div>
+<img src="../imgs/analogy.png" width="500"/>
+<figcaption><em>Vectorized operations are to sets, as scalar looped operations are to lists!</em></figcaption>
+<div><br>
+<p>Expanding upon our “add 2 to every element in this list” example from before, suppose our input now was much longer: <span class="math notranslate nohighlight">\([3, 2, 5, 4, 6, 11, 14, 8, 1, 37, ... (100,000 \text{ more numbers}) ..., 24, 2].\)</span> Since our computer likely does not have enough processing units to add 2 to every element concurrently, it’ll perform the vectorized operation in chunks. We can’t guarantee that the first chunk of say, 1000 inputs, coincides with the first 1000 elements in the list.</p>
+<p>But, in cases like these, where the final result will be independent of the order of the sub-operations, this random chunking is totally fine! And for that reason, we say <em>order-independent</em> operations can be vectorized.</p>
+<p><em>Note:</em> Determining order-independence (or lack thereof) for any particular operation is a nonstandardized task, but reference to other objects being changed by the same loop is a usually a good sign that order-dependence is present. When in doubt, work with a subset of your data and try switching up the processing order of the loop! Does the result change?</p>
+</section>
+<section id="discussion-4">
+<h2><em><strong>DISCUSSION 4:</strong></em><a class="headerlink" href="#discussion-4" title="Permalink to this headline">#</a></h2>
+<p>Now that we’ve understood the theory, it’s time to tackle the practice! Here are the relevant tools:</p>
+<ul class="simple">
+<li><p><em>Libraries:</em></p>
+<ul>
+<li><p>Pandas - the premier Python package for importing, wrangling, and manipulating tabular data.</p></li>
+<li><p>NumPy - Python’s fundamental package for scientific computing, but useful for vectorization due to its vectorization-optimized ndarray. <br></br></p></li>
+</ul>
+</li>
+<li><p><em>Timer:</em></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">%timeit</span></code> - in IPython and Jupyter Notebooks, simply call the magic command ‘%timeit’ suffixed with a function name, and Python will repeatedly run and time the function’s execution to generate runtime statistics. <br></br></p></li>
+</ul>
+</li>
+<li><p><em>Other useful resources (not used here):</em></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">line_profiler</span></code> - an external magic command (requires pip install) which offers a more verbose runtime analysis, including line-by-line hit counts, time per hit, and % total time spent on a line.</p></li>
+<li><p>Cython - yet another external magic command which converts Python code into more loop-friendly C code and supports use of C functions and declaring C types.</p></li>
+</ul>
+</li>
+</ul>
+<p>(<em>Note on magic commands:</em> Magic commands are those suffixed by the ‘%’ symbol in IPython or Jupyter Notebooks. If you’re using Python through a local installation or IDE, packaged versions of the same tools exist for your import and use.)</p>
+</section>
+<section id="coding-exercise">
+<h2><em><strong>CODING EXERCISE:</strong></em><a class="headerlink" href="#coding-exercise" title="Permalink to this headline">#</a></h2>
+<p>With our tools in hand, let’s go try some vectorization!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># required imports: </span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>            <span class="c1"># use: data intake and wranglnig</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>             <span class="c1"># use: computing and data structures</span>
+<span class="kn">import</span> <span class="nn">os</span>                      <span class="c1"># use: file access and management </span>
+
+<span class="c1"># our sample data: </span>
+<span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> 
+<span class="n">song_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;unpopular_songs.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For our vectorization exercises, we’re going to be taking a quick break from GDP data and instead we’ll be using <a class="reference external" href="https://www.kaggle.com/datasets/estienneggx/spotify-unpopular-songs?resource=download">this dataset</a> which contains information about more than 10,000 of the most unpopular songs on Spotify. This information includes the track name, artist, ID, and more subjective measures like danceability, energy, etc.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a quick view into our data: </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">song_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># some summary statistics:</span>
+<span class="n">song_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   danceability  energy  key  loudness  mode  speechiness  acousticness  \
+0         0.530   0.770    4    -6.633     0       0.0389         0.284   
+1         0.565   0.730    1    -6.063     1       0.0730         0.365   
+2         0.427   0.546    4    -8.727     1       0.0849         0.539   
+3         0.421   0.531    7    -5.516     1       0.0262         0.706   
+4         0.537   0.804    8    -7.378     0       0.1570         0.379   
+
+   instrumentalness  liveness  valence    tempo  duration_ms  explicit  \
+0          0.501000     0.744    0.623  120.144       225696     False   
+1          0.000000     0.237    0.511  130.026       158093     False   
+2          0.015200     0.368    0.435   78.345       167262     False   
+3          0.000208     0.110    0.383   85.080       236832     False   
+4          0.000489     0.323    0.543  139.950       239400     False   
+
+   popularity       track_name  track_artist                track_id  
+0           2       No Regrets  James Reeder  6f2c4a9lNx8aowZJngv7cJ  
+1           2        Wild Life  James Reeder  3fTs52jsDzSuVLsifxNKO8  
+2           2            Fangs  James Reeder  6NPafqavrv0icaIHMQnXDy  
+3           2      Afterburner  James Reeder  3vGmhxveURgmlZStvo0uc1  
+4           2  Hellfire Rising  James Reeder  4O2qRbfCHzMMgfbw9DBdGf  
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>danceability</th>
+      <th>energy</th>
+      <th>key</th>
+      <th>loudness</th>
+      <th>mode</th>
+      <th>speechiness</th>
+      <th>acousticness</th>
+      <th>instrumentalness</th>
+      <th>liveness</th>
+      <th>valence</th>
+      <th>tempo</th>
+      <th>duration_ms</th>
+      <th>popularity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>10877.000000</td>
+      <td>1.087700e+04</td>
+      <td>10877.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.572519</td>
+      <td>0.549771</td>
+      <td>5.223315</td>
+      <td>-11.359059</td>
+      <td>0.640986</td>
+      <td>0.137965</td>
+      <td>0.354163</td>
+      <td>0.232943</td>
+      <td>0.212137</td>
+      <td>0.464579</td>
+      <td>117.827552</td>
+      <td>2.055782e+05</td>
+      <td>3.078974</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.203501</td>
+      <td>0.257469</td>
+      <td>3.620319</td>
+      <td>6.788808</td>
+      <td>0.479733</td>
+      <td>0.160087</td>
+      <td>0.340914</td>
+      <td>0.369040</td>
+      <td>0.190303</td>
+      <td>0.273150</td>
+      <td>31.193596</td>
+      <td>1.067631e+05</td>
+      <td>4.007018</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000020</td>
+      <td>0.000000</td>
+      <td>-51.808000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.693000e+03</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.442000</td>
+      <td>0.379000</td>
+      <td>2.000000</td>
+      <td>-13.796000</td>
+      <td>0.000000</td>
+      <td>0.038400</td>
+      <td>0.036500</td>
+      <td>0.000000</td>
+      <td>0.099300</td>
+      <td>0.238000</td>
+      <td>92.996000</td>
+      <td>1.511520e+05</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.602000</td>
+      <td>0.569000</td>
+      <td>5.000000</td>
+      <td>-9.450000</td>
+      <td>1.000000</td>
+      <td>0.058900</td>
+      <td>0.233000</td>
+      <td>0.000133</td>
+      <td>0.129000</td>
+      <td>0.468000</td>
+      <td>117.141000</td>
+      <td>1.975220e+05</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.730000</td>
+      <td>0.745000</td>
+      <td>9.000000</td>
+      <td>-6.726000</td>
+      <td>1.000000</td>
+      <td>0.188000</td>
+      <td>0.657000</td>
+      <td>0.517000</td>
+      <td>0.268000</td>
+      <td>0.685000</td>
+      <td>138.934000</td>
+      <td>2.444280e+05</td>
+      <td>3.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>0.986000</td>
+      <td>1.000000</td>
+      <td>11.000000</td>
+      <td>3.108000</td>
+      <td>1.000000</td>
+      <td>0.962000</td>
+      <td>0.996000</td>
+      <td>1.000000</td>
+      <td>0.999000</td>
+      <td>0.995000</td>
+      <td>239.500000</td>
+      <td>3.637277e+06</td>
+      <td>18.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Although we could evaluate the performance of vectorization techniques just on data access and retrieval times, let’s do something a little more involved. We’re going to define a silly function that accesses a bunch of columns in our dataframe, performs some computations, and spits out some output:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">anthony_score</span><span class="p">(</span><span class="n">danceability</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">loudness</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">tempo</span><span class="p">,</span> <span class="n">speechiness</span><span class="p">):</span> 
+    <span class="c1"># can the music replace coffee?:</span>
+    <span class="n">caffeine_subscore</span> <span class="o">=</span> <span class="n">danceability</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">+</span> <span class="n">energy</span> <span class="o">*</span> <span class="mf">0.7</span>
+
+    <span class="c1"># loud is nice but worse for my ears:</span>
+    <span class="n">eardrum_health</span> <span class="o">=</span> <span class="n">loudness</span><span class="o">/</span><span class="mi">2</span>  
+
+    <span class="c1"># i like FAST songs:</span>
+    <span class="n">vibe_subscore</span> <span class="o">=</span> <span class="p">(</span><span class="mi">240</span> <span class="o">-</span> <span class="n">tempo</span><span class="p">)</span><span class="o">/</span><span class="mi">240</span> <span class="o">+</span> <span class="n">mode</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># and a bonus if they&#39;re in the major key! </span>
+
+    <span class="c1"># music without talking belongs in elevators: </span>
+    <span class="n">talk_subscore</span> <span class="o">=</span> <span class="p">(</span><span class="n">speechiness</span> <span class="o">+</span> <span class="mi">12</span><span class="p">)</span><span class="o">/</span><span class="mi">14</span> 
+
+    <span class="c1"># return the anthony score (proprietary stuff!): </span>
+    <span class="k">return</span> <span class="n">caffeine_subscore</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="n">eardrum_health</span> <span class="o">*</span> <span class="mf">0.15</span> <span class="o">+</span> <span class="n">vibe_subscore</span> <span class="o">*</span> <span class="mf">0.25</span> <span class="o">+</span> <span class="n">talk_subscore</span> <span class="o">*</span> <span class="mf">0.2</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s establish a baseline: how quickly do things run when we naively loop through the data?</p>
+<section id="looping-with-iterrows">
+<h3><em><strong>1. Looping with <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code>:</strong></em><a class="headerlink" href="#looping-with-iterrows" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it # this is how you invoke the timeit magic command!
+
+<span class="n">anthony_scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># to loop through a dataframe, we can use the iterrows() function which returns a loopable (Index, Series) tuple: </span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">song_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> 
+    <span class="n">anthony_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">anthony_score</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;danceability&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;energy&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;loudness&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;tempo&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;speechiness&#39;</span><span class="p">]))</span>
+
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;anthony_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">anthony_scores</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>501 ms ± 2.96 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, things are pretty slow - at least half a second for each call of the function. We’re not doing any particularly sophisticated when we access dataframe rows via the loop, so imagine the possible runtimes if we were! Let’s try to speed things up.</p>
+</section>
+<section id="better-looping-with-apply">
+<h3><em><strong>2. Better looping with <code class="docutils literal notranslate"><span class="pre">apply()</span></code>:</strong></em><a class="headerlink" href="#better-looping-with-apply" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">apply()</span></code> is a Pandas built-in which allows you to apply a function along a specified axis (row or column).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+
+<span class="c1"># documentation on using apply(): https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html</span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;anthony_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">song_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">anthony_score</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;danceability&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;energy&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;loudness&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;tempo&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;speechiness&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>244 ms ± 31.5 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, it’s typically more efficient than <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> due to some under-the-hood optimizations with how <code class="docutils literal notranslate"><span class="pre">apply()</span></code> and <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code> retrieve elements from a dataframe, but it still requires looping through rows. However, it can be a good option when your desired functionality is difficult to vectorize.</p>
+<p>And for those of you who want to keep score:</p>
+<center>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Method</strong></p></th>
+<th class="head"><p><strong>Avg. single runtime (ms)</strong></p></th>
+<th class="head"><p><strong>Marginal improvement</strong></p></th>
+<th class="head"><p><strong>Absolute improvement</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>iterrows() looping</p></td>
+<td><p>786</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p>apply() looping</p></td>
+<td><p>350</p></td>
+<td><p>2.18x</p></td>
+<td><p>2.18x</p></td>
+</tr>
+</tbody>
+</table>
+</center></section>
+<section id="basic-vectorization">
+<h3><em><strong>3. Basic vectorization:</strong></em><a class="headerlink" href="#basic-vectorization" title="Permalink to this headline">#</a></h3>
+<p>In Pandas, the basic units of data storage are:</p>
+<ul class="simple">
+<li><p>Series: a one-dimensional array with axis labels</p></li>
+<li><p>DataFrame: a 2-dimensional array with labeled axes (rows and columns)</p></li>
+</ul>
+<p>As such, many built-in Pandas functions are designed to operate directly on arrays rather than scalars—making them very conducive to being and faster when vectorized! How much faster? Let’s see!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+
+<span class="c1"># for simple functions, vectorizing is as easy as calling the function on arrays of values rather than individual ones: </span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;anthony_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">anthony_score</span><span class="p">(</span><span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;danceability&#39;</span><span class="p">],</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;energy&#39;</span><span class="p">],</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;loudness&#39;</span><span class="p">],</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">],</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;tempo&#39;</span><span class="p">],</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;speechiness&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.23 ms ± 11.8 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Our updated scoreboard:</p>
+<center>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Method</strong></p></th>
+<th class="head"><p><strong>Avg. single runtime (ms)</strong></p></th>
+<th class="head"><p><strong>Marginal improvement</strong></p></th>
+<th class="head"><p><strong>Absolute improvement</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>iterrows() looping</p></td>
+<td><p>786</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p>apply() looping</p></td>
+<td><p>350</p></td>
+<td><p>2.18x</p></td>
+<td><p>2.18x</p></td>
+</tr>
+<tr class="row-even"><td><p>pandas vectorization</p></td>
+<td><p>1.83</p></td>
+<td><p>191.26x</p></td>
+<td><p>429.51x</p></td>
+</tr>
+</tbody>
+</table>
+</center></section>
+<section id="vectorization-with-numpy">
+<h3><em><strong>4. Vectorization with NumPy:</strong></em><a class="headerlink" href="#vectorization-with-numpy" title="Permalink to this headline">#</a></h3>
+<p>With just the base-level Pandas vectorization, we’re achieving some serious speed (nearly a 500x improvement). But believe it or not, we can get even faster!</p>
+<p>How so? With the help of NumPy data structures!</p>
+<p>Of interest to us are <strong>ndarray</strong>s, NumPy’s version of your classic array. Under the hood, the NumPy operations executed on these arrays are actually written in optimized, pre-compiled C code (one such optimization: known typings! C is a statically-type lanugage). Performing vectorized operations on NumPy arrays can cut down on the pre-execution overhead even Pandas must conduct (like Series-wise indexing, type checking, etc.)</p>
+<p>You can call the <code class="docutils literal notranslate"><span class="pre">.values</span></code> attribute on a Pandas Series or DataFrame to obtain its NumPy representation, and pass this to your vectorized functionality like so:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+
+<span class="c1"># for simple functions, vectorizing is as easy as calling the function on arrays of values rather than individual ones: </span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;anthony_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">anthony_score</span><span class="p">(</span><span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;danceability&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;energy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;loudness&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;tempo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;speechiness&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>266 µs ± 3.12 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Updating our scoreboard one last time:</p>
+<center>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Method</strong></p></th>
+<th class="head"><p><strong>Avg. single runtime (ms)</strong></p></th>
+<th class="head"><p><strong>Marginal improvement</strong></p></th>
+<th class="head"><p><strong>Absolute improvement</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>iterrows() looping</p></td>
+<td><p>786</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p>apply() looping</p></td>
+<td><p>350</p></td>
+<td><p>2.18x</p></td>
+<td><p>2.18x</p></td>
+</tr>
+<tr class="row-even"><td><p>pandas vectorization</p></td>
+<td><p>1.83</p></td>
+<td><p>191.26x</p></td>
+<td><p>429.51x</p></td>
+</tr>
+<tr class="row-odd"><td><p>vect. with ndarrays</p></td>
+<td><p>0.548</p></td>
+<td><p>3.34x</p></td>
+<td><p>1434.31x</p></td>
+</tr>
+</tbody>
+</table>
+</center></section>
+</section>
+<section id="discussion-5">
+<h2><em><strong>DISCUSSION 5:</strong></em><a class="headerlink" href="#discussion-5" title="Permalink to this headline">#</a></h2>
+<p>If you leave this chapter with one conclusion, I hope it’s that vectorization can make programs run really, really fast, and therefore it’s worth looking into!</p>
+<p>Before you get started though, here are some important qualifications to keep in mind before you start adding <code class="docutils literal notranslate"><span class="pre">.values()</span></code> to all of your Pandas DataFrames:</p>
+<section id="vectorization-frameworks">
+<h3><em><strong>Vectorization frameworks:</strong></em><a class="headerlink" href="#vectorization-frameworks" title="Permalink to this headline">#</a></h3>
+<p>Broadly speaking, there are two implementation frameworks being referenced when we say “vectorize X:”</p>
+<ul class="simple">
+<li><p>Framework 1 (which I call the “built-in’s implementation”) is what we saw in the previous coding exercise. It consists of passing vectorized <em>inputs</em> to functions which can already handle such inputs as the program in question will utilize package built-in operations designed to process arrays as inputs (i.e., the operators are <em>overloaded</em> - having multiple definitions to accord with multiple types of inputs).</p></li>
+<li><p>Framework 2 (which I call the “custom implementation”) is what you may have to do more frequently as the functionality you are seeking to vectorize becomes more complex. In these situations, you will have to write your own functions which accept array inputs and process them by creatively using built-in (but not overloaded) functions offered by packages like NumPy or writing your own efficient operation functions.</p></li>
+</ul>
+<p>Framework 2 is almost always going to be more unwiedly and time-consuming, but it may become unavoidable as your processing becomes more sophisticated and your data diverges from purely numerics. Still, I would always try to make Framework 1 work first - vectorization is a well-developed practice and you’ll likely be able to find some resource online seeking to accomplish the same generic task as you.</p>
+</section>
+<section id="vectorization-with-non-numeric-data">
+<h3><em><strong>Vectorization with non-numeric data:</strong></em><a class="headerlink" href="#vectorization-with-non-numeric-data" title="Permalink to this headline">#</a></h3>
+<p>Vectorization is (usually) most easily implemented in the context of numerical data, but can be adapted to non-numeric data types as well. Here’s a quick example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">rd</span> 
+<span class="n">rd</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">345</span><span class="p">)</span>
+
+<span class="c1"># wouldn&#39;t it be great if everything were named after me? this function makes it so it is! </span>
+<span class="k">def</span> <span class="nf">anthony_ify</span><span class="p">(</span><span class="n">song_name</span><span class="p">):</span> 
+    <span class="c1"># chop that song title up! </span>
+    <span class="n">song_name_words</span> <span class="o">=</span> <span class="n">song_name</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+    <span class="c1"># pick a random word and replace it with &quot;anthony&quot;</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">rd</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">song_name_words</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">song_name_words</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;anthony&quot;</span>
+
+    <span class="c1"># string&#39;em back together and return it! </span>
+    <span class="n">better_song_name</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">song_name_words</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">better_song_name</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s see what my function does: </span>
+<span class="n">test_nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1004</span><span class="p">,</span> <span class="mi">7942</span><span class="p">,</span> <span class="mi">8282</span><span class="p">]</span>     <span class="c1"># fun fact! these are korean texting codes (1004 -&gt; angel, 7942 -&gt; just friends, 8282 -&gt; quick quick!)</span>
+
+<span class="c1"># all of the song names in our dataset as a list </span>
+<span class="n">song_name_list</span> <span class="o">=</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;track_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="c1"># testing it out! </span>
+<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">test_nums</span><span class="p">:</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original song name: </span><span class="si">{og_name}</span><span class="s2"> || Improved song name: </span><span class="si">{anthony_name}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">og_name</span> <span class="o">=</span> <span class="n">song_name_list</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> 
+            <span class="n">anthony_name</span> <span class="o">=</span> <span class="n">anthony_ify</span><span class="p">(</span><span class="n">song_name_list</span><span class="p">[</span><span class="n">num</span><span class="p">]))</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original song name: Space || Improved song name: anthony
+Original song name: Valse Reveuse || Improved song name: anthony Reveuse
+Original song name: Ocean Sounds Storm || Improved song name: anthony Sounds Storm
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+
+<span class="c1"># string processing is difficult to vectorize, so we&#39;ll use apply here: </span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;anthony_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">song_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">anthony_ify</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;track_name&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>103 ms ± 487 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s see the results:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;anthony_name&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0         anthony Regrets
+1            Wild anthony
+2                 anthony
+3                 anthony
+4          anthony Rising
+               ...       
+10872      anthony n Toes
+10873    anthony Thoughts
+10874         anthony Bug
+10875             anthony
+10876             anthony
+Name: anthony_name, Length: 10877, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since we were using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> (which is often your best bet with complex string processing), the operation wasn’t blazingly fast. We could have also tried to speed things up by decomposing our desired functionality into smaller processes, some of which could have been handled by Pandas built-in’s:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this func. just replaces a word at a given index with anthony: </span>
+<span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span> 
+    <span class="n">words</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;anthony&quot;</span>
+    <span class="k">return</span> <span class="n">words</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it 
+
+<span class="c1"># divide up each song name into its constituent words and compute word counts: </span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;name_words&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;track_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;num_words&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;name_words&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+
+<span class="n">word_counts</span> <span class="o">=</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;num_words&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="c1"># generate a new list with a random index for each word count: </span>
+<span class="n">rand_idxs</span> <span class="o">=</span> <span class="p">[</span><span class="n">rd</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">wc</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">wc</span> <span class="ow">in</span> <span class="n">word_counts</span><span class="p">]</span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;rand_idxs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand_idxs</span> <span class="c1"># add this list back to our dataframe</span>
+
+<span class="c1"># we end up using .apply() anyway, but do less in the apply()&#39;ed function: </span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;name_words_w_anthony&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">song_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">replace</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;name_words&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;rand_idxs&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># reconstruct the new song name from their substring lists: </span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;anthony_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">l</span><span class="p">))</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;name_words_w_anthony&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>146 ms ± 1.18 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>But as you can see, all this decomposition and attempted use of built-in’s didn’t offer any noticeable performance gain. So, while vectorization is possible with non-numeric data types, be aware that your mileage and benefits may vary. And speaking of which…</p>
+</section>
+<section id="benefits-of-and-improving-looping">
+<h3><em><strong>Benefits of and improving looping:</strong></em><a class="headerlink" href="#benefits-of-and-improving-looping" title="Permalink to this headline">#</a></h3>
+<p>With all this talk of the runtime benefits of vectorization, you may be tempted to vectorize every loop you see. However, vectorization is not always faster than looping, especially when:</p>
+<ol class="simple">
+<li><p>Your data is small (say, &lt; 1000 rows);</p></li>
+<li><p>You’re dealing with <code class="docutils literal notranslate"><span class="pre">object</span></code>/mixed <code class="docutils literal notranslate"><span class="pre">dtypes</span></code>; and/or</p></li>
+<li><p>You’re using <code class="docutils literal notranslate"><span class="pre">str</span></code>/regex functions.</p></li>
+</ol>
+<p>And even if vectorization will likely lead to a faster operation, you may still opt for looping due to the function being difficult to vectorize, desire to avoid vectorization’s memory overhead, etc. In such cases, here are two tools you can use to improve the efficiency of your looping:</p>
+<ol class="simple">
+<li><p><a class="reference external" href="https://realpython.com/list-comprehension-python/"><em>List comprehensions</em></a> - list comprehensions are a Python construct designed to create lists through <code class="docutils literal notranslate"><span class="pre">for</span></code> loops. Their general syntax is <code class="docutils literal notranslate"><span class="pre">[f(x)</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">seq]</span></code>. List comprehensions are surprisingly flexible - and performant (they are <em>the</em> optimized iterative mechanism for list creation in Python)!</p></li>
+<li><p><a class="reference external" href="https://cython.readthedocs.io/en/latest/src/tutorial/cython_tutorial.html"><em>Cython</em></a> - available as both a package and a magic command, Cython is a module which attempts to convert and compile your Python code as C code. C code is often faster than Python code due to C’s statically-typed nature, and C usually being compiled (as opposed to interpreted).</p></li>
+</ol>
+<p>So, don’t forget about the humble loop! Depending on how you use it, it may be more powerful than it initially seems!</p>
+</section>
+</section>
+<section id="conclusion">
+<h2><em><strong>CONCLUSION:</strong></em><a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>Before diving into the data processing stage of your project, please remember - vectorization is a wonderful and powerful tool, but every tool has its time and place.</p>
+<p>Before you try to vectorize any functionality, ask yourself <em>“does this really need to be vectorized?”</em> If it doesn’t, you could waste more time trying to create an optimized implementation than if you just ran a slightly slower for-loop in the first place!</p>
+<p>But if you are going to vectorize, here’s a (slightly modified) concise approach offered by Sofia Heisler in her <a class="reference external" href="https://www.youtube.com/watch?v=HN5d490_KKk">Pycon 2017 address</a>:</p>
+<ol class="simple">
+<li><p>Avoid loops, if called for and if you can.</p></li>
+<li><p>If you must loop, use <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> or a list comprehension, not iteration functions.</p></li>
+<li><p>If you must <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> or loop, use Cython to make it faster.</p></li>
+<li><p>Vectorization is usually better than scalar operations.</p></li>
+<li><p>Vector operations on NumPy’s <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>’s are more efficient than on native Pandas Series.</p></li>
+</ol>
+<p>Did you enjoy making your code run faster? Add to your coding toolbox with some MOPS (<strong>M</strong>emory <strong>O</strong>ptimizations &amp; <strong>P</strong>rogram <strong>S</strong>calability) - a future SSDS workshop on memory and runtime optimizations, especially when working with massive datasets in Pandas! Stay posted for a release date.</p>
+<div>
+<img src="../imgs/panda.gif" width="500"/>
+<figcaption><em>Was this chapter all a set-up so I could include this GIF? You'll never know...</em></figcaption>
+<div><br></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "roflauren-roflauren/GearUp-MessyData",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./fall_2022\chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Software and Services for Data Science (SSDS) at Stanford Libraries<br/>
+  
+      &copy; Copyright 2022-2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

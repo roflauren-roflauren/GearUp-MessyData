@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Chapter 1.2.1. - Deciding between multiple data authors &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Understanding Messy Time Series Data [Gear-Up]</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to TAML!
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/roflauren-roflauren/GearUp-MessyData/master?urlpath=tree/fall_2022/archive/chp1.2.1_multipleAuthors.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData/issues/new?title=Issue%20on%20page%20%2Ffall_2022/archive/chp1.2.1_multipleAuthors.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/fall_2022/archive/chp1.2.1_multipleAuthors.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coding-exercise">
+   <em>
+    <strong>
+     CODING EXERCISE:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-1">
+   <em>
+    <strong>
+     DISCUSSION 1:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-2">
+   <em>
+    <strong>
+     DISCUSSION 2:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-3">
+   <em>
+    <strong>
+     DISCUSSION 3:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   <em>
+    <strong>
+     CONCLUSION:
+    </strong>
+   </em>
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Chapter 1.2.1. - Deciding between multiple data authors</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coding-exercise">
+   <em>
+    <strong>
+     CODING EXERCISE:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-1">
+   <em>
+    <strong>
+     DISCUSSION 1:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-2">
+   <em>
+    <strong>
+     DISCUSSION 2:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-3">
+   <em>
+    <strong>
+     DISCUSSION 3:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   <em>
+    <strong>
+     CONCLUSION:
+    </strong>
+   </em>
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="chapter-1-2-1-deciding-between-multiple-data-authors">
+<h1>Chapter 1.2.1. - <em>Deciding between multiple data authors</em><a class="headerlink" href="#chapter-1-2-1-deciding-between-multiple-data-authors" title="Permalink to this headline">#</a></h1>
+<p>Look up “US GDP data” in your web browser of choice.</p>
+<div>
+<img src="../imgs/gdp_webquery.png" width="500"/>
+<div> 
+<br>
+<p>How many potential data sources can you find in just a minute? 10? 20? 100? Is one clearly better than the others? Despite looking up ‘US GDP data,’ are all sources providing you with the same values in their data stores? Which one would you use in what circumstances?</p>
+<p>In a way, all data sourcing practices are trying to solve this exact problem: reasonably decide between multiple data authors. The issues we’ll talk about later in this chapter and others are all, in some way, shape, or form, determined by who the data author is (even if it’s yourself) and what decisions they chose to make when collecting and crafting the dataset.</p>
+<p>For now, let’s explore a few different GDP datasets and consider which one we might choose and why:</p>
+<section id="coding-exercise">
+<h2><em><strong>CODING EXERCISE:</strong></em><a class="headerlink" href="#coding-exercise" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># importing some libraries: </span>
+<span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA SOURCING: DIFFERENT DATA AUTHORS &quot;&quot;&quot;</span>
+<span class="c1"># when I look up &#39;US GDP data&#39;, the first result is from the Bureau of Economic Advisors (BEA): </span>
+<span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> 
+<span class="n">bea_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;gdp_bea_q2_2022_adv.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="c1"># how&#39;s it structured? is it usable?</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bea_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Table 2. Contributions to Percent Change in Real Gross Domestic Product  \
+0                                               Line                        
+1                                               Line                        
+2                                               Line                        
+3                                                NaN                        
+4                                                  1                        
+5                                                NaN                        
+6                                                  2                        
+7                                                  3                        
+8                                                  4                        
+9                                                  5                        
+
+                           Unnamed: 1  Unnamed: 2  Unnamed: 3  Unnamed: 4  \
+0                                 NaN     2019.00     2020.00     2021.00   
+1                                 NaN     2019.00     2020.00     2021.00   
+2                                 NaN     2019.00     2020.00     2021.00   
+3      Percent change at annual rate:         NaN         NaN         NaN   
+4              Gross domestic product        2.30       -3.40        5.70   
+5  Percentage points at annual rates:         NaN         NaN         NaN   
+6   Personal consumption expenditures        1.48       -2.55        5.27   
+7                               Goods        0.71        0.96        2.69   
+8                       Durable goods        0.30        0.54        1.39   
+9            Motor vehicles and parts       -0.03        0.08        0.37   
+
+                            Unnamed: 5                           Unnamed: 6  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2018                                 2018   
+2                                   Q3                                   Q4   
+3                                  NaN                                  NaN   
+4                                  1.9                                  0.9   
+5                                  NaN                                  NaN   
+6                                 1.79                                 1.16   
+7                                 0.61                                 0.44   
+8                                 0.27                                 0.08   
+9                                 0.01                                -0.03   
+
+                            Unnamed: 7                           Unnamed: 8  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2019                                 2019   
+2                                   Q1                                   Q2   
+3                                  NaN                                  NaN   
+4                                  2.4                                  3.2   
+5                                  NaN                                  NaN   
+6                                 0.43                                 2.37   
+7                                 0.29                                 1.42   
+8                                -0.05                                 0.73   
+9                                -0.37                                 0.19   
+
+                            Unnamed: 9  ...  \
+0  Seasonally adjusted at annual rates  ...   
+1                                 2019  ...   
+2                                   Q3  ...   
+3                                  NaN  ...   
+4                                  2.8  ...   
+5                                  NaN  ...   
+6                                 2.12  ...   
+7                                 0.99  ...   
+8                                 0.58  ...   
+9                                 0.12  ...   
+
+                           Unnamed: 11                          Unnamed: 12  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2020                                 2020   
+2                                   Q1                                   Q2   
+3                                  NaN                                  NaN   
+4                                 -5.1                                -31.2   
+5                                  NaN                                  NaN   
+6                                -4.79                               -24.10   
+7                                 0.04                                -1.89   
+8                                -0.89                                 0.01   
+9                                -0.80                                 0.12   
+
+                           Unnamed: 13                          Unnamed: 14  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2020                                 2020   
+2                                   Q3                                   Q4   
+3                                  NaN                                  NaN   
+4                                 33.8                                  4.5   
+5                                  NaN                                  NaN   
+6                                25.51                                 2.26   
+7                                 9.92                                -0.07   
+8                                 5.49                                 0.10   
+9                                 1.89                                 0.06   
+
+                           Unnamed: 15                          Unnamed: 16  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2021                                 2021   
+2                                   Q1                                   Q2   
+3                                  NaN                                  NaN   
+4                                  6.3                                  6.7   
+5                                  NaN                                  NaN   
+6                                 7.44                                 7.92   
+7                                 5.69                                 2.99   
+8                                 3.50                                 1.01   
+9                                 1.36                                 0.48   
+
+                           Unnamed: 17                          Unnamed: 18  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2021                                 2021   
+2                                   Q3                                   Q4   
+3                                  NaN                                  NaN   
+4                                  2.3                                  6.9   
+5                                  NaN                                  NaN   
+6                                 1.35                                 1.76   
+7                                -2.21                                 0.28   
+8                                -2.52                                 0.22   
+9                                -2.18                                -0.13   
+
+                           Unnamed: 19                          Unnamed: 20  
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates  
+1                                 2022                                 2022  
+2                                   Q1                                   Q2  
+3                                  NaN                                  NaN  
+4                                 -1.6                                 -0.9  
+5                                  NaN                                  NaN  
+6                                 1.24                                 0.70  
+7                                -0.07                                -1.08  
+8                                 0.49                                -0.22  
+9                                 0.44                                -0.02  
+
+[10 rows x 21 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># I can also find more GDP data through other official-sounding organizations: </span>
+<span class="c1"># e.g., GDP data from the St. Louis Federal Reserve (FRED): </span>
+<span class="n">fred_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;gdp_fred.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fred_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        DATE      GDP
+0   1/1/1947  243.164
+1   4/1/1947  245.968
+2   7/1/1947  249.585
+3  10/1/1947  259.745
+4   1/1/1948  265.742
+5   4/1/1948  272.567
+6   7/1/1948  279.196
+7  10/1/1948  280.366
+8   1/1/1949  275.034
+9   4/1/1949  271.351
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># how about GDP data from a random website? here&#39;s some from macrotrends.net:</span>
+<span class="n">macrotrends_data</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;gdp_macrotrends.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">macrotrends_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                           Macrotrends Data Download Unnamed: 1 Unnamed: 2  \
+0                                                NaN        NaN        NaN   
+1                                 U.S. GDP 1960-2022        NaN        NaN   
+2                                                NaN        NaN        NaN   
+3                                                NaN        NaN        NaN   
+4  DISCLAIMER AND TERMS OF USE: HISTORICAL DATA I...        NaN        NaN   
+5  FOR INFORMATIONAL PURPOSES - NOT FOR TRADING P...        NaN        NaN   
+6  NEITHER MACROTRENDS LLC NOR ANY OF OUR INFORMA...        NaN        NaN   
+7  FOR ANY DAMAGES RELATING TO YOUR USE OF THE DA...        NaN        NaN   
+8                                                NaN        NaN        NaN   
+9                                                NaN        NaN        NaN   
+
+  Unnamed: 3  
+0        NaN  
+1        NaN  
+2        NaN  
+3        NaN  
+4        NaN  
+5        NaN  
+6        NaN  
+7        NaN  
+8        NaN  
+9        NaN  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Do these different data sources look even remotely similar? Despite all being search results for ‘US GDP data,’ what are some ways that these data sources are different?</p>
+<p>Among others, a key difference in these data resources is <em><strong>usability</strong></em>. As provided, we can visualize and manipulate the FRED data most easily using code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     <span class="c1"># use: custom data visualization </span>
+
+<span class="c1"># generate a simple scatter plot of the GDP by date: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fred_data</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">fred_data</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x219c68267f0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/chp1.2.1_multipleAuthors_7_1.png" src="../../_images/chp1.2.1_multipleAuthors_7_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># that&#39;s a lot of data - how about just the most recent observations? </span>
+<span class="n">fred_data_subset</span> <span class="o">=</span> <span class="n">fred_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># let&#39;s make sure things are a litte more read-able on the x-axis:</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fred_data_subset</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">fred_data_subset</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x219c7c6de80&gt;
+</pre></div>
+</div>
+<img alt="../../_images/chp1.2.1_multipleAuthors_8_1.png" src="../../_images/chp1.2.1_multipleAuthors_8_1.png" />
+</div>
+</div>
+</section>
+<section id="discussion-1">
+<h2><em><strong>DISCUSSION 1:</strong></em><a class="headerlink" href="#discussion-1" title="Permalink to this headline">#</a></h2>
+<p>From this quick exploration and visualization exercise, we can see that the FRED data is a timeseries dataset which appears relatively clean and ready for analysis - it contains only two columns: <code class="docutils literal notranslate"><span class="pre">DATE</span></code> and <code class="docutils literal notranslate"><span class="pre">GDP</span></code>. You might be tempted to just go ahead and run with it. But, for official and/or frequently-used statistics in particular, it’s worth taking a step back from usability during the data sourcing process. Why?</p>
+<ol class="simple">
+<li><p>Individuals and groups may publish their own versions of statistics which are usable, but perhaps not official. Using the official source can establish credibility for your research.</p></li>
+<li><p>Or, maybe these off-shoot datasets are based on the official version, but have been processed in a meaningful way.</p>
+<ul class="simple">
+<li><p>e.g., the FRED data (found <a class="reference external" href="https://fred.stlouisfed.org/series/GDP">here</a>) is notated as ‘GDP, Billions of Dollars, Seasonally Adjusted Annual Rate’. Maybe this adjustment isn’t desirable for your research. <br></br></p></li>
+</ul>
+</li>
+<li><p>Particular fields or subjects may have reputable and established datasets that not only can make your research more credible but also easier through the use of existing analytic tools and techniques others have developed for similar research!</p></li>
+</ol>
+<p>Point 1 (i.e., using official/licensed data authors for choice statistics) is especially key for social science research (where less direct experimentation and independent data collection may be performed). For US GDP data, a quick web query of <em>“Who measures US GDP?”</em> informs us that the Bureau of Economic Analysis (BEA) is responsible for its publication while the Bureau of Labor Statistics collects the raw data used for GDP calculation (<a class="reference external" href="https://www.investopedia.com/ask/answers/031715/how-does-united-states-government-measure-economic-growth.asp#:~:text=The%20U.S.%20government%20collects%20and,GDP%20and%20the%20national%20income.">source 1</a>, <a class="reference external" href="https://www.commerce.gov/data-and-reports/economic-indicators">source 2</a>).</p>
+</section>
+<section id="discussion-2">
+<h2><em><strong>DISCUSSION 2:</strong></em><a class="headerlink" href="#discussion-2" title="Permalink to this headline">#</a></h2>
+<p>One of our datasources was the BEA, but it’s still a good idea to perform a trace and identify the most base-level resource used to generate each of our potential datasets. After all, multiple or all of them could be re-releases of BEA data, making them equally reputable! For our remaining datasets:</p>
+<ul class="simple">
+<li><p>FRED GDP data is co-opted from the <a class="reference external" href="https://fred.stlouisfed.org/series/GDP#:~:text=NOTES-,Source%3A%20U.S.%20Bureau%20of%20Economic%20Analysis,-Release%3A%20Gross">BEA</a>’s release; and</p></li>
+<li><p>The GDP data from <a class="reference external" href="http://macrotrends.net">macrotrends.net</a> is sourced from the <a class="reference external" href="https://www.macrotrends.net/countries/USA/united-states/gdp-gross-domestic-product#:~:text=Data%20Source%3A%20World%20Bank">World Bank</a>, which in turns computes their GDP measures from World Bank and OECD (Organisation for Economic Co-operation and Development) <a class="reference external" href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2019&amp;locations=US&amp;start=1990#:~:text=Also%20Show,Details">national accounts data</a>.</p></li>
+</ul>
+<p>If you’re okay with it, go ahead and trust me that the BEA and World Bank are fairly reputable sources. Now that we’ve done some initial data exploration and sourcing inspections, let’s summarize what we know and return to the original question underlying all data sourcing practices: <em>which dataset do we choose, and why?</em></p>
+<center>
+                                                   <strong>Table 1. GDP dataset characteristics</strong>
+<br><br>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Listed source</p></th>
+<th class="head"><p>Base source</p></th>
+<th class="head"><p>Collecting organization</p></th>
+<th class="head"><p>Data type</p></th>
+<th class="head"><p>Timeframe</p></th>
+<th class="head"><p>Notable features</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BEA</p></td>
+<td><p>BEA</p></td>
+<td><p>Government</p></td>
+<td><p>Cross-sectional</p></td>
+<td><p>Point-in-time, 2022 Q2</p></td>
+<td><p>GDP by sector</p></td>
+</tr>
+<tr class="row-odd"><td><p>FRED</p></td>
+<td><p>BEA</p></td>
+<td><p>Government</p></td>
+<td><p>Timeseries</p></td>
+<td><p>Annual, 1947-2022</p></td>
+<td><p>Seasonally adjusted</p></td>
+</tr>
+<tr class="row-even"><td><p>MacroTrends</p></td>
+<td><p>Worldbank, OECD</p></td>
+<td><p>International Body</p></td>
+<td><p>Timeseries</p></td>
+<td><p>Annual, 1960-2022</p></td>
+<td><p>Add. calcs like % change</p></td>
+</tr>
+</tbody>
+</table>
+</center></section>
+<section id="discussion-3">
+<h2><em><strong>DISCUSSION 3:</strong></em><a class="headerlink" href="#discussion-3" title="Permalink to this headline">#</a></h2>
+<p>Considering that all of potential data sources come from similarly reputable authors, which one should we use? And by now, you may have noticed that I’ve been purposely vague as to what this data will be used for - intentionally, I promise! And that’s because, if author credibility is established, which dataset you choose to use <em>ultimately depends on your specific application.</em></p>
+<p>Perhaps you require a by-sector breakdown of GDP, and would like to opt for the BEA data (which can be transformed into cross-sectional timeseries data, aka panel data, by merging with other datasets). Or, if you just need some numbers to run a quick analysis for your own use, FRED data could be the best. And if you need slightly richer timeseries data, MacroTrends could be the ideal source.</p>
+<p>Other than original author credibility, here are some other metrics you may consider using when sourcing data:</p>
+<br>
+<center>
+<strong>Figure 1. Data sourcing criteria</strong>
+<br><br>
+<img src="../imgs/datasource_criteria.svg" width="700"/>
+</center> </section>
+<section id="conclusion">
+<h2><em><strong>CONCLUSION:</strong></em><a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>Now you might be asking yourself, source tracebacks and verfication are well and good, but rather time-consuming. If you need to decide between only 3-10 datasets, this case-by-case assessment is feasible, but what if you’re starting a project from the ground up? There could be hundreds if not thousands of datasets you need to evaluate. Surely there’s a quicker way to do some sort of preliminary filtering of source viability…</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "roflauren-roflauren/GearUp-MessyData",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./fall_2022\archive"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Software and Services for Data Science (SSDS) at Stanford Libraries<br/>
+  
+      &copy; Copyright 2022-2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
