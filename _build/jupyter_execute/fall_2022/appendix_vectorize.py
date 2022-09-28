@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ## Appendix: Optimizing data filling via Vectorization 
+# # Optimizing data filling via Vectorization 
 
 # <div>
-# <img src="../imgs/vectorization.png" width="500"/>
+# <img src="./imgs/vectorization.png" width="500"/>
 # <figcaption><em>If you're too busy to read the chapter, this is basically it!</em></figcaption>
 # <div>
 
@@ -52,7 +52,7 @@ get_ipython().run_line_magic('pip', 'install numpy')
 # In Python, (almost) any looped operation can be vectorized, but why do we need vectorization in the first place? 
 # 
 # <div>
-# <img src="../imgs/pythonloop.png" width="500"/>
+# <img src="./imgs/pythonloop.png" width="500"/>
 # <div>
 
 # 
@@ -171,7 +171,7 @@ print ("Average % increase in GDP: " + str(round(sum(percent_increase)/len(perce
 # As such, the operation we just performed is order-dependent (i.e., the final result is contingent upon the order in which any sub-operations are performed) and ineligible for vectorization. Reason being, *when an operation is vectorized, Python provides no constraints on the order in which the sub-operations are carried out.*
 
 # <div>
-# <img src="../imgs/analogy.png" width="500"/>
+# <img src="./imgs/analogy.png" width="500"/>
 # <figcaption><em>Vectorized operations are to sets, as scalar looped operations are to lists!</em></figcaption>
 # <div><br>
 # 
@@ -462,6 +462,6 @@ get_ipython().run_cell_magic('timeit', '', "\n# divide up each song name into it
 # Did you enjoy making your code run faster? Add to your coding toolbox with some MOPS (**M**emory **O**ptimizations & **P**rogram **S**calability) - a future SSDS workshop on memory and runtime optimizations, especially when working with massive datasets in Pandas! Stay posted for a release date. 
 # 
 # <div>
-# <img src="../imgs/panda.gif" width="500"/>
+# <img src="./imgs/panda.gif" width="500"/>
 # <figcaption><em>Was this chapter all a set-up so I could include this GIF? You'll never know...</em></figcaption>
 # <div><br>

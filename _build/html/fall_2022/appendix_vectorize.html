@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Appendix: Optimizing data filling via Vectorization &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
+    <title>Optimizing data filling via Vectorization &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -116,7 +116,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  test 1
+  WORKSHOP INTRO
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -128,7 +128,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  test 2
+  DATA BEST PRACTICES
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -150,13 +150,13 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  test 3
+  APPENDIX
  </span>
 </p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Appendix: Optimizing data filling via Vectorization
+   Optimizing data filling via Vectorization
   </a>
  </li>
 </ul>
@@ -552,7 +552,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Appendix: Optimizing data filling via Vectorization</h1>
+                <h1>Optimizing data filling via Vectorization</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -732,10 +732,10 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="appendix-optimizing-data-filling-via-vectorization">
-<h1>Appendix: Optimizing data filling via Vectorization<a class="headerlink" href="#appendix-optimizing-data-filling-via-vectorization" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="optimizing-data-filling-via-vectorization">
+<h1>Optimizing data filling via Vectorization<a class="headerlink" href="#optimizing-data-filling-via-vectorization" title="Permalink to this headline">#</a></h1>
 <div>
-<img src="../imgs/vectorization.png" width="500"/>
+<img src="./imgs/vectorization.png" width="500"/>
 <figcaption><em>If you're too busy to read the chapter, this is basically it!</em></figcaption>
 <div><section id="chapter-imports">
 <h2><em><strong>Chapter Imports</strong></em><a class="headerlink" href="#chapter-imports" title="Permalink to this headline">#</a></h2>
@@ -748,10 +748,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.4.3)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.4.3)Note: you may need to restart the kernel to use updated packages.
+Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
 Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2022.1)
-Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)Note: you may need to restart the kernel to use updated packages.
 Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
 </pre></div>
 </div>
@@ -786,7 +788,7 @@ Note: you may need to restart the kernel to use updated packages.
 <h2><em><strong>DISCUSSION 2:</strong></em><a class="headerlink" href="#discussion-2" title="Permalink to this headline">#</a></h2>
 <p>In Python, (almost) any looped operation can be vectorized, but why do we need vectorization in the first place?</p>
 <div>
-<img src="../imgs/pythonloop.png" width="500"/>
+<img src="./imgs/pythonloop.png" width="500"/>
 <div><p>While loops are a wonderful and flexible programatic idiom, they’re also inherently slow due to the <strong>dynamically typed nature of Python.</strong> What does this mean? Let’s take a look in the context of executing a program:</p>
 <p>When you execute a program in Python, Python:</p>
 <ul class="simple">
@@ -923,7 +925,7 @@ Average % increase in GDP: 4.04
 <p>A-ha! As you can see, reversing the order that the datapoints were filled in does change the final resulting figure. This is because filling the 1994 data point first makes a 1994 GDP value available as a sample datapoint for imputing the 1998 GDP value, whereas reversing the order of imputation does not.</p>
 <p>As such, the operation we just performed is order-dependent (i.e., the final result is contingent upon the order in which any sub-operations are performed) and ineligible for vectorization. Reason being, <em>when an operation is vectorized, Python provides no constraints on the order in which the sub-operations are carried out.</em></p>
 <div>
-<img src="../imgs/analogy.png" width="500"/>
+<img src="./imgs/analogy.png" width="500"/>
 <figcaption><em>Vectorized operations are to sets, as scalar looped operations are to lists!</em></figcaption>
 <div><br>
 <p>Expanding upon our “add 2 to every element in this list” example from before, suppose our input now was much longer: <span class="math notranslate nohighlight">\([3, 2, 5, 4, 6, 11, 14, 8, 1, 37, ... (100,000 \text{ more numbers}) ..., 24, 2].\)</span> Since our computer likely does not have enough processing units to add 2 to every element concurrently, it’ll perform the vectorized operation in chunks. We can’t guarantee that the first chunk of say, 1000 inputs, coincides with the first 1000 elements in the list.</p>
@@ -973,7 +975,7 @@ Average % increase in GDP: 4.04
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_32600</span>\<span class="mf">709774050.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_24376</span>\<span class="mf">709774050.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># our sample data:</span>
 <span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span>
 <span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">song_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;unpopular_songs.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
@@ -1379,7 +1381,7 @@ Average % increase in GDP: 4.04
 </ol>
 <p>Did you enjoy making your code run faster? Add to your coding toolbox with some MOPS (<strong>M</strong>emory <strong>O</strong>ptimizations &amp; <strong>P</strong>rogram <strong>S</strong>calability) - a future SSDS workshop on memory and runtime optimizations, especially when working with massive datasets in Pandas! Stay posted for a release date.</p>
 <div>
-<img src="../imgs/panda.gif" width="500"/>
+<img src="./imgs/panda.gif" width="500"/>
 <figcaption><em>Was this chapter all a set-up so I could include this GIF? You'll never know...</em></figcaption>
 <div><br></section>
 </section>

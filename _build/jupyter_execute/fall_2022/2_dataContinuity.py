@@ -4,11 +4,11 @@
 # # Chapter 2 - Data Continuity
 
 # <div>
-# <img src="../imgs/mind_the_gap.png" width="750"/>
+# <img src="./imgs/mind_the_gap.png" width="750"/>
 # <figcaption><em>Not every data gap is as obvious as this one...</em></figcaption>
 # <div>
 
-# #### ***Chapter Imports***
+# #### ***Chapter prerequisites: Python imports***
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
@@ -31,7 +31,7 @@ get_ipython().run_line_magic('pip', 'install datetime')
 # Although this is a natural consequence of prioritizing factors like data author credibility and reputable data generation approaches over usability, it's still an unfortunate obstacle to analysis. Besides administrative barriers like paywalls, institutional access, one of the most common obstacles we'll encounter when using responsibly-sourced, real-life data is data gaps, or a lack of *data continuity.*
 # 
 # <div>
-# <img src="../imgs/mouse_cookie_custom.png" width="400"/>
+# <img src="./imgs/mouse_cookie_custom.png" width="400"/>
 # <figcaption><em>When a delightful children's classic goes data science!</em></figcaption>
 # <div>
 
@@ -70,7 +70,7 @@ get_ipython().run_line_magic('pip', 'install datetime')
 # When practicing data gap omission, note that it's certainly permissible (and likely recommended) to extrapolate your results from the readily available scope of analysis to whatever data ranges are missing. The key difference between the two categories is the **quantitative versus qualitative nature of** as well as the **research community confidence in the accuracy of** said extrapolation. 
 # 
 # <center>
-# <img src="../imgs/omission.png" width="425"/> &nbsp; <img src="../imgs/filling.png" width="425"/> 
+# <img src="./imgs/omission.png" width="425"/> &nbsp; <img src="./imgs/filling.png" width="425"/> 
 # <figcaption><em>Data gap omission (avoidance) vs. Data gap filling - Pothole Edition</em></figcaption>
 # </center>
 
@@ -82,7 +82,7 @@ get_ipython().run_line_magic('pip', 'install datetime')
 # <center>
 #                         <strong>Table 3. Pros and Cons of Data Remediation Strategies</strong>
 # <br><br>
-# <img src="../imgs/pros_cons.png" width="750"/>
+# <img src="./imgs/pros_cons.png" width="750"/>
 # </center>
 # <div>
 
@@ -100,14 +100,14 @@ get_ipython().run_line_magic('pip', 'install datetime')
 
 # #### ***CODING EXERCISE: (ENDO)(EXO)GENOUS DATA FILL EXAMPLES***
 
-# In[2]:
+# In[1]:
 
 
 # shared imports: 
 import pandas as pd    # use: data import & wrangling.
 
 
-# In[3]:
+# In[2]:
 
 
 """ DEF: EXOGENOUS FILL METHODS: """
@@ -118,7 +118,7 @@ master_data = [[2008, 'puzzles'], [2010, 'Nerf football'], [2012, 'game console'
 df = pd.DataFrame(master_data, columns=['Year', 'B-day Toy'])
 
 
-# In[4]:
+# In[ ]:
 
 
 def list_toys_received(df): 
@@ -136,7 +136,7 @@ def list_toys_received(df):
 list_toys_received(df)
 
 
-# In[5]:
+# In[ ]:
 
 
 # we don't what this person got for the years 2009 & 2011! exogenous data fill to the rescue. 
@@ -149,14 +149,14 @@ franken_df = pd.concat([df, add_df]).sort_values(by='Year', ignore_index=True)
 list_toys_received(franken_df)
 
 
-# In[6]:
+# In[5]:
 
 
 # new required imports: 
 import matplotlib.pyplot as plt    # use: data viz. 
 
 
-# In[7]:
+# In[6]:
 
 
 """ DEF: ENDOGENOUS FILL METHODS: """
@@ -167,14 +167,14 @@ ts_data = [[2000, 43.2], [2001, 45.6], [2002, None], [2003, 39.8], [2004, 44.2],
 df = pd.DataFrame(ts_data, columns=['Year', 'Amount'])
 
 
-# In[8]:
+# In[ ]:
 
 
 # if we try to make a quick line chart of the data, we'll notice some missing values: 
 plt.plot(df.Year, df.Amount, linestyle='-', marker='o')
 
 
-# In[9]:
+# In[ ]:
 
 
 # we can use the existing data points to estimate values for the missing ones! endogenous data filling~ 
@@ -200,7 +200,7 @@ plt.plot(df.Year, df.Amount, linestyle='-', marker='o')
 # Depending on your data's structure and attributes as well as the nature of the discontinuities, you could very well employ *both* exogenous and endogenous fill methods to remediate different data gaps in the same dataset! This follows from both remediation strategies sharing a primary purpose: to provide accurate estimations within data gaps to enable broadened downstream analysis.  
 # 
 # <div>
-# <img src="../imgs/whoomp_thereitis.png" width="500"/>
+# <img src="./imgs/whoomp_thereitis.png" width="500"/>
 # <figcaption><em>Tag teams: for both data gap remediation and one of <a href=https://www.youtube.com/watch?v=L6mNa_QZVHg>hip hop's greatest single's!</a></em></figcaption>
 # <div><br>
 # 
@@ -222,7 +222,7 @@ plt.plot(df.Year, df.Amount, linestyle='-', marker='o')
 
 # #### ***CODING EXERCISE: RESAMPLING & EXOGENOUS DATA FILLS***
 
-# In[10]:
+# In[65]:
 
 
 # required imports & set-up: 
@@ -235,7 +235,7 @@ import random as rd            # use: nothing suspicious, that's for sure!
 datasets_dir = os.path.dirname(os.getcwd()) + os.sep + 'sample_datasets' + os.sep 
 
 
-# In[11]:
+# In[68]:
 
 
 # just a totally random inconspicuous code block, but you should run it anyway: 
@@ -246,7 +246,7 @@ def cyberattack(data):
     return data   
 
 
-# In[12]:
+# In[ ]:
 
 
 # options:
@@ -295,7 +295,7 @@ mom_gdp.drop(columns=['MONTHLY_REAL_GDP'], inplace=True)
 # or one of many more downsampling regimes. Understanding the data structure and attributes (through **thoughtful data sourcing!**) is the most responsible and accurate way of answering this question. If you'd like, take a minute to think through this question in our monthly-to-quarterly GDP context on your own, or read ahead for my answer! 
 # 
 # <div>
-# <img src="../imgs/thinker.png" width="250"/>
+# <img src="./imgs/thinker.png" width="250"/>
 # <figcaption><em>Definitely true fun fact: "The Exogenous Data Filler" was considered by Rodin, but his parents said no.</em></figcaption>
 # <div>
 
@@ -363,7 +363,7 @@ plt.tight_layout()
 # That's all right? Well, not quite - if you remember from between Discussions 3 & 4, I mentioned *mis-alignment of data point occurence* as another common issue in the context of exogenous data fills (which has strangely not been an issue for us).
 # 
 # <div>
-# <img src="../imgs/car_drift_meme.png" width="400"/>
+# <img src="./imgs/car_drift_meme.png" width="400"/>
 # <figcaption><em>You'll start your project...eventually.</em></figcaption>
 # <div> 
 
@@ -461,7 +461,7 @@ mom_gdp = pd.read_csv(datasets_dir + 'monthly_gdp.csv', encoding='utf-8')
 # 
 # <center>
 # <div>
-# <img src="../imgs/reg.png" width="750">
+# <img src="./imgs/reg.png" width="750">
 # <figcaption><em> Example of simple linear regression </em></figcaption>
 # <div> 
 # </center>

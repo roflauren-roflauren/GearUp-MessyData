@@ -115,7 +115,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  test 1
+  WORKSHOP INTRO
  </span>
 </p>
 <ul class="current nav bd-sidenav">
@@ -127,7 +127,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  test 2
+  DATA BEST PRACTICES
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -149,13 +149,13 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  test 3
+  APPENDIX
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="appendix_vectorize.html">
-   Appendix: Optimizing data filling via Vectorization
+   Optimizing data filling via Vectorization
   </a>
  </li>
 </ul>
@@ -383,10 +383,10 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-imports">
+  <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
    <em>
     <strong>
-     Chapter Imports
+     Chapter prerequisites: Python imports
     </strong>
    </em>
   </a>
@@ -480,10 +480,10 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-imports">
+  <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
    <em>
     <strong>
-     Chapter Imports
+     Chapter prerequisites: Python imports
     </strong>
    </em>
   </a>
@@ -570,10 +570,10 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="chapter-0-why-do-we-need-robust-data">
 <h1>Chapter 0 - Why do we need robust data?<a class="headerlink" href="#chapter-0-why-do-we-need-robust-data" title="Permalink to this headline">#</a></h1>
 <div>
-<img src="../imgs/xkcd.png" width="500"/>
+<img src="./imgs/xkcd.png" width="500"/>
 <figcaption><em>Garbage in, garbage out...</em></figcaption>
-<div><section id="chapter-imports">
-<h2><em><strong>Chapter Imports</strong></em><a class="headerlink" href="#chapter-imports" title="Permalink to this headline">#</a></h2>
+<div><section id="chapter-prerequisites-python-imports">
+<h2><em><strong>Chapter prerequisites: Python imports</strong></em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this headline">#</a></h2>
 <p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -584,22 +584,24 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.4.3)
-Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
 Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2022.1)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
-Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
 Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
+Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
+Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib in c:\users\ad2we\appdata\roaming\python\python39\site-packages (3.5.2)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.4.4)
+Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (4.34.4)
 Requirement already satisfied: pyparsing&gt;=2.2.1 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (3.0.4)
+Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (9.2.0)
+Requirement already satisfied: numpy&gt;=1.17 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.22.4)
 Requirement already satisfied: python-dateutil&gt;=2.7 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (2.8.2)
 Requirement already satisfied: cycler&gt;=0.10 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (0.11.0)
-Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (9.2.0)
 Requirement already satisfied: packaging&gt;=20.0 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (21.3)
-Requirement already satisfied: numpy&gt;=1.17 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.22.4)
-Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (4.34.4)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.4.4)
 Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)
 Note: you may need to restart the kernel to use updated packages.
 </pre></div>
@@ -652,7 +654,7 @@ Note: you may need to restart the kernel to use updated packages.
 <p>While the need for quality data may be apparent, what attributes such data would possess is not immediately obvious.</p>
 <p>What would an “ideal” dataset look like to you? How would you collect it?</p>
 <div>
-<img src="../imgs/datacollection.png" width="750"/>
+<img src="./imgs/datacollection.png" width="750"/>
 <div><p>When we look to describe the robustness of a dataset, it can be useful to think about what that data will be used for. Data may be used to:</p>
 <ul class="simple">
 <li><p>Run experiments</p></li>
@@ -694,7 +696,7 @@ Note: you may need to restart the kernel to use updated packages.
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_14352</span>\<span class="mf">2369582181.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_33828</span>\<span class="mf">2369582181.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">home_dir</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
 <span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;ds_salaries.csv&#39;</span>
 <span class="ne">---&gt; </span><span class="mi">11</span> <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
@@ -898,7 +900,7 @@ Note: you may need to restart the kernel to use updated packages.
 <section id="workshop-essentials-gdp-definitions-datasets">
 <h2>Workshop essentials: GDP definitions &amp; datasets<a class="headerlink" href="#workshop-essentials-gdp-definitions-datasets" title="Permalink to this headline">#</a></h2>
 <div>
-<img src="../imgs/gdp_calculation.gif" width="350"/>
+<img src="./imgs/gdp_calculation.gif" width="350"/>
 <figcaption><em>One of economics' greatest hits!</em><figcaption>
 </div><section id="defintion-and-usage">
 <h3><em><strong>Defintion and usage:</strong></em><a class="headerlink" href="#defintion-and-usage" title="Permalink to this headline">#</a></h3>

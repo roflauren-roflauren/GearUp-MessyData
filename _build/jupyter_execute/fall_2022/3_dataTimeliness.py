@@ -4,7 +4,7 @@
 # # Chapter 3 - Data Timeliness
 
 # <div>
-# <img src="../imgs/timeliness.png" width="500"/>
+# <img src="./imgs/timeliness.png" width="500"/>
 # <div>
 
 # #### ***Chapter Imports***

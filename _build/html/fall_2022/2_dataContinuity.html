@@ -117,7 +117,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  test 1
+  WORKSHOP INTRO
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -129,7 +129,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  test 2
+  DATA BEST PRACTICES
  </span>
 </p>
 <ul class="current nav bd-sidenav">
@@ -151,13 +151,13 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  test 3
+  APPENDIX
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="appendix_vectorize.html">
-   Appendix: Optimizing data filling via Vectorization
+   Optimizing data filling via Vectorization
   </a>
  </li>
 </ul>
@@ -385,10 +385,10 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-imports">
+  <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
    <em>
     <strong>
-     Chapter Imports
+     Chapter prerequisites: Python imports
     </strong>
    </em>
   </a>
@@ -686,10 +686,10 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-imports">
+  <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
    <em>
     <strong>
-     Chapter Imports
+     Chapter prerequisites: Python imports
     </strong>
    </em>
   </a>
@@ -980,10 +980,10 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-data-continuity">
 <h1>Chapter 2 - Data Continuity<a class="headerlink" href="#chapter-2-data-continuity" title="Permalink to this headline">#</a></h1>
 <div>
-<img src="../imgs/mind_the_gap.png" width="750"/>
+<img src="./imgs/mind_the_gap.png" width="750"/>
 <figcaption><em>Not every data gap is as obvious as this one...</em></figcaption>
-<div><section id="chapter-imports">
-<h2><em><strong>Chapter Imports</strong></em><a class="headerlink" href="#chapter-imports" title="Permalink to this headline">#</a></h2>
+<div><section id="chapter-prerequisites-python-imports">
+<h2><em><strong>Chapter prerequisites: Python imports</strong></em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this headline">#</a></h2>
 <p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -999,11 +999,13 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.4.3)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
 Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
-Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2022.1)
-Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
 Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2022.1)
+Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
+Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.22.4)
@@ -1011,23 +1013,22 @@ Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib in c:\users\ad2we\appdata\roaming\python\python39\site-packages (3.5.2)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (3.0.4)
-Requirement already satisfied: python-dateutil&gt;=2.7 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (2.8.2)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.4.4)
-Requirement already satisfied: cycler&gt;=0.10 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (0.11.0)
-Requirement already satisfied: numpy&gt;=1.17 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.22.4)
-Requirement already satisfied: packaging&gt;=20.0 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (21.3)
-Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (9.2.0)
 Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (4.34.4)
+Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (9.2.0)
+Requirement already satisfied: cycler&gt;=0.10 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (0.11.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.4.4)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (3.0.4)
+Requirement already satisfied: packaging&gt;=20.0 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (21.3)
+Requirement already satisfied: numpy&gt;=1.17 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.22.4)
+Requirement already satisfied: python-dateutil&gt;=2.7 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (2.8.2)
 Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)
 Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: datetime in c:\users\ad2we\anaconda3\lib\site-packages (4.7)
-Requirement already satisfied: pytz in c:\users\ad2we\anaconda3\lib\site-packages (from datetime) (2022.1)
-Requirement already satisfied: zope.interface in c:\users\ad2we\anaconda3\lib\site-packages (from datetime) (5.4.0)
-Requirement already satisfied: setuptools in c:\users\ad2we\anaconda3\lib\site-packages (from zope.interface-&gt;datetime) (61.2.0)
-Note: you may need to restart the kernel to use updated packages.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 </div>
@@ -1038,7 +1039,7 @@ Note: you may need to restart the kernel to use updated packages.
 <p>If you follow all of the data sourcing best practices previously discussed (click <span class="xref myst">here</span> if you haven’t reviewed data sourcing yet!), it’s likely that you’ll encounter a data resource that is less immediately “usable” than we might hope.</p>
 <p>Although this is a natural consequence of prioritizing factors like data author credibility and reputable data generation approaches over usability, it’s still an unfortunate obstacle to analysis. Besides administrative barriers like paywalls, institutional access, one of the most common obstacles we’ll encounter when using responsibly-sourced, real-life data is data gaps, or a lack of <em>data continuity.</em></p>
 <div>
-<img src="../imgs/mouse_cookie_custom.png" width="400"/>
+<img src="./imgs/mouse_cookie_custom.png" width="400"/>
 <figcaption><em>When a delightful children's classic goes data science!</em></figcaption>
 <div></section>
 <section id="defining-data-continuity">
@@ -1069,7 +1070,7 @@ Note: you may need to restart the kernel to use updated packages.
 </ol>
 <p>When practicing data gap omission, note that it’s certainly permissible (and likely recommended) to extrapolate your results from the readily available scope of analysis to whatever data ranges are missing. The key difference between the two categories is the <strong>quantitative versus qualitative nature of</strong> as well as the <strong>research community confidence in the accuracy of</strong> said extrapolation.</p>
 <center>
-<img src="../imgs/omission.png" width="425"/> &nbsp; <img src="../imgs/filling.png" width="425"/> 
+<img src="./imgs/omission.png" width="425"/> &nbsp; <img src="./imgs/filling.png" width="425"/> 
 <figcaption><em>Data gap omission (avoidance) vs. Data gap filling - Pothole Edition</em></figcaption>
 </center><p>Since data gap omission is not especially programatically interesting (e.g., you simply include a command to skip/omit any data with a NA, NaN, etc. during the data intake process) and its consequences on downstream analysis are fairly one-dimensional (i.e., you can’t draw definitive conclusions over the missing data ranges), we’ll zoom in on data gap filling in future sections.</p>
 <p>However, both categories of remediation practices have valid use cases as well as benefits and drawbacks - take a moment to review or add to the table below!</p>
@@ -1077,7 +1078,7 @@ Note: you may need to restart the kernel to use updated packages.
 <center>
                         <strong>Table 3. Pros and Cons of Data Remediation Strategies</strong>
 <br><br>
-<img src="../imgs/pros_cons.png" width="750"/>
+<img src="./imgs/pros_cons.png" width="750"/>
 </center>
 <div><p>Hopefully you noticed the conspicuous asterisk prefixing the “Disadvantages” sub-section for the “Data gap filling” entry in the table (if not, you can take a look now - the notebook isn’t going anywhere 🙂). As we continue on, I hope to convince that one of the noted disadvantages (<em>“can impact downstream analysis in non-obvious ways”</em>) can at least be partially mitigated by intelligent and intentional design.</p>
 </section>
@@ -1130,15 +1131,6 @@ Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Year: [2008]; Toy received for Birthday: [&#39;puzzles&#39;]
-We don&#39;t have data for this year!
-Year: [2010]; Toy received for Birthday: [&#39;Nerf football&#39;]
-We don&#39;t have data for this year!
-Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1150,15 +1142,6 @@ Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
 
 <span class="c1"># is our list complete now? let&#39;s check!</span>
 <span class="n">list_toys_received</span><span class="p">(</span><span class="n">franken_df</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Year: [2008]; Toy received for Birthday: [&#39;puzzles&#39;]
-Year: [2009]; Toy received for Birthday: [&#39;clothes&#39;]
-Year: [2010]; Toy received for Birthday: [&#39;Nerf football&#39;]
-Year: [2011]; Toy received for Birthday: [&#39;mobile phone&#39;]
-Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
 </pre></div>
 </div>
 </div>
@@ -1190,12 +1173,6 @@ Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x1692620c610&gt;]
-</pre></div>
-</div>
-<img alt="../_images/2_dataContinuity_26_1.png" src="../_images/2_dataContinuity_26_1.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1216,15 +1193,6 @@ Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Filled data: [43.2, 45.6, 42.7, 39.8, 44.2, 45.0, 45.8, 52.1]
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x16928327a30&gt;]
-</pre></div>
-</div>
-<img alt="../_images/2_dataContinuity_27_2.png" src="../_images/2_dataContinuity_27_2.png" />
-</div>
 </div>
 </section>
 <section id="discussion-4">
@@ -1232,7 +1200,7 @@ Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
 <p>Typically, when presented with two separate methods, classes, or ideology, we’ve considered the merits and drawbacks of employing either to help develop criteria for using each one. However, unlike a division like data gap filling versus data gap omission, exogenous and endogenous fill methods are not inherently incompatible.</p>
 <p>Depending on your data’s structure and attributes as well as the nature of the discontinuities, you could very well employ <em>both</em> exogenous and endogenous fill methods to remediate different data gaps in the same dataset! This follows from both remediation strategies sharing a primary purpose: to provide accurate estimations within data gaps to enable broadened downstream analysis.</p>
 <div>
-<img src="../imgs/whoomp_thereitis.png" width="500"/>
+<img src="./imgs/whoomp_thereitis.png" width="500"/>
 <figcaption><em>Tag teams: for both data gap remediation and one of <a href=https://www.youtube.com/watch?v=L6mNa_QZVHg>hip hop's greatest single's!</a></em></figcaption>
 <div><br>
 <p>To help you decide which remediation strategy is best to fill which data gap, we can look to the key sub-issues and potential problems of using each one. Then, in your own research, you can evaluate which sub-issues or problems will give rise to greater inaccuracy, less tractability, etc. to help you make this decision. Let’s get started!</p>
@@ -1297,62 +1265,6 @@ Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_18832</span>\<span class="mf">229020432.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># it&#39;s back to our friendly FRED data!</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">qoq_gdp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;gdp_fred.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># let&#39;s just look at the more recent data:</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\util\_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">312</span> 
-<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">678</span>     <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">679</span> 
-<span class="ne">--&gt; </span><span class="mi">680</span>     <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">681</span> 
-<span class="g g-Whitespace">    </span><span class="mi">682</span> 
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">573</span> 
-<span class="g g-Whitespace">    </span><span class="mi">574</span>     <span class="c1"># Create the parser.</span>
-<span class="ne">--&gt; </span><span class="mi">575</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">576</span> 
-<span class="g g-Whitespace">    </span><span class="mi">577</span>     <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">__init__</span><span class="nt">(self, f, engine, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">932</span> 
-<span class="g g-Whitespace">    </span><span class="mi">933</span>         <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="ne">--&gt; </span><span class="mi">934</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">935</span> 
-<span class="g g-Whitespace">    </span><span class="mi">936</span>     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">_make_engine</span><span class="nt">(self, f, engine)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1216</span>             <span class="c1"># &quot;Union[str, PathLike[str], ReadCsvBuffer[bytes], ReadCsvBuffer[str]]&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1217</span>             <span class="c1"># , &quot;str&quot;, &quot;bool&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1218</span>             <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>  <span class="c1"># type: ignore[call-overload]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1219</span>                 <span class="n">f</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1220</span>                 <span class="n">mode</span><span class="p">,</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\common.py</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">784</span>         <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">785</span>             <span class="c1"># Encoding</span>
-<span class="ne">--&gt; </span><span class="mi">786</span>             <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">787</span>                 <span class="n">handle</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">788</span>                 <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;C:\\Users\\ad2we\\Desktop\\SSDS Consultancy\\GearUp_Fall_2022\\GearUp-MessyData\\sample_datasets\\gdp_fred.csv&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <p>Given our somewhat contrived reason for the presence of discontinuities in our data, I hope you’ll generally agree that timeseries data with missing data points is not a totally unreasonable occurrence. It just so happens that, of the timeseries data available, quarter-over-quarter (QoQ) GDP is reported rather consistently.</p>
 <p>Qualification aside, what can we do about filling the gaps now present in our data? Exogenous data fill methods to the rescue!</p>
@@ -1382,7 +1294,7 @@ Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
 </ol>
 <p>or one of many more downsampling regimes. Understanding the data structure and attributes (through <strong>thoughtful data sourcing!</strong>) is the most responsible and accurate way of answering this question. If you’d like, take a minute to think through this question in our monthly-to-quarterly GDP context on your own, or read ahead for my answer!</p>
 <div>
-<img src="../imgs/thinker.png" width="250"/>
+<img src="./imgs/thinker.png" width="250"/>
 <figcaption><em>Definitely true fun fact: "The Exogenous Data Filler" was considered by Rodin, but his parents said no.</em></figcaption>
 <div></section>
 <section id="discussion-7">
@@ -1448,7 +1360,7 @@ Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
 </ul>
 <p>That’s all right? Well, not quite - if you remember from between Discussions 3 &amp; 4, I mentioned <em>mis-alignment of data point occurence</em> as another common issue in the context of exogenous data fills (which has strangely not been an issue for us).</p>
 <div>
-<img src="../imgs/car_drift_meme.png" width="400"/>
+<img src="./imgs/car_drift_meme.png" width="400"/>
 <figcaption><em>You'll start your project...eventually.</em></figcaption>
 <div> <p>As it would be, in our working example of monthly-to-quarterly GDP, it was a conveninent construction that both our original and fill datasets reported GDP values on coincident dates. But what if our datasets had looked something like this?</p>
 <center> 
@@ -1579,7 +1491,7 @@ Year: [2012]; Toy received for Birthday: [&#39;game console&#39;]
 <p>One way to quickly assess the strength of the relationship between two variables is to run a OLS (<strong>O</strong>rdinary <strong>L</strong>east <strong>S</strong>quares) regression between them. For the uninitated, a simple OLS regression attempts to model one varible as a linear function of the other (e.g., <span class="math notranslate nohighlight">\( y = \beta_1  x + \beta_0 \)</span>). Here, our <span class="math notranslate nohighlight">\(y\)</span>-variable will be GDP and our predictor <span class="math notranslate nohighlight">\(x\)</span>-variable will be average gas price (AGP).</p>
 <center>
 <div>
-<img src="../imgs/reg.png" width="750">
+<img src="./imgs/reg.png" width="750">
 <figcaption><em> Example of simple linear regression </em></figcaption>
 <div> 
 </center>

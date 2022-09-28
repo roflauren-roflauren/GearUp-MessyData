@@ -4,11 +4,11 @@
 # # Chapter 0 - Why do we need robust data?
 
 # <div>
-# <img src="../imgs/xkcd.png" width="500"/>
+# <img src="./imgs/xkcd.png" width="500"/>
 # <figcaption><em>Garbage in, garbage out...</em></figcaption>
 # <div>
 
-# #### ***Chapter Imports***
+# #### ***Chapter prerequisites: Python imports***
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
@@ -54,7 +54,7 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 # [comment]: <> (Break for Zoom discussion)
 
 # <div>
-# <img src="../imgs/datacollection.png" width="750"/>
+# <img src="./imgs/datacollection.png" width="750"/>
 # <div>
 
 # When we look to describe the robustness of a dataset, it can be useful to think about what that data will be used for. Data may be used to: 
@@ -250,7 +250,7 @@ plt.show()
 # ## Workshop essentials: GDP definitions & datasets
 
 # <div>
-# <img src="../imgs/gdp_calculation.gif" width="350"/>
+# <img src="./imgs/gdp_calculation.gif" width="350"/>
 # <figcaption><em>One of economics' greatest hits!</em><figcaption>
 # </div>
 
