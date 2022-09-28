@@ -12,7 +12,7 @@
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
-# In[1]:
+# In[ ]:
 
 
 # commented calls may be included in the base install of Python; uncomment call(s) as necessary

@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Chapter 3 - Data Timeliness" href="3_dataTimeliness.html" />
@@ -232,6 +230,24 @@ title="Launch on Binder"
     <img src="../_static/images/logo_binder.svg">
   </span>
 <span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/master/fall_2022/2_dataContinuity.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
 </a>
 
       </li>
@@ -997,41 +1013,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.4.3)
-Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
-Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2022.1)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
-Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.22.4)
-Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib in c:\users\ad2we\appdata\roaming\python\python39\site-packages (3.5.2)
-Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (4.34.4)
-Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (9.2.0)
-Requirement already satisfied: cycler&gt;=0.10 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (0.11.0)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.4.4)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (3.0.4)
-Requirement already satisfied: packaging&gt;=20.0 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (21.3)
-Requirement already satisfied: numpy&gt;=1.17 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.22.4)
-Requirement already satisfied: python-dateutil&gt;=2.7 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (2.8.2)
-Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)
-Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="preface-consequences-of-following-data-sourcing-best-practices">
@@ -1488,7 +1469,7 @@ Note: you may need to restart the kernel to use updated packages.
 </section>
 <section id="discussion-11-2">
 <h3><em><strong>DISCUSSION 11.2:</strong></em><a class="headerlink" href="#discussion-11-2" title="Permalink to this headline">#</a></h3>
-<p>One way to quickly assess the strength of the relationship between two variables is to run a OLS (<strong>O</strong>rdinary <strong>L</strong>east <strong>S</strong>quares) regression between them. For the uninitated, a simple OLS regression attempts to model one varible as a linear function of the other (e.g., <span class="math notranslate nohighlight">\( y = \beta_1  x + \beta_0 \)</span>). Here, our <span class="math notranslate nohighlight">\(y\)</span>-variable will be GDP and our predictor <span class="math notranslate nohighlight">\(x\)</span>-variable will be average gas price (AGP).</p>
+<p>One way to quickly assess the strength of the relationship between two variables is to run a OLS (<strong>O</strong>rdinary <strong>L</strong>east <strong>S</strong>quares) regression between them. For the uninitated, a simple OLS regression attempts to model one varible as a linear function of the other (e.g., $ y = \beta_1  x + \beta_0 $). Here, our $y$-variable will be GDP and our predictor $x$-variable will be average gas price (AGP).</p>
 <center>
 <div>
 <img src="./imgs/reg.png" width="750">
@@ -1497,11 +1478,11 @@ Note: you may need to restart the kernel to use updated packages.
 </center>
 <p>The strength/quality of the relationship computed through OLS regression can be quantitatively defined using metrics including:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(R^2\)</span> (i.e., what percentage of variation in <span class="math notranslate nohighlight">\(y\)</span> can be explained by variation in our predictor variable, <span class="math notranslate nohighlight">\(x\)</span>); and</p></li>
-<li><p>the <span class="math notranslate nohighlight">\(p\)</span>-value of our regression <span class="math notranslate nohighlight">\(\beta\)</span>’s (i.e., how confident are we that the function parameters we found defining the relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are accurate).</p></li>
+<li><p>$R^2$ (i.e., what percentage of variation in $y$ can be explained by variation in our predictor variable, $x$); and</p></li>
+<li><p>the $p$-value of our regression $\beta$’s (i.e., how confident are we that the function parameters we found defining the relationship between $x$ and $y$ are accurate).</p></li>
 </ul>
 <p>(For more on OLS regression, see this excellent <a class="reference external" href="https://setosa.io/ev/ordinary-least-squares-regression/">interactive guide</a>).</p>
-<p>You decide to use these metrics, <span class="math notranslate nohighlight">\(R^2\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>’s <span class="math notranslate nohighlight">\(p\)</span>-value as your assessment criteria. Results, here we come!</p>
+<p>You decide to use these metrics, $R^2$ and $\beta_1$’s $p$-value as your assessment criteria. Results, here we come!</p>
 </section>
 <section id="coding-exercise-codf-data-wrangling">
 <h3><em><strong>CODING EXERCISE: CoDF - DATA WRANGLING</strong></em><a class="headerlink" href="#coding-exercise-codf-data-wrangling" title="Permalink to this headline">#</a></h3>
@@ -1589,7 +1570,7 @@ Number of samples (GDP data points): 49
 </div>
 </div>
 </div>
-<p>Why the mis-match? If you were paying extra close attention during the data import stage, you might’ve seen that these gas price averages are computed on a <em>weekly</em> basis whereas our GDP data is a <em>monthly</em> gdp estimate! There’s (on average) 4.3 weeks in a month, and accordingly, about <span class="math notranslate nohighlight">\(213/49 ≈ 4.35\)</span> gas price observations for each GDP observation.</p>
+<p>Why the mis-match? If you were paying extra close attention during the data import stage, you might’ve seen that these gas price averages are computed on a <em>weekly</em> basis whereas our GDP data is a <em>monthly</em> gdp estimate! There’s (on average) 4.3 weeks in a month, and accordingly, about $213/49 ≈ 4.35$ gas price observations for each GDP observation.</p>
 </section>
 <section id="discussion-11-3">
 <h3><em><strong>DISCUSSION 11.3:</strong></em><a class="headerlink" href="#discussion-11-3" title="Permalink to this headline">#</a></h3>
@@ -1652,7 +1633,7 @@ Number of samples (GDP data points): 49
 </section>
 <section id="discussion-11-4">
 <h3><em><strong>DISCUSSION 11.4:</strong></em><a class="headerlink" href="#discussion-11-4" title="Permalink to this headline">#</a></h3>
-<p>In this context, in order to manipulate our data so it’s regression-compatible (i.e., we have the same number of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> data points), there are number of specific data filling (or transformation) technieues we could apply! Those techniques can first be divided into whether they belong to the strategy of <strong>upsampling</strong> our GDP data, or <strong>downsampling</strong> our gas prices data:</p>
+<p>In this context, in order to manipulate our data so it’s regression-compatible (i.e., we have the same number of $x$ and $y$ data points), there are number of specific data filling (or transformation) technieues we could apply! Those techniques can first be divided into whether they belong to the strategy of <strong>upsampling</strong> our GDP data, or <strong>downsampling</strong> our gas prices data:</p>
 <p>Strategy 1: <em>Upsampling GDP data</em></p>
 <ul class="simple">
 <li><p>Fill or Tranformation: Fill</p></li>
@@ -1745,7 +1726,7 @@ Number of samples (GDP data points): 49
 </div>
 </div>
 </div>
-<p>And just for fun, why don’t we see what <span class="math notranslate nohighlight">\(R^2\)</span> we get when we run the regression on some other frequencies too?</p>
+<p>And just for fun, why don’t we see what $R^2$ we get when we run the regression on some other frequencies too?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># and how about we do a quarterly dataset now? and a yearly one too! </span>
@@ -1777,7 +1758,7 @@ R^2 for the GDP ~ AGP model, reporting on a yearly frequency: 0.5965
 </section>
 <section id="discussion-11-5">
 <h3><em><strong>DISCUSSION 11.5:</strong></em><a class="headerlink" href="#discussion-11-5" title="Permalink to this headline">#</a></h3>
-<p>Wow! That’s a pretty intense jump from low 40%’s <span class="math notranslate nohighlight">\(R^2\)</span> figures for our models on weekly, monthly, and quarterly data to nearly a 60% <span class="math notranslate nohighlight">\(R^2\)</span>-figure for our yearly model! What gives?</p>
+<p>Wow! That’s a pretty intense jump from low 40%’s $R^2$ figures for our models on weekly, monthly, and quarterly data to nearly a 60% $R^2$-figure for our yearly model! What gives?</p>
 <p>While this is not necessarily universal, we can think about what generally happens on a data-wise level when we apply a re-sampling technique:</p>
 <p><em><strong>DOWNSAMPLING:</strong></em></p>
 <ul class="simple">
@@ -1793,7 +1774,7 @@ R^2 for the GDP ~ AGP model, reporting on a yearly frequency: 0.5965
 </ul>
 </li>
 </ul>
-<p><em>Key question:</em> Does one of these reasons explain why yearly <span class="math notranslate nohighlight">\(R^2\)</span> seems to be so much higher than the <span class="math notranslate nohighlight">\(R^2\)</span> obtained through other frequency datasets?</p>
+<p><em>Key question:</em> Does one of these reasons explain why yearly $R^2$ seems to be so much higher than the $R^2$ obtained through other frequency datasets?</p>
 <p><em><strong>UPSAMPLING:</strong></em></p>
 <ul class="simple">
 <li><p>When we <em>upsample</em> data, we are gaining data points over which we could evaluate the relationship of GDP &amp; AGP, but we’re filling in those points.</p></li>
@@ -1803,7 +1784,7 @@ R^2 for the GDP ~ AGP model, reporting on a yearly frequency: 0.5965
 </ul>
 </li>
 </ul>
-<p><em>Key question:</em> Does this reason explain why weekly <span class="math notranslate nohighlight">\(R^2\)</span> is the lowest <span class="math notranslate nohighlight">\(R^2\)</span> obtained for any of the regressions?</p>
+<p><em>Key question:</em> Does this reason explain why weekly $R^2$ is the lowest $R^2$ obtained for any of the regressions?</p>
 </section>
 <section id="conclusion">
 <h3><em><strong>2.5 - CONCLUSION:</strong></em><a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h3>
@@ -1814,7 +1795,7 @@ R^2 for the GDP ~ AGP model, reporting on a yearly frequency: 0.5965
 <p>Although the transferability between this takeaway in the context of data re-sampling to the context of data filling may not be immediately apparent, here’s a way I like to think about it:</p>
 <ul class="simple">
 <li><p>Imagine you are imputing missing values by averging the value of the data points two nearest neighbors - since the resulting point is an average of two existing points in the dataset, in a way, <em>you are increasing the sensitivity of your analysis to changes in those two neighbors.</em></p></li>
-<li><p>And this logic applies to exogenous data fills too - populating missing values dials up the sensitivity of your analysis from 0 with respect to a certain once-missing point to some non-zero sensitivity: an <span class="math notranslate nohighlight">\(\infty\)</span>% increase!</p></li>
+<li><p>And this logic applies to exogenous data fills too - populating missing values dials up the sensitivity of your analysis from 0 with respect to a certain once-missing point to some non-zero sensitivity: an $\infty$% increase!</p></li>
 </ul>
 <p>When it comes to data continuity, there are no hard and fast about how you should do things - whether you should fill or omit gaps, whether you should use an endogenous or exogenous fill method, and what precise technique you should use to execute that fill. And there are no easy ways to know whether and how what you’re doing in the data processing stage will meaningfully impact your analysis. The best advice I can offer you is to: (1) prioritize logical soundness and consistency; and (2) just try things out! Data is meant to be explored.</p>
 <p>Before we wrap up the workshop, let’s see data sourcing and data continuity work together to define another critical aspect of real-life, messy data - data timeliness! On to Chapter 3!</p>

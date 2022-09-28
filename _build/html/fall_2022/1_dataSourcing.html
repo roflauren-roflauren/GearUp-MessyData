@@ -235,6 +235,24 @@ title="Launch on Binder"
       </li>
       
       <li>
+        <a href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/master/fall_2022/1_dataSourcing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
         
 <button onclick="initThebeSBT()"
   class="headerbtn headerbtn-launch-thebe"
@@ -821,33 +839,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.4.3)
-Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2022.1)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
-Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
-Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
-Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.22.4)
-Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib in c:\users\ad2we\appdata\roaming\python\python39\site-packages (3.5.2)
-Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (9.2.0)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (3.0.4)
-Requirement already satisfied: python-dateutil&gt;=2.7 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (2.8.2)
-Requirement already satisfied: packaging&gt;=20.0 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (21.3)
-Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (4.34.4)
-Requirement already satisfied: numpy&gt;=1.17 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.22.4)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.4.4)
-Requirement already satisfied: cycler&gt;=0.10 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (0.11.0)
-Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)
-Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="preface-why-source-good-data">
@@ -910,62 +901,6 @@ Note: you may need to restart the kernel to use updated packages.
 
 <span class="c1"># how&#39;s it structured? is it usable?</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">bea_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_2552</span>\<span class="mf">3030902413.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># when I look up &#39;US GDP data&#39;, the first result is from the Bureau of Economic Advisors (BEA):</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">bea_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;gdp_bea_q2_2022_adv.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># how&#39;s it structured? is it usable?</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\util\_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">312</span> 
-<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">678</span>     <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">679</span> 
-<span class="ne">--&gt; </span><span class="mi">680</span>     <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">681</span> 
-<span class="g g-Whitespace">    </span><span class="mi">682</span> 
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">573</span> 
-<span class="g g-Whitespace">    </span><span class="mi">574</span>     <span class="c1"># Create the parser.</span>
-<span class="ne">--&gt; </span><span class="mi">575</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">576</span> 
-<span class="g g-Whitespace">    </span><span class="mi">577</span>     <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">__init__</span><span class="nt">(self, f, engine, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">932</span> 
-<span class="g g-Whitespace">    </span><span class="mi">933</span>         <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="ne">--&gt; </span><span class="mi">934</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">935</span> 
-<span class="g g-Whitespace">    </span><span class="mi">936</span>     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">_make_engine</span><span class="nt">(self, f, engine)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1216</span>             <span class="c1"># &quot;Union[str, PathLike[str], ReadCsvBuffer[bytes], ReadCsvBuffer[str]]&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1217</span>             <span class="c1"># , &quot;str&quot;, &quot;bool&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1218</span>             <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>  <span class="c1"># type: ignore[call-overload]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1219</span>                 <span class="n">f</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1220</span>                 <span class="n">mode</span><span class="p">,</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\common.py</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">784</span>         <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">785</span>             <span class="c1"># Encoding</span>
-<span class="ne">--&gt; </span><span class="mi">786</span>             <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">787</span>                 <span class="n">handle</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">788</span>                 <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;C:\\Users\\ad2we\\Desktop\\SSDS Consultancy\\GearUp_Fall_2022\\GearUp-MessyData\\sample_datasets\\gdp_bea_q2_2022_adv.csv&#39;
 </pre></div>
 </div>
 </div>
@@ -1033,7 +968,7 @@ Note: you may need to restart the kernel to use updated packages.
 <p>One of our datasources was the BEA, but it’s still a good idea to perform a trace and identify the most base-level resource used to generate each of our potential datasets. After all, multiple or all of them could be re-releases of BEA data, making them equally reputable! For our remaining datasets:</p>
 <ul class="simple">
 <li><p>FRED GDP data is co-opted from the <a class="reference external" href="https://fred.stlouisfed.org/series/GDP#:~:text=NOTES-,Source%3A%20U.S.%20Bureau%20of%20Economic%20Analysis,-Release%3A%20Gross">BEA</a>’s release; and</p></li>
-<li><p>The GDP data from <a class="reference external" href="http://macrotrends.net">macrotrends.net</a> is sourced from the <a class="reference external" href="https://www.macrotrends.net/countries/USA/united-states/gdp-gross-domestic-product#:~:text=Data%20Source%3A%20World%20Bank">World Bank</a>, which in turns computes their GDP measures from World Bank and OECD (Organisation for Economic Co-operation and Development) <a class="reference external" href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2019&amp;locations=US&amp;start=1990#:~:text=Also%20Show,Details">national accounts data</a>.</p></li>
+<li><p>The GDP data from macrotrends.net is sourced from the <a class="reference external" href="https://www.macrotrends.net/countries/USA/united-states/gdp-gross-domestic-product#:~:text=Data%20Source%3A%20World%20Bank">World Bank</a>, which in turns computes their GDP measures from World Bank and OECD (Organisation for Economic Co-operation and Development) <a class="reference external" href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2019&amp;locations=US&amp;start=1990#:~:text=Also%20Show,Details">national accounts data</a>.</p></li>
 </ul>
 <p>If you’re okay with it, go ahead and trust me that the BEA and World Bank are fairly reputable sources. Now that we’ve done some initial data exploration and sourcing inspections, let’s summarize what we know and return to the original question underlying all data sourcing practices: <em>which dataset do we choose, and why?</em></p>
 <center>

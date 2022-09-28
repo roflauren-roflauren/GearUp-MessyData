@@ -12,7 +12,7 @@
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
-# In[1]:
+# In[ ]:
 
 
 get_ipython().run_line_magic('pip', 'install pandas')
@@ -74,7 +74,7 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 
 # #### ***CODING EXERCISE: SOURCING GDP DATA***
 
-# In[2]:
+# In[ ]:
 
 
 # importing some libraries: 
@@ -82,7 +82,7 @@ import os                           # use: file management and access
 import pandas as pd                 # use: data intake and manipulation 
 
 
-# In[3]:
+# In[ ]:
 
 
 """ DATA SOURCING: DIFFERENT DATA AUTHORS """

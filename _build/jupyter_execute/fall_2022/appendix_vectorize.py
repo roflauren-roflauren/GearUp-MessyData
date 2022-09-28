@@ -12,7 +12,7 @@
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
-# In[1]:
+# In[ ]:
 
 
 get_ipython().run_line_magic('pip', 'install pandas')
@@ -68,7 +68,7 @@ get_ipython().run_line_magic('pip', 'install numpy')
 # 
 # Suppose your code has a block where you loop over and perform some operation on the elements in a list. As Python is dynamically typed, *it does not know the type of the objects present in the list until it accesses each element.*
 
-# In[2]:
+# In[ ]:
 
 
 # nothing about the variable name 'a' denotes the type of the contained value. it could be: 
@@ -86,7 +86,7 @@ print(type(a)) # a dictionary of strings
 
 # *A quick aside:* A **statically typed** programming language like C avoids this recurring overhead cost by compelling programmers to explicitly denote the type of every object you use. But, these languages come with their own drawbacks. For example, if two external libraries provide functionality for the same concept with differently-typed implementations, library users will have to provide their own translation layer to allow the two libraries to interoperate. In Python, no/few such interoperability issues arise:
 
-# In[3]:
+# In[26]:
 
 
 # both pandas and numpy implement an array-type collection
@@ -115,7 +115,7 @@ print("And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!")
 # 
 # As the names suggest, the required order (or lack thereof) of the iterations of a looped operation determines its eligibility for vectorization. Consider the following example: 
 
-# In[4]:
+# In[ ]:
 
 
 # suppose we have a Anthony-Land GDP dataset with some discontinuities: 
@@ -142,7 +142,7 @@ print ("Average % increase in GDP: " + str(round(sum(percent_increase)/len(perce
 
 # What if we computed filled the two data points in reverse-order? 
 
-# In[5]:
+# In[ ]:
 
 
 # same data: 
@@ -202,7 +202,7 @@ print ("Average % increase in GDP: " + str(round(sum(percent_increase)/len(perce
 
 # With our tools in hand, let's go try some vectorization! 
 
-# In[6]:
+# In[1]:
 
 
 # required imports: 

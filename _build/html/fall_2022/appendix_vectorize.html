@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Chapter 3 - Data Timeliness" href="3_dataTimeliness.html" />
@@ -231,6 +229,24 @@ title="Launch on Binder"
     <img src="../_static/images/logo_binder.svg">
   </span>
 <span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/master/fall_2022/appendix_vectorize.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
 </a>
 
       </li>
@@ -747,21 +763,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.4.3)Note: you may need to restart the kernel to use updated packages.
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
-Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2022.1)
-Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.22.4)
-Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="preface">
@@ -776,11 +777,9 @@ Note: you may need to restart the kernel to use updated packages.
 <p>A natural first question to ask is, <em>what is vectorizing/vectorization?</em> You may have heard of vectors before in a mathematics class, where vectors are a series of ordered values like this: [3, 2, 5] or [4, 7, 11, 8].</p>
 <p>In computer science, vectorization is a technique related to the mathematical definition of a vector - it’s the process of converting an algorithm from a scalar implementation (which performs operations on, at most, a pair of operands at once) to a vectorized one (which performs operations on a series of values at once). For a quick example:</p>
 <p>The processing of a scalar implementation of the instruction, “add two to every element in this list,” would look like:</p>
-<div class="math notranslate nohighlight">
-\[input: [3, 2, 5] → [3 + 2 = 5, 2, 5] → [5, 2 + 2 = 4, 5] → [5, 4, 5 + 2 = 7] → output: [5, 4, 7]\]</div>
+<p>$$input: [3, 2, 5] → [3 + 2 = 5, 2, 5] → [5, 2 + 2 = 4, 5] → [5, 4, 5 + 2 = 7] → output: [5, 4, 7]$$</p>
 <p>while the processing of a vectorized implementation of the same instruction would look like:</p>
-<div class="math notranslate nohighlight">
-\[input: [3, 2, 5] → [3 + 2 = 5, 2 + 2 = 4, 5 + 2 = 7] → output: [5, 4, 7]\]</div>
+<p>$$input: [3, 2, 5] → [3 + 2 = 5, 2 + 2 = 4, 5 + 2 = 7] → output: [5, 4, 7]$$</p>
 <p>(where different processors in your machine carry out the ‘+2’ instruction on each element concurrently.)</p>
 <p>If the previous example makes sense to you, congratulations! You understand vectorization. Feel free to come up with your own quicker working definition (mine is, “make computer do same thing to many things at same time instead of on things one-by-one.”</p>
 </section>
@@ -808,13 +807,6 @@ Note: you may need to restart the kernel to use updated packages.
 
 <span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="s2">&quot;vectorization&quot;</span> <span class="p">:</span> <span class="s2">&quot;rocks!&quot;</span><span class="p">})</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="c1"># a dictionary of strings</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;int&#39;&gt;
-&lt;class &#39;str&#39;&gt;
-&lt;class &#39;dict&#39;&gt;
 </pre></div>
 </div>
 </div>
@@ -881,13 +873,6 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>After imputing the 1994 data point:[(1990, 45), (1991, 46), (1992, 48), (1993, 52), (1994, 48), (1995, 55), (1996, 60), (1997, 63), (1999, 67)]
-After imputing the 1998 data point:[(1990, 45), (1991, 46), (1992, 48), (1993, 52), (1994, 48), (1995, 55), (1996, 60), (1997, 63), (1998, 56), (1999, 67)]
-Average % increase in GDP: 3.94
-</pre></div>
-</div>
-</div>
 </div>
 <p>What if we computed filled the two data points in reverse-order?</p>
 <div class="cell docutils container">
@@ -914,13 +899,6 @@ Average % increase in GDP: 3.94
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>After imputing the 1998 data point:[(1990, 45), (1991, 46), (1992, 48), (1993, 52), (1995, 55), (1996, 60), (1997, 63), (1998, 58), (1999, 67)]
-After imputing the 1994 data point:[(1990, 45), (1991, 46), (1992, 48), (1993, 52), (1994, 48), (1995, 55), (1996, 60), (1997, 63), (1998, 58), (1999, 67)]
-Average % increase in GDP: 4.04
-</pre></div>
-</div>
-</div>
 </div>
 <p>A-ha! As you can see, reversing the order that the datapoints were filled in does change the final resulting figure. This is because filling the 1994 data point first makes a 1994 GDP value available as a sample datapoint for imputing the 1998 GDP value, whereas reversing the order of imputation does not.</p>
 <p>As such, the operation we just performed is order-dependent (i.e., the final result is contingent upon the order in which any sub-operations are performed) and ineligible for vectorization. Reason being, <em>when an operation is vectorized, Python provides no constraints on the order in which the sub-operations are carried out.</em></p>
@@ -928,7 +906,7 @@ Average % increase in GDP: 4.04
 <img src="./imgs/analogy.png" width="500"/>
 <figcaption><em>Vectorized operations are to sets, as scalar looped operations are to lists!</em></figcaption>
 <div><br>
-<p>Expanding upon our “add 2 to every element in this list” example from before, suppose our input now was much longer: <span class="math notranslate nohighlight">\([3, 2, 5, 4, 6, 11, 14, 8, 1, 37, ... (100,000 \text{ more numbers}) ..., 24, 2].\)</span> Since our computer likely does not have enough processing units to add 2 to every element concurrently, it’ll perform the vectorized operation in chunks. We can’t guarantee that the first chunk of say, 1000 inputs, coincides with the first 1000 elements in the list.</p>
+<p>Expanding upon our “add 2 to every element in this list” example from before, suppose our input now was much longer: $[3, 2, 5, 4, 6, 11, 14, 8, 1, 37, … (100,000 \text{ more numbers}) …, 24, 2].$ Since our computer likely does not have enough processing units to add 2 to every element concurrently, it’ll perform the vectorized operation in chunks. We can’t guarantee that the first chunk of say, 1000 inputs, coincides with the first 1000 elements in the list.</p>
 <p>But, in cases like these, where the final result will be independent of the order of the sub-operations, this random chunking is totally fine! And for that reason, we say <em>order-independent</em> operations can be vectorized.</p>
 <p><em>Note:</em> Determining order-independence (or lack thereof) for any particular operation is a nonstandardized task, but reference to other objects being changed by the same loop is a usually a good sign that order-dependence is present. When in doubt, work with a subset of your data and try switching up the processing order of the loop! Does the result change?</p>
 </section>
@@ -969,60 +947,6 @@ Average % increase in GDP: 4.04
 <span class="c1"># our sample data: </span>
 <span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> 
 <span class="n">song_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;unpopular_songs.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_24376</span>\<span class="mf">709774050.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># our sample data:</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">song_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;unpopular_songs.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\util\_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">312</span> 
-<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">678</span>     <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">679</span> 
-<span class="ne">--&gt; </span><span class="mi">680</span>     <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">681</span> 
-<span class="g g-Whitespace">    </span><span class="mi">682</span> 
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">573</span> 
-<span class="g g-Whitespace">    </span><span class="mi">574</span>     <span class="c1"># Create the parser.</span>
-<span class="ne">--&gt; </span><span class="mi">575</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">576</span> 
-<span class="g g-Whitespace">    </span><span class="mi">577</span>     <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">__init__</span><span class="nt">(self, f, engine, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">932</span> 
-<span class="g g-Whitespace">    </span><span class="mi">933</span>         <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="ne">--&gt; </span><span class="mi">934</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">935</span> 
-<span class="g g-Whitespace">    </span><span class="mi">936</span>     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\parsers\readers.py</span> in <span class="ni">_make_engine</span><span class="nt">(self, f, engine)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1216</span>             <span class="c1"># &quot;Union[str, PathLike[str], ReadCsvBuffer[bytes], ReadCsvBuffer[str]]&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1217</span>             <span class="c1"># , &quot;str&quot;, &quot;bool&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;, &quot;Any&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1218</span>             <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>  <span class="c1"># type: ignore[call-overload]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1219</span>                 <span class="n">f</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1220</span>                 <span class="n">mode</span><span class="p">,</span>
-
-<span class="nn">~\AppData\Roaming\Python\Python39\site-packages\pandas\io\common.py</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">784</span>         <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">785</span>             <span class="c1"># Encoding</span>
-<span class="ne">--&gt; </span><span class="mi">786</span>             <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">787</span>                 <span class="n">handle</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">788</span>                 <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;C:\\Users\\ad2we\\Desktop\\SSDS Consultancy\\GearUp_Fall_2022\\GearUp-MessyData\\sample_datasets\\unpopular_songs.csv&#39;
 </pre></div>
 </div>
 </div>
