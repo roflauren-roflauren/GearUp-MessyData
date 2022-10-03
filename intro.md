@@ -9,4 +9,6 @@ The goals of this workshop are to:
 2. b
 3. c
 
+## Brought to you by Software and Services for Data Science (SSDS) at Green Library
+
 Visit https://ssds.stanford.edu/ to learn more about Software and Services for Data Science, schedule a consultation, or RSVP for a workshop. 
