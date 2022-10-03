@@ -1,6 +1,6 @@
 # Welcome to the Understanding Messy Time Series Data workshop!
 
-This is the Jupyter Book for the Understanding Messy Time Series Data workshop, part of the Fall 2022 Gear-Up for Science Data initiative. 
+This is the Jupyter Book for the Understanding Messy Time Series Data workshop, part of the [Fall 2022 Gear-Up for Science Data initiative.](https://library.stanford.edu/blogs/stanford-libraries-blog/2022/09/fall-2022-gear-science-data)
 
 Register here: https://events-legacy.stanford.edu/events/945/94519/
 
