@@ -1,0 +1,9 @@
+jupyter-book
+pandas
+matplotlib
+os
+numpy
+datetime
+random
+dateutil
+sklearn
