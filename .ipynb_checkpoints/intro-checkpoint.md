@@ -8,6 +8,7 @@ The goals of this workshop are to:
 1. a
 2. b
 3. c
+4. d
 
 ## Brought to you by Software and Services for Data Science (SSDS) at Green Library
 
