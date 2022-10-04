@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Chapter 1 - Data Sourcing &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
     
@@ -34,6 +34,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -55,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Chapter 2 - Data Continuity" href="2_dataContinuity.html" />
     <link rel="prev" title="Chapter 0 - Why do we need robust data?" href="0_motivation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -824,12 +825,12 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-data-sourcing">
-<h1>Chapter 1 - Data Sourcing<a class="headerlink" href="#chapter-1-data-sourcing" title="Permalink to this headline">#</a></h1>
+<h1>Chapter 1 - Data Sourcing<a class="headerlink" href="#chapter-1-data-sourcing" title="Permalink to this heading">#</a></h1>
 <div>
 <img src="./imgs/product-proliferation.png" width="750"/>
 <figcaption><em>The modern data landscape has so much data...no, really—SO much data. Which data should you use?</em></figcaption>
 <div><section id="chapter-prerequisites-python-imports">
-<h2><em><strong>Chapter prerequisites: Python imports</strong></em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this headline">#</a></h2>
+<h2><em><strong>Chapter prerequisites: Python imports</strong></em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this heading">#</a></h2>
 <p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -842,7 +843,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="preface-why-source-good-data">
-<h2>1.0. Preface: why source good data?<a class="headerlink" href="#preface-why-source-good-data" title="Permalink to this headline">#</a></h2>
+<h2>1.0. Preface: why source good data?<a class="headerlink" href="#preface-why-source-good-data" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Analysis for any research project begins with data sourcing; without any data, there’s no tests to run, no trends to identify, no hypotheses to validate, etc.</p></li>
 <li><p>But, the modern data landscape is vast and can be overwhelming—look up “X + dataset” for almost topic, and you’ll likely find a multitude of resources published by private organizations, government agencies, licensed data vendors, open-source groups, etc. Does it matter whose data you go with?</p></li>
@@ -850,7 +851,7 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="defining-data-sourcing">
-<h2>1.1. Defining “data sourcing”<a class="headerlink" href="#defining-data-sourcing" title="Permalink to this headline">#</a></h2>
+<h2>1.1. Defining “data sourcing”<a class="headerlink" href="#defining-data-sourcing" title="Permalink to this heading">#</a></h2>
 <p>Data sourcing is the process of:</p>
 <ul class="simple">
 <li><p><strong>finding</strong>;</p></li>
@@ -861,7 +862,7 @@ title="Print to PDF"
 <p>Purposeful data sourcing is often overlooked in favor of convenience (i.e., using the first available and/or most popular dataset), but as we’ll see, data sourcing decisions determine data attributes—which can ultimately impact downstream analysis.</p>
 </section>
 <section id="issues-in-data-sourcing">
-<h2>1.2. Issues in data sourcing<a class="headerlink" href="#issues-in-data-sourcing" title="Permalink to this headline">#</a></h2>
+<h2>1.2. Issues in data sourcing<a class="headerlink" href="#issues-in-data-sourcing" title="Permalink to this heading">#</a></h2>
 <p>Many issues can arise when attempting to source quality data, but in this chapter, we’re going to explore this topic in the context of three practices:</p>
 <ol class="simple">
 <li><p><strong>Deciding between multiple data authors;</strong></p></li>
@@ -872,7 +873,7 @@ title="Print to PDF"
 <p>Scroll down to get started!</p>
 </section>
 <section id="deciding-between-multiple-data-authors">
-<h2>1.3. Deciding between multiple data authors<a class="headerlink" href="#deciding-between-multiple-data-authors" title="Permalink to this headline">#</a></h2>
+<h2>1.3. Deciding between multiple data authors<a class="headerlink" href="#deciding-between-multiple-data-authors" title="Permalink to this heading">#</a></h2>
 <p>Look up “US GDP data” in your web browser of choice.</p>
 <div>
 <img src="./imgs/gdp_webquery.png" width="500"/>
@@ -882,7 +883,7 @@ title="Print to PDF"
 <p>In a way, all data sourcing practices are trying to solve this exact problem: reasonably decide between multiple data authors. The issues we’ll talk about later in this chapter and others are all, in some way, shape, or form, determined by who the data author is (even if it’s yourself) and what decisions they chose to make when collecting and crafting the dataset.</p>
 <p>For now, let’s explore a few different GDP datasets and consider which one we might choose and why:</p>
 <section id="coding-exercise-sourcing-gdp-data">
-<h3><em><strong>CODING EXERCISE: SOURCING GDP DATA</strong></em><a class="headerlink" href="#coding-exercise-sourcing-gdp-data" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: SOURCING GDP DATA</strong></em><a class="headerlink" href="#coding-exercise-sourcing-gdp-data" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># importing some libraries: </span>
@@ -950,7 +951,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="discussion-1">
-<h3><em><strong>DISCUSSION 1:</strong></em><a class="headerlink" href="#discussion-1" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 1:</strong></em><a class="headerlink" href="#discussion-1" title="Permalink to this heading">#</a></h3>
 <p>From this quick exploration and visualization exercise, we can see that the FRED data is a timeseries dataset which appears relatively clean and ready for analysis - it contains only two columns: <code class="docutils literal notranslate"><span class="pre">DATE</span></code> and <code class="docutils literal notranslate"><span class="pre">GDP</span></code>. You might be tempted to just go ahead and run with it. But, for official and/or frequently-used statistics in particular, it’s worth taking a step back from usability during the data sourcing process. Why?</p>
 <ol class="simple">
 <li><p>Individuals and groups may publish their own versions of statistics which are usable, but perhaps not official. Using the official source can establish credibility for your research.</p></li>
@@ -964,7 +965,7 @@ title="Print to PDF"
 <p>Point 1 (i.e., using official/licensed data authors for choice statistics) is especially key for social science research (where less direct experimentation and independent data collection may be performed). For US GDP data, a quick web query of <em>“Who measures US GDP?”</em> informs us that the Bureau of Economic Analysis (BEA) is responsible for its publication while the Bureau of Labor Statistics collects the raw data used for GDP calculation (<a class="reference external" href="https://www.investopedia.com/ask/answers/031715/how-does-united-states-government-measure-economic-growth.asp#:~:text=The%20U.S.%20government%20collects%20and,GDP%20and%20the%20national%20income.">source 1</a>, <a class="reference external" href="https://www.commerce.gov/data-and-reports/economic-indicators">source 2</a>).</p>
 </section>
 <section id="discussion-2">
-<h3><em><strong>DISCUSSION 2:</strong></em><a class="headerlink" href="#discussion-2" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 2:</strong></em><a class="headerlink" href="#discussion-2" title="Permalink to this heading">#</a></h3>
 <p>One of our datasources was the BEA, but it’s still a good idea to perform a trace and identify the most base-level resource used to generate each of our potential datasets. After all, multiple or all of them could be re-releases of BEA data, making them equally reputable! For our remaining datasets:</p>
 <ul class="simple">
 <li><p>FRED GDP data is co-opted from the <a class="reference external" href="https://fred.stlouisfed.org/series/GDP#:~:text=NOTES-,Source%3A%20U.S.%20Bureau%20of%20Economic%20Analysis,-Release%3A%20Gross">BEA</a>’s release; and</p></li>
@@ -974,7 +975,7 @@ title="Print to PDF"
 <center>
                                                    <strong>Table 1. GDP dataset characteristics</strong>
 <br><br>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Listed source</p></th>
 <th class="head"><p>Base source</p></th>
@@ -1010,7 +1011,7 @@ title="Print to PDF"
 </table>
 </center></section>
 <section id="discussion-3">
-<h3><em><strong>DISCUSSION 3:</strong></em><a class="headerlink" href="#discussion-3" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 3:</strong></em><a class="headerlink" href="#discussion-3" title="Permalink to this heading">#</a></h3>
 <p>Considering that all of potential data sources come from similarly reputable authors, which one should we use? And by now, you may have noticed that I’ve been purposely vague as to what this data will be used for - intentionally, I promise! And that’s because, if author credibility is established, which dataset you choose to use <em>ultimately depends on your specific application.</em></p>
 <p>Perhaps you require a by-sector breakdown of GDP, and would like to opt for the BEA data (which can be transformed into cross-sectional timeseries data, aka panel data, by merging with other datasets). Or, if you just need some numbers to run a quick analysis for your own use, FRED data could be the best. And if you need slightly richer timeseries data, MacroTrends could be the ideal source.</p>
 <p>Other than original author credibility, here are some other metrics you may consider using when sourcing data:</p>
@@ -1021,15 +1022,15 @@ title="Print to PDF"
 <img src="./imgs/datasource_criteria.svg" width="700"/>
 </center> </section>
 <section id="conclusion">
-<h3><em><strong>1.3. - CONCLUSION:</strong></em><a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>1.3. - CONCLUSION:</strong></em><a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
 <p>Now you might be asking yourself, source tracebacks and verfication are well and good, but rather time-consuming. If you need to decide between only 3-10 datasets, this case-by-case assessment is feasible, but what if you’re starting a project from the ground up? There could be hundreds if not thousands of datasets you need to evaluate. Surely there’s a quicker way to do some sort of preliminary filtering of source viability…</p>
 </section>
 </section>
 <section id="understanding-author-incentives-and-purpose">
-<h2>1.4. Understanding author incentives and purpose<a class="headerlink" href="#understanding-author-incentives-and-purpose" title="Permalink to this headline">#</a></h2>
+<h2>1.4. Understanding author incentives and purpose<a class="headerlink" href="#understanding-author-incentives-and-purpose" title="Permalink to this heading">#</a></h2>
 <p>…and wouldn’t you believe it, there is! We can consider the research <em>intended purpose and incentives</em> of “generic research entity types.”</p>
 <section id="preface">
-<h3><em><strong>PREFACE:</strong></em><a class="headerlink" href="#preface" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>PREFACE:</strong></em><a class="headerlink" href="#preface" title="Permalink to this heading">#</a></h3>
 <p>Two quick notes before we get started:</p>
 <p>1. What is a “generic research entity type?” Well, it’s a (bit of an awkward) name for a type of individual/group that would conduct research and publish data. A non-exhaustive list includes:</p>
 <ul class="simple">
@@ -1049,7 +1050,7 @@ title="Print to PDF"
 <div> 
 <br></section>
 <section id="discussion-4">
-<h3><em><strong>DISCUSSION 4:</strong></em><a class="headerlink" href="#discussion-4" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 4:</strong></em><a class="headerlink" href="#discussion-4" title="Permalink to this heading">#</a></h3>
 <p>What does it mean to consider the intended purpose and incentives of a generic entity? For me, it’s all about answering two key questions:</p>
 <ul class="simple">
 <li><p>To identify an <strong>intended purpose,</strong> I ask myself: <em>“How did the person/group/researcher type who published this data want it to be used?”</em></p></li>
@@ -1059,7 +1060,7 @@ title="Print to PDF"
 <center>
                                                    <strong>Table 2. Research type incentives</strong> 
 <br><br>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Researcher type</strong></p></th>
 <th class="head"><p><strong>Researcher sub-type</strong></p></th>
@@ -1109,7 +1110,7 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="discussion-5">
-<h3><em><strong>DISCUSSION 5:</strong></em><a class="headerlink" href="#discussion-5" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 5:</strong></em><a class="headerlink" href="#discussion-5" title="Permalink to this heading">#</a></h3>
 <p>Of special note is the fact that for both researcher types and specific researchers within a type, incentives and intended purpose of analogous studies (and their related data) <em>can change over time</em> - this is especially important to consider in the context of timeseries analysis. To understand how changing incentives and intended purpose can impact collected data, let’s see an example:</p>
 <div>
 <img src="./imgs/small_business.png" width="500"/>
@@ -1134,7 +1135,7 @@ title="Print to PDF"
 <p>Let’s take a look with some code:</p>
 </section>
 <section id="coding-exercise-author-incentives-sgdp">
-<h3><em><strong>CODING EXERCISE: AUTHOR INCENTIVES &amp; SGDP</strong></em><a class="headerlink" href="#coding-exercise-author-incentives-sgdp" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: AUTHOR INCENTIVES &amp; SGDP</strong></em><a class="headerlink" href="#coding-exercise-author-incentives-sgdp" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># required imports: </span>
@@ -1185,7 +1186,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="discussion-6">
-<h3><em><strong>DISCUSSION 6:</strong></em><a class="headerlink" href="#discussion-6" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 6:</strong></em><a class="headerlink" href="#discussion-6" title="Permalink to this heading">#</a></h3>
 <p>Even from this quick visualization, major discrepancies are apparent:</p>
 <ul class="simple">
 <li><p>The 2007 report contained only initial and ending figures for SGDP share as a % of GDP, while the 2017 report offered data points for all years reviewed in the report.</p></li>
@@ -1195,16 +1196,16 @@ title="Print to PDF"
 <p>What might be the cause of the lack of granular data in the 2007 report? How about the apparent switch in the trend of SGDP share? Is there reason to suspect a shift in intended purpose and incentives (recall that both reports were sanctioned by the Small Business Administration, and their respective years of publication)?</p>
 </section>
 <section id="id1">
-<h3><em><strong>1.4. - CONCLUSION:</strong></em><a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>1.4. - CONCLUSION:</strong></em><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Ultimately, while we aren’t here to play whistleblower, in this case and almost all others, it’s worth noting that which dataset you elect to use may have great impact on your research results - especially when it comes to multiple data resources claiming to measure the same metric; i.e., suppose you wanted to investigate small business health in the decade before and after the Great Recession. How would which dataset you use impact your results? How so?</p>
 <p>In short, incentives &amp; intended purposes of research can change across researcher types, for the same researcher type, and even for the same researcher. These changes may not give rise to drastically misreported or conflicting data - but in research, the details matter. So, it’s always worth thinking about what incentives and intended purpose can imply for data resources, and your research.</p>
 </section>
 </section>
 <section id="validating-data-and-data-generation-approaches">
-<h2>1.5. Validating data and data generation approaches<a class="headerlink" href="#validating-data-and-data-generation-approaches" title="Permalink to this headline">#</a></h2>
+<h2>1.5. Validating data and data generation approaches<a class="headerlink" href="#validating-data-and-data-generation-approaches" title="Permalink to this heading">#</a></h2>
 <p>The final issue in data sourcing we’ll be discussing is the validation of data and its associated dataset generation approach:</p>
 <section id="discussion-7">
-<h3><em><strong>DISCUSSION 7:</strong></em><a class="headerlink" href="#discussion-7" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 7:</strong></em><a class="headerlink" href="#discussion-7" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>A data generation approach is simply the methodology used to collect and compute a given data resource. In a way, this topic is best described as a data sourcing meta-issue since:</p>
 <ul>
@@ -1222,7 +1223,7 @@ title="Print to PDF"
 <p>To better understand this topic, let’s explore it in the context of GDP data!</p>
 </section>
 <section id="discussion-8">
-<h3><em><strong>DISCUSSION 8:</strong></em><a class="headerlink" href="#discussion-8" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 8:</strong></em><a class="headerlink" href="#discussion-8" title="Permalink to this heading">#</a></h3>
 <p>GDP can be measured in <a class="reference external" href="https://www.imf.org/external/pubs/ft/fandd/basics/gdp.htm#:~:text=Theoretically%2C%20GDP%20can%20be%20viewed%20in%20three%20different%20ways%3A">three different ways</a>:</p>
 <ul class="simple">
 <li><p>The <em>production approach</em> sums the value-added at each stage of production for all goods and services (where value-added is defined as the sales value minus the value of intermediate inputs);</p></li>
@@ -1242,7 +1243,7 @@ title="Print to PDF"
 <p>The BEA publishes official GDP data using the <a class="reference external" href="https://www.bea.gov/resources/methodologies/measuring-the-economy">expenditure approach</a> (see Page 4, Section “Income”), but also measures and releases GDP figures generated using the income approach as GDI (<strong>G</strong>ross <strong>D</strong>omestic <strong>I</strong>ncome) data. Let’s see how the theoretical 1:1 relationship holds up in practice (data from <a class="reference external" href="https://fred.stlouisfed.org/series/GDI">FRED</a>):</p>
 </section>
 <section id="coding-exercise-data-generation-gdp-computation-approaches">
-<h3><em><strong>CODING EXERCISE: DATA GENERATION &amp; GDP COMPUTATION APPROACHES</strong></em><a class="headerlink" href="#coding-exercise-data-generation-gdp-computation-approaches" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: DATA GENERATION &amp; GDP COMPUTATION APPROACHES</strong></em><a class="headerlink" href="#coding-exercise-data-generation-gdp-computation-approaches" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># required imports: </span>
@@ -1317,7 +1318,7 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="discussion-9">
-<h3><em><strong>DISCUSSION 9:</strong></em><a class="headerlink" href="#discussion-9" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 9:</strong></em><a class="headerlink" href="#discussion-9" title="Permalink to this heading">#</a></h3>
 <p>Thus, in <em>practice</em>, GDP measurements (and data more generally) generated through different approaches can differ substantially.</p>
 <ul class="simple">
 <li><p>And, while a real-life example is not readily available, one could imagine how selectively using GDP data generated by different approaches could be a means to exaggerate an economic conclusion:</p>
@@ -1329,7 +1330,7 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="id2">
-<h3><em><strong>1.5. - CONCLUSION:</strong></em><a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>1.5. - CONCLUSION:</strong></em><a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>As a final note, when a data generation approach is offered, you can also attempt to generate a data resource yourself:</p>
 <ul class="simple">
 <li><p>While this practice is likely one of the strongest forms of data validation possible, it also is limited by varying degrees of applicablity; your ability to do so is contingent on the availability of the supporting/underlying datasets - e.g., you likely wouldn’t be able to attempt this practice for a behavioral experiment, a mass measurement project like GDP, etc.</p></li>
@@ -1339,7 +1340,7 @@ title="Print to PDF"
 </section>
 </section>
 <section id="chapter-takeaways">
-<h2>1.6. <em>Chapter Takeaways</em><a class="headerlink" href="#chapter-takeaways" title="Permalink to this headline">#</a></h2>
+<h2>1.6. <em>Chapter Takeaways</em><a class="headerlink" href="#chapter-takeaways" title="Permalink to this heading">#</a></h2>
 <ol class="simple">
 <li><p>When identifying a dataset to work with, remember that usability is not the only criterion of interest — always traceback each resource’s original author and verify that author’s credibility.</p></li>
 <li><p>Always consider the incentives and intended purpose of the work through which data is acquired; doing so can help you identify a reliable data resource more quickly, while also foreshadowing implications for the data itself (and your research should you use it).</p></li>

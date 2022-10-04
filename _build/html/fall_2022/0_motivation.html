@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Chapter 0 - Why do we need robust data? &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
     
@@ -34,6 +34,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -55,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Chapter 1 - Data Sourcing" href="1_dataSourcing.html" />
     <link rel="prev" title="Welcome to TAML!" href="../intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -586,12 +587,12 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="chapter-0-why-do-we-need-robust-data">
-<h1>Chapter 0 - Why do we need robust data?<a class="headerlink" href="#chapter-0-why-do-we-need-robust-data" title="Permalink to this headline">#</a></h1>
+<h1>Chapter 0 - Why do we need robust data?<a class="headerlink" href="#chapter-0-why-do-we-need-robust-data" title="Permalink to this heading">#</a></h1>
 <div>
 <img src="./imgs/xkcd.png" width="500"/>
 <figcaption><em>Garbage in, garbage out...</em></figcaption>
 <div><section id="chapter-prerequisites-python-imports">
-<h2><em><strong>Chapter prerequisites: Python imports</strong></em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this headline">#</a></h2>
+<h2><em><strong>Chapter prerequisites: Python imports</strong></em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this heading">#</a></h2>
 <p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -603,7 +604,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="what-s-the-deal-with-data">
-<h2>What’s the deal with data?<a class="headerlink" href="#what-s-the-deal-with-data" title="Permalink to this headline">#</a></h2>
+<h2>What’s the deal with data?<a class="headerlink" href="#what-s-the-deal-with-data" title="Permalink to this heading">#</a></h2>
 <p>Before we start exploring how to wrangle real-life, messy data, it’s key to understand why we would want to do so. Motivating the need for robust data can help us make decisions on how to generate, process, and interpret data.</p>
 <p>Nowadays, we often hear stories of analysis gone awry. Misapplication of cutting-edge technologies is all too common (e.g., machine learning’s <a class="reference external" href="https://www.wired.com/story/machine-learning-reproducibility-crisis/">reproducibility crisis</a>), but proper analytic techniques implemented in the context of flawed data can also lead to faulty conclusions throughout a research pipeline.</p>
 <p>Data can be flawed in many ways. A particularly salient example of data flaws are <em>biased datasets</em>. Some of the most common biases you’ll find in data include:</p>
@@ -643,7 +644,7 @@ title="Print to PDF"
 <p>Data bias is just one of many ways a dataset can lack robustness. But, before we learn how to create robust datasets, we need to define what robust data is.</p>
 </section>
 <section id="defining-robust-data">
-<h2>Defining robust data<a class="headerlink" href="#defining-robust-data" title="Permalink to this headline">#</a></h2>
+<h2>Defining robust data<a class="headerlink" href="#defining-robust-data" title="Permalink to this heading">#</a></h2>
 <p>While the need for quality data may be apparent, what attributes such data would possess is not immediately obvious.</p>
 <p>What would an “ideal” dataset look like to you? How would you collect it?</p>
 <div>
@@ -659,7 +660,7 @@ title="Print to PDF"
 <p>Then, when we think about data robustness, it can be useful to think about it as being “robust to analysis” or not. When we define data robustness this way, are there additional ideal dataset qualities you can think of?</p>
 </section>
 <section id="a-working-definition">
-<h2>A working definition<a class="headerlink" href="#a-working-definition" title="Permalink to this headline">#</a></h2>
+<h2>A working definition<a class="headerlink" href="#a-working-definition" title="Permalink to this heading">#</a></h2>
 <p>Ultimately, the exact definition of robust data are going to be dependent on your field of research and/or your particular application. However, some key considerations in any defintion include:</p>
 <ul class="simple">
 <li><p>Data sourcing (which can lead to biased data, as previously dicussed)</p></li>
@@ -668,7 +669,7 @@ title="Print to PDF"
 </ul>
 <p>In this workshop, we’re going to be exploring how each one of these considerations can impact the creation and analysis of US GDP (<strong>G</strong>ross <strong>D</strong>omestic <strong>P</strong>roduct) data. For some quick interactive definitions of these terms, take a look at the code blocks below. Otherwise, feel free to move onto the next chapter to learn some more about GDP and typical GDP data before jumping in.</p>
 <section id="data-sourcing-example">
-<h3><em><strong>Data sourcing example:</strong></em><a class="headerlink" href="#data-sourcing-example" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>Data sourcing example:</strong></em><a class="headerlink" href="#data-sourcing-example" title="Permalink to this heading">#</a></h3>
 <p><em>Data sourcing</em> refers to the process of finding, assessing, and ultimately selecting a data resource to work with (be it a specific dataset, a wider database, or a third-party data vendor). Decisions by the curator of a data resource can impact the availability, representativeness, structure, and other critical attributes of your employed data — which ultimately can influence analysis . Let’s see an example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -711,7 +712,7 @@ title="Print to PDF"
 <p><strong>Discussion</strong>: Based on the generated chart, if we were to compute the mean/median salary for a data science job in 2020, what kind of issues might we be overlooking? Is there anything fundamentally wrong with a mean/median calculation, or is there an issue with the dataset we chose to use? How might a different data source rectify these issues?</p>
 </section>
 <section id="data-continuity-example">
-<h3><em><strong>Data continuity example:</strong></em><a class="headerlink" href="#data-continuity-example" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>Data continuity example:</strong></em><a class="headerlink" href="#data-continuity-example" title="Permalink to this heading">#</a></h3>
 <p><em>Data continuity</em> refers the completeness of the chosen data source across a given dimension of analysis. A common dimension for evaluating data continuity is time as with time series data — if we would like to conduct biweekly analysis for a given metric for a specific year, a dataset with 26 appropriately-spaced and populated entries would be continuous with respect to time.</p>
 <p>Although time is an intuitive dimension, it is not the only one. Datasets can be continuous with respect to color, location, price, etc. — the evaluation depends on your desired criteria of analysis. Incomplete data can limit the scope and representativeness of your analysis, and methods to rectify incomplete data (e.g., impute missing values) can also impact your analysis. Let’s see an example:</p>
 <div class="cell docutils container">
@@ -779,7 +780,7 @@ title="Print to PDF"
 <p><strong>Discussion</strong>: Based on the scatter plot, is the April temperature data continuous? If we were trying to conduct some analysis on the April temperature data, how might the (lack of) data continuity affect us? Could we impute the points of discontinuity? How? Would one imputation method be better than others? Why?</p>
 </section>
 <section id="data-timeliness-example">
-<h3><em><strong>Data timeliness example:</strong></em><a class="headerlink" href="#data-timeliness-example" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>Data timeliness example:</strong></em><a class="headerlink" href="#data-timeliness-example" title="Permalink to this heading">#</a></h3>
 <p><em>Data timeliness</em> refers to the proximity of utilized data to the present moment and relevant analysis and projections. Establishing data timeliness means utlizing datasets that are near-contemporaneous with your timeframe of analysis; i.e., NLP analysis on the most prominent topics in 1970’s science textbooks should not use a text corpus of 1950’s science textbooks.</p>
 <p>In the case of research motivating predictions and decision-making, data timeliness is especially relevant — e.g., predicting potential wildfire hotspots demands continuously-updated and near real-time data. To that end, data sourcing and data continuity assessments of available resources become particularly important.</p>
 <p>Although data timeliness may appear to be a structural product of data sourcing and continuity, we’ll later discuss methods to guarantee data timeliness (like developing a coincident/leading indicators) to ensure your data and analytic products are up-to-date.</p>
@@ -837,12 +838,12 @@ title="Print to PDF"
 </section>
 </section>
 <section id="workshop-essentials-gdp-definitions-datasets">
-<h2>Workshop essentials: GDP definitions &amp; datasets<a class="headerlink" href="#workshop-essentials-gdp-definitions-datasets" title="Permalink to this headline">#</a></h2>
+<h2>Workshop essentials: GDP definitions &amp; datasets<a class="headerlink" href="#workshop-essentials-gdp-definitions-datasets" title="Permalink to this heading">#</a></h2>
 <div>
-<img src="./imgs/gdp_calculation.gif" width="350"/>
+<img src="./imgs/gdp_calculation.gif" width="700"/>
 <figcaption><em>One of economics' greatest hits!</em><figcaption>
 </div><section id="defintion-and-usage">
-<h3><em><strong>Defintion and usage:</strong></em><a class="headerlink" href="#defintion-and-usage" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>Defintion and usage:</strong></em><a class="headerlink" href="#defintion-and-usage" title="Permalink to this heading">#</a></h3>
 <p>For the rest of this workshop, we’ll be exploring topics in the context of US GDP (<strong>G</strong>ross <strong>D</strong>omestic <strong>P</strong>roduct) data. In case you haven’t worked with GDP data before, or you just want a quick refresher, here’s a rundown:</p>
 <ul class="simple">
 <li><p><em>Definition:</em> GDP is “the total monetary or market value of all the finished goods and services produced within a country’s borders in a specific time period.</p></li>
@@ -858,7 +859,7 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="your-typical-gdp-dataset">
-<h3><em><strong>Your “typical” GDP dataset:</strong></em><a class="headerlink" href="#your-typical-gdp-dataset" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>Your “typical” GDP dataset:</strong></em><a class="headerlink" href="#your-typical-gdp-dataset" title="Permalink to this heading">#</a></h3>
 <p>What makes GDP an ideal statistic to wrangle with when learning to deal with “real-life” data? Let’s take a look:</p>
 <ul class="simple">
 <li><p><em>Qualities of GDP Data(sets):</em></p>

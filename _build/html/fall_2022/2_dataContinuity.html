@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Chapter 2 - Data Continuity &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
     
@@ -34,6 +34,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -55,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Chapter 3 - Data Timeliness" href="3_dataTimeliness.html" />
     <link rel="prev" title="Chapter 1 - Data Sourcing" href="1_dataSourcing.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="en">
     
 
     <!-- Google Analytics -->
@@ -994,12 +995,12 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-data-continuity">
-<h1>Chapter 2 - Data Continuity<a class="headerlink" href="#chapter-2-data-continuity" title="Permalink to this headline">#</a></h1>
+<h1>Chapter 2 - Data Continuity<a class="headerlink" href="#chapter-2-data-continuity" title="Permalink to this heading">#</a></h1>
 <div>
 <img src="./imgs/mind_the_gap.png" width="750"/>
 <figcaption><em>Not every data gap is as obvious as this one...</em></figcaption>
 <div><section id="chapter-prerequisites-python-imports">
-<h2><em><strong>Chapter prerequisites: Python imports</strong></em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this headline">#</a></h2>
+<h2><em><strong>Chapter prerequisites: Python imports</strong></em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this heading">#</a></h2>
 <p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1016,7 +1017,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="preface-consequences-of-following-data-sourcing-best-practices">
-<h2>2.0. Preface: Consequences of following data sourcing best practices<a class="headerlink" href="#preface-consequences-of-following-data-sourcing-best-practices" title="Permalink to this headline">#</a></h2>
+<h2>2.0. Preface: Consequences of following data sourcing best practices<a class="headerlink" href="#preface-consequences-of-following-data-sourcing-best-practices" title="Permalink to this heading">#</a></h2>
 <p>If you follow all of the data sourcing best practices previously discussed (click <span class="xref myst">here</span> if you haven’t reviewed data sourcing yet!), it’s likely that you’ll encounter a data resource that is less immediately “usable” than we might hope.</p>
 <p>Although this is a natural consequence of prioritizing factors like data author credibility and reputable data generation approaches over usability, it’s still an unfortunate obstacle to analysis. Besides administrative barriers like paywalls, institutional access, one of the most common obstacles we’ll encounter when using responsibly-sourced, real-life data is data gaps, or a lack of <em>data continuity.</em></p>
 <div>
@@ -1024,7 +1025,7 @@ title="Print to PDF"
 <figcaption><em>When a delightful children's classic goes data science!</em></figcaption>
 <div></section>
 <section id="defining-data-continuity">
-<h2>2.1. Defining “data continuity”<a class="headerlink" href="#defining-data-continuity" title="Permalink to this headline">#</a></h2>
+<h2>2.1. Defining “data continuity”<a class="headerlink" href="#defining-data-continuity" title="Permalink to this heading">#</a></h2>
 <p><em>Data continuity</em> refers to the completeness of a chosen data resource across a given dimension of analysis. Specific data points or ranges of your dimension of analysis where the chosen data resource is missing/incomplete are referred to as <em>data gaps.</em></p>
 <p>Pertinent sub-issues in the practice of addressing data (dis)continuity include data gap:</p>
 <ul class="simple">
@@ -1034,16 +1035,16 @@ title="Print to PDF"
 </ul>
 <p>Of these issues, <em>data gap remediation</em> will be the primary focus of this chapter.</p>
 <section id="discussion-1">
-<h3><em><strong>DISCUSSION 1:</strong></em><a class="headerlink" href="#discussion-1" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 1:</strong></em><a class="headerlink" href="#discussion-1" title="Permalink to this heading">#</a></h3>
 <p>Data gap identification often occurs as an (un)intended consequence of attempted analysis, and data gap comprehension can be performed ad hoc using practices similar to those discussed in the data sourcing chapter. Of course, properly addressing each of these sub-issues is important and can be tricky in its own right (e.g., unintentionally writing code that generates figures which mask data gaps). If you’re concerned with your handling of these sub-issues, I encourage you to <a class="reference external" href="https://library.stanford.edu/research/software-and-services-data-science/schedule-consulting-appointment-contact-us">schedule a consult with SSDS</a>.</p>
 <p>And, a final caveat: in line with our running examples using GDP data, we’ll almost entirely be discussing data gap remediation in the context of timeseries data. Data gaps can look very different with regard to other dimensions and types of data (e.g., lack of participants representing population <em>X</em> in a sample, missing attributes for an entry in a specific timeslice of panel data) - however, the thinking practied during our exploration of <em>how remedying data gaps can impact downstream analysis</em> should be useful nonetheless.</p>
 </section>
 </section>
 <section id="remediating-data-gaps">
-<h2>2.2. Remediating data gaps<a class="headerlink" href="#remediating-data-gaps" title="Permalink to this headline">#</a></h2>
+<h2>2.2. Remediating data gaps<a class="headerlink" href="#remediating-data-gaps" title="Permalink to this heading">#</a></h2>
 <p>When working with messy, real-life data, data gap remediation is one of the practices with the most tangible effects: performed correctly, it enables for an accurate and full scope of analysis. However, when done incorrectly, it can skew results and at worse, invalidate conclusions. Thus, taking the time to (1) systematize and (2) broaden our understanding of the exercise is well-advised.</p>
 <section id="discussion-2">
-<h3><em><strong>DISCUSSION 2:</strong></em><a class="headerlink" href="#discussion-2" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 2:</strong></em><a class="headerlink" href="#discussion-2" title="Permalink to this heading">#</a></h3>
 <p>Remediation practices can broadly be classified into two categories:</p>
 <ol class="simple">
 <li><p><em>Data gap omission</em> - the exclusion any data gaps from your scope of analysis, limiting any results and conclusions to the present data ranges.</p></li>
@@ -1064,7 +1065,7 @@ title="Print to PDF"
 <div><p>Hopefully you noticed the conspicuous asterisk prefixing the “Disadvantages” sub-section for the “Data gap filling” entry in the table (if not, you can take a look now - the notebook isn’t going anywhere 🙂). As we continue on, I hope to convince that one of the noted disadvantages (<em>“can impact downstream analysis in non-obvious ways”</em>) can at least be partially mitigated by intelligent and intentional design.</p>
 </section>
 <section id="discussion-3">
-<h3><em><strong>DISCUSSION 3:</strong></em><a class="headerlink" href="#discussion-3" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 3:</strong></em><a class="headerlink" href="#discussion-3" title="Permalink to this heading">#</a></h3>
 <p>However, prior to that discussion, we first can further systematize our use of data remediation techniques by dividing data gap filling strategies into two types of fill(ing) methods:</p>
 <ul class="simple">
 <li><p><em>Exogenous</em> fill methods utilize an external data source to populate some or all of the discontinuities in your master dataset.</p></li>
@@ -1073,7 +1074,7 @@ title="Print to PDF"
 <p>Here are some quick definitions-through-code:</p>
 </section>
 <section id="coding-exercise-endo-exo-genous-data-fill-examples">
-<h3><em><strong>CODING EXERCISE: (ENDO)(EXO)GENOUS DATA FILL EXAMPLES</strong></em><a class="headerlink" href="#coding-exercise-endo-exo-genous-data-fill-examples" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: (ENDO)(EXO)GENOUS DATA FILL EXAMPLES</strong></em><a class="headerlink" href="#coding-exercise-endo-exo-genous-data-fill-examples" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># shared imports: </span>
@@ -1177,7 +1178,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="discussion-4">
-<h3><em><strong>DISCUSSION 4:</strong></em><a class="headerlink" href="#discussion-4" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 4:</strong></em><a class="headerlink" href="#discussion-4" title="Permalink to this heading">#</a></h3>
 <p>Typically, when presented with two separate methods, classes, or ideology, we’ve considered the merits and drawbacks of employing either to help develop criteria for using each one. However, unlike a division like data gap filling versus data gap omission, exogenous and endogenous fill methods are not inherently incompatible.</p>
 <p>Depending on your data’s structure and attributes as well as the nature of the discontinuities, you could very well employ <em>both</em> exogenous and endogenous fill methods to remediate different data gaps in the same dataset! This follows from both remediation strategies sharing a primary purpose: to provide accurate estimations within data gaps to enable broadened downstream analysis.</p>
 <div>
@@ -1188,19 +1189,19 @@ title="Print to PDF"
 </section>
 </section>
 <section id="issues-with-exogenous-fill-methods">
-<h2>2.3. Issues with exogenous fill methods<a class="headerlink" href="#issues-with-exogenous-fill-methods" title="Permalink to this headline">#</a></h2>
+<h2>2.3. Issues with exogenous fill methods<a class="headerlink" href="#issues-with-exogenous-fill-methods" title="Permalink to this heading">#</a></h2>
 <p>Exogenous fill methods are (generally) less statistically-oriented than their endogenous counterparts. Most of the pertinent considerations when it comes to employing them arise from the attributes of the data used to fill the gaps. Two potential issues that commonly arise include:</p>
 <ol class="simple">
 <li><p><em>Need for data resampling</em></p></li>
 <li><p><em>Mis-alignment of data point occurence</em></p></li>
 </ol>
 <section id="discussion-5">
-<h3><em><strong>DISCUSSION 5:</strong></em><a class="headerlink" href="#discussion-5" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 5:</strong></em><a class="headerlink" href="#discussion-5" title="Permalink to this heading">#</a></h3>
 <p><em>Data resampling</em> commonly refers to the practice of drawing repeated sub-samples from an original data source, but in the context of timeseries data, it can also denote the technique of <strong>(dis)aggregating data points to estimate data values on a different time scale than the original source.</strong></p>
 <p>For example, we could <em>downsample</em> (i.e., reduce the resolution) of a monthly GDP dataset to provide a quarterly GDP estimate or we could <em>upsample</em> (i.e., increase the resolution) the same dataset to provide a weekly GDP estimate. Let’s see exactly what I mean:</p>
 </section>
 <section id="coding-exercise-resampling-exogenous-data-fills">
-<h3><em><strong>CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS</strong></em><a class="headerlink" href="#coding-exercise-resampling-exogenous-data-fills" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS</strong></em><a class="headerlink" href="#coding-exercise-resampling-exogenous-data-fills" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># required imports &amp; set-up: </span>
@@ -1265,7 +1266,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="discussion-6">
-<h3><em><strong>DISCUSSION 6:</strong></em><a class="headerlink" href="#discussion-6" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 6:</strong></em><a class="headerlink" href="#discussion-6" title="Permalink to this heading">#</a></h3>
 <p>We’re almost ready to employ an exogenous data fill to patch up our QoQ GDP data! But, a critical issue linked to exogenous filling methods become apparent - <strong>the need for data resampling.</strong> Here, since we are using monthly GDP data to fill its quarterly counterpart, we’ll need to <em>downsample</em> the monthly GDP data so it occurs on a quarterly basis. The key question that first must be answered is <em>how do we conduct the resampling?</em></p>
 <p>For the three monthly measures contributing to each quarterly measurement, we could downsample the monthly data by:</p>
 <ol class="simple">
@@ -1279,7 +1280,7 @@ title="Print to PDF"
 <figcaption><em>Definitely true fun fact: "The Exogenous Data Filler" was considered by Rodin, but his parents said no.</em></figcaption>
 <div></section>
 <section id="discussion-7">
-<h3><em><strong>DISCUSSION 7:</strong></em><a class="headerlink" href="#discussion-7" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 7:</strong></em><a class="headerlink" href="#discussion-7" title="Permalink to this heading">#</a></h3>
 <p>Hopefully you’ve mulled and arrived at a satisfactory downsampling method! My chosen method follows from this line of thinking:</p>
 <ol class="simple">
 <li><p>For <em>both</em> the monthly and quarterly data, data point values are meant to represent <em>GDP at that specific point in time</em>;</p></li>
@@ -1289,7 +1290,7 @@ title="Print to PDF"
 <p>In short, my downsampling method is a mask - no statistical computations required! Novice researchers will often suggest the average as the go-to downsampling regime, and while useful, averaging is not at all universal. In fact, it would be less accurate than the mask suggested here!</p>
 </section>
 <section id="coding-exercise-resampling-exogenous-data-fills-cont">
-<h3><em><strong>CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS (CONT.)</strong></em><a class="headerlink" href="#coding-exercise-resampling-exogenous-data-fills-cont" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS (CONT.)</strong></em><a class="headerlink" href="#coding-exercise-resampling-exogenous-data-fills-cont" title="Permalink to this heading">#</a></h3>
 <p>Let’s go ahead and conduct the resampling and fill the data before we close out our discussion of exogenous fill methods:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1333,7 +1334,7 @@ title="Print to PDF"
 <p>Now we have a continuous dataset for quarterly GDP analysis - huzzah! Celebrate and be happy 🎉!</p>
 </section>
 <section id="discussion-8">
-<h3><em><strong>DISCUSSION 8:</strong></em><a class="headerlink" href="#discussion-8" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 8:</strong></em><a class="headerlink" href="#discussion-8" title="Permalink to this heading">#</a></h3>
 <p>Let’s recap exogenous data fills before we celebrate too hard (data scientists are reknowned partiers, after all):</p>
 <ul class="simple">
 <li><p>In general, implementing an exogenous data fill is <em>programmatically straightforward</em> (e.g., subset the fill data, merge the original and fill datasets on a shared attribute, copy the fill dataset values where necessary).</p></li>
@@ -1346,7 +1347,7 @@ title="Print to PDF"
 <div> <p>As it would be, in our working example of monthly-to-quarterly GDP, it was a conveninent construction that both our original and fill datasets reported GDP values on coincident dates. But what if our datasets had looked something like this?</p>
 <center> 
 <strong>Table 4. Mis-aligned Quarterly and Monthly GDP Dataset Slices </strong><br><br>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Dateset attribute</strong></p></th>
 <th class="head"><p>Value 1</p></th>
@@ -1404,11 +1405,11 @@ title="Print to PDF"
 </section>
 </section>
 <section id="issues-with-endogenous-fill-methods">
-<h2>2.4. Issues with endogenous fill methods<a class="headerlink" href="#issues-with-endogenous-fill-methods" title="Permalink to this headline">#</a></h2>
+<h2>2.4. Issues with endogenous fill methods<a class="headerlink" href="#issues-with-endogenous-fill-methods" title="Permalink to this heading">#</a></h2>
 <p>Like the exogenous counterpart, endogenous fill methods have their own critical issues to consider and be aware of.</p>
 <p>As a refresher, an endogenous fill (also called “interpolation”) method refers to: “the application of a statistical method to the present points in a dataset to generate estimated values for some or all of the discontinuities present.”</p>
 <section id="discussion-9">
-<h3><em><strong>DISCUSSION 9:</strong></em><a class="headerlink" href="#discussion-9" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 9:</strong></em><a class="headerlink" href="#discussion-9" title="Permalink to this heading">#</a></h3>
 <p>Key considerations for endogenous fill methods, in contrast to exogenous ones, are typically ones of <strong>design</strong> rather than <strong>implementation.</strong> For instance, one must consider:</p>
 <p>1. <em>What is the best interpolation method for my data?</em></p>
 <ul class="simple">
@@ -1422,21 +1423,21 @@ title="Print to PDF"
 <p>There are also implementation considerations (like is your interpolation method an order-independent or dependent operation, and how does that affect your optimal programming of the method) which we won’t discuss here (<a class="reference internal" href="appendix_vectorize.html"><span class="doc std std-doc">but maybe later!</span></a> - see “Discussion 3”) but which are also notable issues.</p>
 </section>
 <section id="discussion-10">
-<h3><em><strong>DISCUSSION 10:</strong></em><a class="headerlink" href="#discussion-10" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 10:</strong></em><a class="headerlink" href="#discussion-10" title="Permalink to this heading">#</a></h3>
 <p>Which interpolation method is most appropriate for your data is unfortunately context-dependent (with much of that context being informed by your dataset attributes/structure, as we saw in <em>Discussion 6</em>). Similarly, how utilizing a given method will impact downstream analysis will be dependent upon numerous factors including the original dataset, interpolation method, nature of future analysis, etc.</p>
 <p>As such, it may not be particularly fruitful to attempt to abstractly describe the potential downstream impact associated with using each endogenous fill method in every possible research project. Rather, we can more deeply examine the interactions between specific data transformation methods and analysis in just one generalizable research context to get an idea of the generic flow at hand—which is precisely what we’ll do in the upcoming section.</p>
 </section>
 </section>
 <section id="consequences-of-data-filling">
-<h2>2.5. Consequences of data filling<a class="headerlink" href="#consequences-of-data-filling" title="Permalink to this headline">#</a></h2>
+<h2>2.5. Consequences of data filling<a class="headerlink" href="#consequences-of-data-filling" title="Permalink to this heading">#</a></h2>
 <p>At a high-level, the capacity for data filling methods to influence downstream analysis is apparent: data fill methods change data values (from <code class="docutils literal notranslate"><span class="pre">NaN,</span> <span class="pre">NA</span></code> to processable numbers, text, etc.), and those data values are the inputs to analysis. Change the inputs, and the outputs of the analysis could change.</p>
 <p>But, being able to forecast how and why such downstream changes will take place is an complex and context-dependent skill. A great way to develop such skills is practice, practice, practice - let’s do that!</p>
 <section id="discussion-11-1">
-<h3><em><strong>DISCUSSION 11.1:</strong></em><a class="headerlink" href="#discussion-11-1" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 11.1:</strong></em><a class="headerlink" href="#discussion-11-1" title="Permalink to this heading">#</a></h3>
 <p>Suppose you’re a social science reseracher, and your supervising PI (principal investigator) wishes to predict US GDP using a machine learning algorithm that intakes a bunch of economic indicators, one of which is average gas prices (AGP). As the wise researcher you are, you caution that it would be a good idea to evaluate whether GDP and gas prices exhibit a strong correlative relationship first before throwing it into a machine learning routine. Mildly miffed that they didn’t think of that first, your PI sends you off to do just that.</p>
 </section>
 <section id="coding-exercise-codf-data-import">
-<h3><em><strong>CODING EXERCISE: CoDF - DATA IMPORT</strong></em><a class="headerlink" href="#coding-exercise-codf-data-import" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: CoDF - DATA IMPORT</strong></em><a class="headerlink" href="#coding-exercise-codf-data-import" title="Permalink to this heading">#</a></h3>
 <p>Here’s the data you’ll be working with:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1468,7 +1469,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="discussion-11-2">
-<h3><em><strong>DISCUSSION 11.2:</strong></em><a class="headerlink" href="#discussion-11-2" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 11.2:</strong></em><a class="headerlink" href="#discussion-11-2" title="Permalink to this heading">#</a></h3>
 <p>One way to quickly assess the strength of the relationship between two variables is to run a OLS (<strong>O</strong>rdinary <strong>L</strong>east <strong>S</strong>quares) regression between them. For the uninitated, a simple OLS regression attempts to model one varible as a linear function of the other (e.g., $ y = \beta_1  x + \beta_0 $). Here, our $y$-variable will be GDP and our predictor $x$-variable will be average gas price (AGP).</p>
 <center>
 <div>
@@ -1485,7 +1486,7 @@ title="Print to PDF"
 <p>You decide to use these metrics, $R^2$ and $\beta_1$’s $p$-value as your assessment criteria. Results, here we come!</p>
 </section>
 <section id="coding-exercise-codf-data-wrangling">
-<h3><em><strong>CODING EXERCISE: CoDF - DATA WRANGLING</strong></em><a class="headerlink" href="#coding-exercise-codf-data-wrangling" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: CoDF - DATA WRANGLING</strong></em><a class="headerlink" href="#coding-exercise-codf-data-wrangling" title="Permalink to this heading">#</a></h3>
 <p>First, we need to make sure we are looking at the same timeframe in each of our datasets (e.g., use 2011 average gas prices to predict 2011 GDP). Here’s some quick functionality to do just that:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1530,7 +1531,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="coding-exercise-codf-ols-regression">
-<h3><em><strong>CODING EXERCISE: CoDF - OLS REGRESSION</strong></em><a class="headerlink" href="#coding-exercise-codf-ols-regression" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: CoDF - OLS REGRESSION</strong></em><a class="headerlink" href="#coding-exercise-codf-ols-regression" title="Permalink to this heading">#</a></h3>
 <p>Great, our datasets are now both ranging from the beginning of 2008 to the beginning of 2012. It’s time to run some regressions!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1573,11 +1574,11 @@ Number of samples (GDP data points): 49
 <p>Why the mis-match? If you were paying extra close attention during the data import stage, you might’ve seen that these gas price averages are computed on a <em>weekly</em> basis whereas our GDP data is a <em>monthly</em> gdp estimate! There’s (on average) 4.3 weeks in a month, and accordingly, about $213/49 ≈ 4.35$ gas price observations for each GDP observation.</p>
 </section>
 <section id="discussion-11-3">
-<h3><em><strong>DISCUSSION 11.3:</strong></em><a class="headerlink" href="#discussion-11-3" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 11.3:</strong></em><a class="headerlink" href="#discussion-11-3" title="Permalink to this heading">#</a></h3>
 <p>Without fixing this mis-match, we can’t run the regression? What to do? Data filling to the rescue!</p>
 <p>A quick aside: you might find it a little strange that I’m using the term “data filling” here; after all, both datasets are technically continuous - but that’s only to their respective reporting frequencies. If we consider both datasets on the weekly frequency, our data looks something like this:</p>
 <center> 
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Dateset attribute</strong></p></th>
 <th class="head"><p>Value 1</p></th>
@@ -1632,7 +1633,7 @@ Number of samples (GDP data points): 49
 <p>Then, the appearance of data discontinuities is obvious! Truth be told, implementing data <em>transformation</em> methods might be a more appropriate phrasing for this exercise rather than strictly data <em>filling</em> methods, but this logic can (and should!) be applied in either context! Caveat aside, it’s back to the exercise!</p>
 </section>
 <section id="discussion-11-4">
-<h3><em><strong>DISCUSSION 11.4:</strong></em><a class="headerlink" href="#discussion-11-4" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 11.4:</strong></em><a class="headerlink" href="#discussion-11-4" title="Permalink to this heading">#</a></h3>
 <p>In this context, in order to manipulate our data so it’s regression-compatible (i.e., we have the same number of $x$ and $y$ data points), there are number of specific data filling (or transformation) technieues we could apply! Those techniques can first be divided into whether they belong to the strategy of <strong>upsampling</strong> our GDP data, or <strong>downsampling</strong> our gas prices data:</p>
 <p>Strategy 1: <em>Upsampling GDP data</em></p>
 <ul class="simple">
@@ -1649,7 +1650,7 @@ Number of samples (GDP data points): 49
 <p>Which strategy is better? Which technique is best? Well, I’m not sure - so, let’s try a technique from each strategy!</p>
 </section>
 <section id="coding-exercise-codf-data-wrangling-cont">
-<h3><em><strong>CODING EXERCISE: CoDF - DATA WRANGLING (CONT.)</strong></em><a class="headerlink" href="#coding-exercise-codf-data-wrangling-cont" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: CoDF - DATA WRANGLING (CONT.)</strong></em><a class="headerlink" href="#coding-exercise-codf-data-wrangling-cont" title="Permalink to this heading">#</a></h3>
 <p>First, let’s convert the ‘DATE’ column in each DataFrame from the <code class="docutils literal notranslate"><span class="pre">string</span></code> type to a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> type - this will make it easier to perform either resampling.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1673,7 +1674,7 @@ Number of samples (GDP data points): 49
 </div>
 </section>
 <section id="coding-exercise-codf-resampling-data">
-<h3><em><strong>CODING EXERCISE: CoDF - RESAMPLING DATA</strong></em><a class="headerlink" href="#coding-exercise-codf-resampling-data" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: CoDF - RESAMPLING DATA</strong></em><a class="headerlink" href="#coding-exercise-codf-resampling-data" title="Permalink to this heading">#</a></h3>
 <p>Now let’s re-sample our data, both ways!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1707,7 +1708,7 @@ Number of samples (GDP data points): 49
 </div>
 </section>
 <section id="coding-exercise-codf-ols-regression-redux">
-<h3><em><strong>CODING EXERCISE: CoDF - OLS REGRESSION REDUX</strong></em><a class="headerlink" href="#coding-exercise-codf-ols-regression-redux" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>CODING EXERCISE: CoDF - OLS REGRESSION REDUX</strong></em><a class="headerlink" href="#coding-exercise-codf-ols-regression-redux" title="Permalink to this heading">#</a></h3>
 <p>You made it! It’s finally time to run our regressions - let’s go!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1757,7 +1758,7 @@ R^2 for the GDP ~ AGP model, reporting on a yearly frequency: 0.5965
 </div>
 </section>
 <section id="discussion-11-5">
-<h3><em><strong>DISCUSSION 11.5:</strong></em><a class="headerlink" href="#discussion-11-5" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>DISCUSSION 11.5:</strong></em><a class="headerlink" href="#discussion-11-5" title="Permalink to this heading">#</a></h3>
 <p>Wow! That’s a pretty intense jump from low 40%’s $R^2$ figures for our models on weekly, monthly, and quarterly data to nearly a 60% $R^2$-figure for our yearly model! What gives?</p>
 <p>While this is not necessarily universal, we can think about what generally happens on a data-wise level when we apply a re-sampling technique:</p>
 <p><em><strong>DOWNSAMPLING:</strong></em></p>
@@ -1787,7 +1788,7 @@ R^2 for the GDP ~ AGP model, reporting on a yearly frequency: 0.5965
 <p><em>Key question:</em> Does this reason explain why weekly $R^2$ is the lowest $R^2$ obtained for any of the regressions?</p>
 </section>
 <section id="conclusion">
-<h3><em><strong>2.5 - CONCLUSION:</strong></em><a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h3>
+<h3><em><strong>2.5 - CONCLUSION:</strong></em><a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
 <p>Though I could (and happily would!) talk about the potential downstream effects of re-sampling methods, our key takeaway is this:</p>
 <ul class="simple">
 <li><p>By applying any data transformation or fill method, we’re <em>implicitly re-weighting the analytic importance/consideration given to specific data points.</em></p></li>
@@ -1802,7 +1803,7 @@ R^2 for the GDP ~ AGP model, reporting on a yearly frequency: 0.5965
 </section>
 </section>
 <section id="chapter-takeaways">
-<h2>2.6. <em>Chapter Takeaways</em><a class="headerlink" href="#chapter-takeaways" title="Permalink to this headline">#</a></h2>
+<h2>2.6. <em>Chapter Takeaways</em><a class="headerlink" href="#chapter-takeaways" title="Permalink to this heading">#</a></h2>
 <ol class="simple">
 <li><p>For a general systemization, data remediation strategies can first be classifed as either <em>data gap omission</em> or <em>data gap filling</em>, and data gap filling techniques can further be divided into <strong>endogenous</strong> and <strong>exogenous</strong> fill methods.</p></li>
 <li><p>Exogenous fill techniques are often associated with the need for resampling or mis-alignment of original &amp; filling data points, while endogenous fill techniques demand consideration as to the appropriate scope and method of interpolation—use of either type should be accompanied by intelligent, intentional design and consistency with relevant dataset structure/attributes.</p></li>

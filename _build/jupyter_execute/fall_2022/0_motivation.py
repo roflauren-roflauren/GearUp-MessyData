@@ -250,7 +250,7 @@ plt.show()
 # ## Workshop essentials: GDP definitions & datasets
 
 # <div>
-# <img src="./imgs/gdp_calculation.gif" width="350"/>
+# <img src="./imgs/gdp_calculation.gif" width="700"/>
 # <figcaption><em>One of economics' greatest hits!</em><figcaption>
 # </div>
 
