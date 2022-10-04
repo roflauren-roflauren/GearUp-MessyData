@@ -8,7 +8,7 @@
 # <figcaption><em>If you're too busy to read the chapter, this is basically it!</em></figcaption>
 # <div>
 
-# #### ***Chapter Imports***
+# #### ***Chapter prerequisites: Python imports***
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
