@@ -7,11 +7,9 @@
 #   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 # </a>
 
-# <div>
-# <img src="./imgs/timeliness.png" width="500"/>
-# <div>
+# ![timeliness](./imgs/timeliness.png)
 
-# #### ***Chapter Imports***
+# #### *Chapter Imports*
 
 # No coding (or imports) are required for this chapter - yay!
 
@@ -25,7 +23,7 @@
 # 
 # *Note: The following discussion of data timeliness is most relevant to time series data. Limited applicability to other types of data should be noted.*
 
-# #### ***DISCUSSION 1:***
+# #### *DISCUSSION 1: TYPES OF DATA TIMELINESS PRACTICES*
 
 # Data timeliness practices can broadly be divided into two categories: 
 # 
@@ -55,10 +53,10 @@
 # 
 # Constructing a more timely estimate in this way is essentially an exercise in identifying a leading indicator and quantifying its relationship with your metric of interest:
 # 
-# <div>
-# <img src="../imgs/leading_indicator.png" width="500"/>
-# <figcaption><em>Leading indicators predict changes in a given signal.</em></figcaption>
-# <div>
+# 
+# ![leading](./imgs/leading_indicator.png)
+# 
+# *Leading indicators predict changes in a given signal.*
 
 # And best of all, this exercise is one we already have familiarity with! 
 # 

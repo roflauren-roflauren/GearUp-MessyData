@@ -7,12 +7,10 @@
 #   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 # </a>
 
-# <div>
-# <img src="./imgs/product-proliferation.png" width="750"/>
-# <figcaption><em>The modern data landscape has so much data...no, really—SO much data. Which data should you use?</em></figcaption>
-# <div>
+# ![product-proliferation](./imgs/product-proliferation.png)
+# *The modern data landscape has so much data...no, really—SO much data. Which data should you use?*
 
-# #### ***Chapter prerequisites: Python imports***
+# #### *Chapter prerequisites: Python imports*
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
@@ -64,23 +62,21 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 # ## 1.3. Deciding between multiple data authors
 
 # Look up "US GDP data" in your web browser of choice. 
-# 
-# <div>
-# <img src="./imgs/gdp_webquery.png" width="500"/>
-# <div> 
-# <br>
-# 
+
+# ![gdp-webquery](./imgs/gdp_webquery.png)
+
 # How many potential data sources can you find in just a minute? 10? 20? 100? Is one clearly better than the others? Despite looking up 'US GDP data,' are all sources providing you with the same values in their data stores? Which one would you use in what circumstances?
 # 
 # In a way, all data sourcing practices are trying to solve this exact problem: reasonably decide between multiple data authors. The issues we'll talk about later in this chapter and others are all, in some way, shape, or form, determined by who the data author is (even if it's yourself) and what decisions they chose to make when collecting and crafting the dataset. 
 # 
 # For now, let's explore a few different GDP datasets and consider which one we might choose and why:
 
-# #### ***CODING EXERCISE: SOURCING GDP DATA***
+# #### **CODING EXERCISE: SOURCING GDP DATA**
 
 # In[ ]:
 
 
+""" DATA SOURCING: DIFFERENT DATA AUTHORS """
 # importing some libraries: 
 import os                           # use: file management and access 
 import pandas as pd                 # use: data intake and manipulation 
@@ -89,10 +85,22 @@ import pandas as pd                 # use: data intake and manipulation
 # In[ ]:
 
 
-""" DATA SOURCING: DIFFERENT DATA AUTHORS """
+""" BINDER USERS: """
 # when I look up 'US GDP data', the first result is from the Bureau of Economic Advisors (BEA): 
-datasets_dir = os.path.dirname(os.getcwd()) + os.sep + 'sample_datasets' + os.sep 
-bea_data = pd.read_csv(datasets_dir + 'gdp_bea_q2_2022_adv.csv' , encoding='utf-8')
+# uncomment: bea_data = pd.read_csv('./sample_datasets/gdp_bea_q2_2022_adv.csv' , encoding='utf-8')
+
+
+# In[ ]:
+
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_bea_q2_2022_adv.csv # retrieve the dataset from remote storage on GitHub')
+bea_data = pd.read_csv("data/gdp_bea_q2_2022_adv.csv", encoding='utf-8')
+
+
+# In[ ]:
+
 
 # how's it structured? is it usable?
 print(bea_data.head(10))
@@ -103,7 +111,15 @@ print(bea_data.head(10))
 
 # I can also find more GDP data through other official-sounding organizations: 
 # e.g., GDP data from the St. Louis Federal Reserve (FRED): 
-fred_data = pd.read_csv(datasets_dir + 'gdp_fred.csv' , encoding='utf-8')
+
+""" BINDER USERS: """
+# uncomment: fred_data = pd.read_csv('./sample_datasets/gdp_fred.csv' , encoding='utf-8')
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_fred.csv # retrieve the dataset from remote storage on GitHub')
+fred_data = pd.read_csv("data/gdp_fred.csv" , encoding='utf-8')
+
 print(fred_data.head(10))
 
 
@@ -111,7 +127,15 @@ print(fred_data.head(10))
 
 
 # how about GDP data from a random website? here's some from macrotrends.net:
-macrotrends_data  = pd.read_csv(datasets_dir + 'gdp_macrotrends.csv', encoding='utf-8')
+
+""" BINDER USERS: """
+# uncomment: macrotrends_data = pd.read_csv('./sample_datasets/gdp_macrotrends.csv' , encoding='utf-8')
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_macrotrends.csv # retrieve the dataset from remote storage on GitHub')
+macrotrends_data = pd.read_csv("data/gdp_macrotrends.csv" , encoding='utf-8')
+
 print(macrotrends_data.head(10))
 
 
@@ -141,7 +165,7 @@ plt.xticks(rotation = 30, fontsize = 8)
 plt.scatter(fred_data_subset['DATE'], fred_data_subset['GDP'])
 
 
-# #### ***DISCUSSION 1:***
+# #### *DISCUSSION 1: USABILITY AS A DATA SOURCE METRIC*
 
 # From this quick exploration and visualization exercise, we can see that the FRED data is a timeseries dataset which appears relatively clean and ready for analysis - it contains only two columns: ```DATE``` and ```GDP```. You might be tempted to just go ahead and run with it. But, for official and/or frequently-used statistics in particular, it's worth taking a step back from usability during the data sourcing process. Why? 
 # 
@@ -155,7 +179,7 @@ plt.scatter(fred_data_subset['DATE'], fred_data_subset['GDP'])
 # 
 # Point 1 (i.e., using official/licensed data authors for choice statistics) is especially key for social science research (where less direct experimentation and independent data collection may be performed). For US GDP data, a quick web query of *"Who measures US GDP?"* informs us that the Bureau of Economic Analysis (BEA) is responsible for its publication while the Bureau of Labor Statistics collects the raw data used for GDP calculation ([source 1](https://www.investopedia.com/ask/answers/031715/how-does-united-states-government-measure-economic-growth.asp#:~:text=The%20U.S.%20government%20collects%20and,GDP%20and%20the%20national%20income.), [source 2](https://www.commerce.gov/data-and-reports/economic-indicators)). 
 
-# #### ***DISCUSSION 2:***
+# #### *DISCUSSION 2: TRACING DATA AUTHORSHIP*
 
 # One of our datasources was the BEA, but it's still a good idea to perform a trace and identify the most base-level resource used to generate each of our potential datasets. After all, multiple or all of them could be re-releases of BEA data, making them equally reputable! For our remaining datasets: 
 # 
@@ -177,7 +201,7 @@ plt.scatter(fred_data_subset['DATE'], fred_data_subset['GDP'])
 # 
 # </center>
 
-# #### ***DISCUSSION 3:***
+# #### *DISCUSSION 3: DATA APPLICATION DEPENDENCE*
 
 # Considering that all of potential data sources come from similarly reputable authors, which one should we use? And by now, you may have noticed that I've been purposely vague as to what this data will be used for - intentionally, I promise! And that's because, if author credibility is established, which dataset you choose to use *ultimately depends on your specific application.* 
 # 
@@ -185,14 +209,15 @@ plt.scatter(fred_data_subset['DATE'], fred_data_subset['GDP'])
 # 
 # Other than original author credibility, here are some other metrics you may consider using when sourcing data: 
 # 
-# <br>
 # <center>
-# <strong>Figure 1. Data sourcing criteria</strong>
-# <br><br>
-# <img src="./imgs/datasource_criteria.svg" width="700"/>
+# 
+# **Figure 1. Data sourcing criteria**
+# 
+# ![gdp-webquery](./imgs/datasource_criteria.svg)
+# 
 # </center> 
 
-# #### ***1.3. - CONCLUSION:***
+# #### **1.3. - CONCLUSION**
 # 
 
 # Now you might be asking yourself, source tracebacks and verfication are well and good, but rather time-consuming. If you need to decide between only 3-10 datasets, this case-by-case assessment is feasible, but what if you're starting a project from the ground up? There could be hundreds if not thousands of datasets you need to evaluate. Surely there's a quicker way to do some sort of preliminary filtering of source viability...
@@ -201,7 +226,7 @@ plt.scatter(fred_data_subset['DATE'], fred_data_subset['GDP'])
 
 # ...and wouldn't you believe it, there is! We can consider the research *intended purpose and incentives* of "generic research entity types."
 
-# #### ***PREFACE:***
+# #### **PREFACE**
 
 # Two quick notes before we get started: 
 # 
@@ -221,13 +246,11 @@ plt.scatter(fred_data_subset['DATE'], fred_data_subset['GDP'])
 # 
 # Now we're ready to dive in! 
 
-# <div>
-# <img src="./imgs/incentives.png" width="500"/>
-# <figcaption><em> When you're a [research entity], everything looks like a [carrot], or something like that... </em></figcaption>
-# <div> 
-# <br>
+# ![gdp-webquery](./imgs/incentives.png)
+# 
+# *When you're a [research entity], everything looks like a [carrot], or something like that...*
 
-# #### ***DISCUSSION 4:***
+# #### *DISCUSSION 4: INCENTIVES AND PURPOSES BY AUTHOR TYPE*
 
 # What does it mean to consider the intended purpose and incentives of a generic entity? For me, it's all about answering two key questions: 
 # 
@@ -261,14 +284,12 @@ plt.scatter(fred_data_subset['DATE'], fred_data_subset['GDP'])
 # 
 # * More generally, you can select data sources such that the original dataset's intended purpose and related incentives are orthogonal to your current study's purpose; i.e., if you wanted to collect data on non-exercise cancer risk factors, you could think about using the covariates data from another study that proposes a link between cancer risk and being sedentary. 
 
-# #### ***DISCUSSION 5:***
+# #### *DISCUSSION 5: CASE STUDY - SMALL BUSINESS GDP*
 
 # Of special note is the fact that for both researcher types and specific researchers within a type, incentives and intended purpose of analogous studies (and their related data) *can change over time* - this is especially important to consider in the context of timeseries analysis. To understand how changing incentives and intended purpose can impact collected data, let's see an example: 
-# 
-# <div>
-# <img src="./imgs/small_business.png" width="500"/>
-# <div><br>
-# 
+
+# ![gdp-webquery](./imgs/small_business.png)
+
 # We're going to zoom in on the contribution of portion of national GDP generated by small businesses. Essentially all of the recent studies and available data on small business GDP (SGDP) is spearheaded by one author within one organization, the federal government's Small Business Administration. Here's some info about two reports released by this same author: 
 # 
 # * [Report 1](http://www.richschwinn.com/index/sgdp_v1.8_SBA.pdf): 
@@ -289,7 +310,7 @@ plt.scatter(fred_data_subset['DATE'], fred_data_subset['GDP'])
 # 
 # Let's take a look with some code: 
 
-# #### ***CODING EXERCISE: AUTHOR INCENTIVES & SGDP***
+# #### **CODING EXERCISE: AUTHOR INCENTIVES & SGDP**
 
 # In[ ]:
 
@@ -306,8 +327,15 @@ import matplotlib.pyplot as plt     # use: data viz.
 
 """ DATA SOURCING: CHANGING INCENTIVES AND INTENDED PURPOSE """
 # importing the data (index column has year values): 
-datasets_dir = os.path.dirname(os.getcwd()) + os.sep + 'sample_datasets' + os.sep 
-sgdp_data = pd.read_csv(datasets_dir + 'sgdp_sba.csv' , encoding='utf-8', header=0, index_col=0)
+
+""" BINDER USERS: """
+# uncomment: sgdp_data = pd.read_csv('./sample_datasets/sgdp_sba.csv', encoding='utf-8', header=0, index_col=0)
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/sgdp_sba.csv # retrieve the dataset from remote storage on GitHub')
+sgdp_data = pd.read_csv("data/sgdp_sba.csv", encoding='utf-8', header=0, index_col=0)
+
 
 # 2017 subset of data: 
 print(sgdp_data['2017_report_sgdp_share'])
@@ -336,7 +364,7 @@ plt.legend(loc='upper right')
 plt.tight_layout()
 
 
-# #### ***DISCUSSION 6:***
+# #### *DISCUSSION 6: CHANGES IN SGDP REPORTING*
 
 # Even from this quick visualization, major discrepancies are apparent: 
 # 
@@ -348,7 +376,7 @@ plt.tight_layout()
 # 
 # What might be the cause of the lack of granular data in the 2007 report? How about the apparent switch in the trend of SGDP share? Is there reason to suspect a shift in intended purpose and incentives (recall that both reports were sanctioned by the Small Business Administration, and their respective years of publication)?
 
-# #### ***1.4. - CONCLUSION:***
+# #### **1.4. - CONCLUSION**
 
 # Ultimately, while we aren't here to play whistleblower, in this case and almost all others, it's worth noting that which dataset you elect to use may have great impact on your research results - especially when it comes to multiple data resources claiming to measure the same metric; i.e., suppose you wanted to investigate small business health in the decade before and after the Great Recession. How would which dataset you use impact your results? How so? 
 # 
@@ -358,7 +386,7 @@ plt.tight_layout()
 
 # The final issue in data sourcing we'll be discussing is the validation of data and its associated dataset generation approach: 
 
-# #### ***DISCUSSION 7:***
+# #### *DISCUSSION 7: DEFINING DATA GENERATION APPROACHES*
 
 # * A data generation approach is simply the methodology used to collect and compute a given data resource. In a way, this topic is best described as a data sourcing meta-issue since: 
 # 
@@ -374,7 +402,7 @@ plt.tight_layout()
 # 
 # To better understand this topic, let's explore it in the context of GDP data! 
 
-# #### ***DISCUSSION 8:***
+# #### *DISCUSSION 8: GDP GENERATION APPROACHES*
 
 # GDP can be measured in [three different ways](https://www.imf.org/external/pubs/ft/fandd/basics/gdp.htm#:~:text=Theoretically%2C%20GDP%20can%20be%20viewed%20in%20three%20different%20ways%3A): 
 # 
@@ -390,14 +418,13 @@ plt.tight_layout()
 #   
 # * This relationship is neatly captured in a diagram shown in introductory economics classes across the world, the circular flow diagram: 
 # 
-#     <div>
-#     <img src="../imgs/circularflow.png" width="400"/>
-#     <figcaption><em>Is it really this simple? We shall see...</em></caption>
-#     <div> 
+#     ![circularflow](./imgs/circularflow.png)
+# 
+#     *Is it really this simple? We shall see...*
 # 
 # The BEA publishes official GDP data using the [expenditure approach](https://www.bea.gov/resources/methodologies/measuring-the-economy) (see Page 4, Section "Income"), but also measures and releases GDP figures generated using the income approach as GDI (**G**ross **D**omestic **I**ncome) data. Let's see how the theoretical 1:1 relationship holds up in practice (data from [FRED](https://fred.stlouisfed.org/series/GDI)):
 
-# #### ***CODING EXERCISE: DATA GENERATION & GDP COMPUTATION APPROACHES***
+# #### **CODING EXERCISE: DATA GENERATION & GDP COMPUTATION APPROACHES**
 
 # In[ ]:
 
@@ -414,8 +441,18 @@ import matplotlib.pyplot as plt     # use: data viz.
 
 """ DATA SOURCING: DATA GENERATION APPROACHES """
 # importing the data (index column has year values): 
-datasets_dir = os.path.dirname(os.getcwd()) + os.sep + 'sample_datasets' + os.sep 
-gdp_approaches_data = pd.read_csv(datasets_dir + 'gdp_diff_approaches.csv' , encoding='utf-8')
+
+""" BINDER USERS: """
+# uncomment: gdp_approaches_data = pd.read_csv('./sample_datasets/gdp_diff_approaches.csv', encoding='utf-8')
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_diff_approaches.csv # retrieve the dataset from remote storage on GitHub')
+gdp_approaches_data = pd.read_csv("data/gdp_diff_approaches.csv", encoding='utf-8')
+
+
+# In[ ]:
+
 
 # let's take a subset of the data:
 gdp_approaches_data = gdp_approaches_data.tail(15)
@@ -468,7 +505,7 @@ plt.tight_layout()
 # 
 #   * Individuals might save their income as inflation appears to be rising (as an inflationary hedge) and/or as economic conditions appear to worsen - [does this sound familiar](https://fortune.com/2021/12/03/inflation-no-longer-transitory-higher-prices-fed-chair-powell-treasury-yellen/)? 
 
-# #### ***DISCUSSION 9:***
+# #### *DISCUSSION 9: COMPARING GDP & GDI*
 
 # Thus, in *practice*, GDP measurements (and data more generally) generated through different approaches can differ substantially. 
 # 
@@ -478,7 +515,7 @@ plt.tight_layout()
 #   
 # * Still, it's important to note that, while GDP as measured by the expenditure approach is more commonly used, both GDP and GDI are well-established measures. In any research scenario where multiple approaches to data generation or collection exist, if the sources are similarly reputable, you should seek appropriate justification for the approach(es) used.
 
-# #### ***1.5. - CONCLUSION:***
+# #### **1.5. - CONCLUSION**
 
 # As a final note, when a data generation approach is offered, you can also attempt to generate a data resource yourself: 
 # 

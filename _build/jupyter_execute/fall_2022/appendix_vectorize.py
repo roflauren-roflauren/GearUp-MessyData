@@ -7,12 +7,11 @@
 #   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 # </a>
 
-# <div>
-# <img src="./imgs/vectorization.png" width="500"/>
-# <figcaption><em>If you're too busy to read the chapter, this is basically it!</em></figcaption>
-# <div>
+# ![vect](./imgs/vectorization.png)
+# 
+# *If you're too busy to read the chapter, this is basically it!*
 
-# #### ***Chapter prerequisites: Python imports***
+# #### *Chapter prerequisites: Python imports*
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
@@ -23,7 +22,7 @@ get_ipython().run_line_magic('pip', 'install pandas')
 get_ipython().run_line_magic('pip', 'install numpy')
 
 
-# #### ***PREFACE:***
+# #### **PREFACE**
 
 # In our running examples with GDP data, we've typically dealt with datasets that are fairly small by data science standards (~1000 rows or less). 
 # 
@@ -33,7 +32,7 @@ get_ipython().run_line_magic('pip', 'install numpy')
 # 
 # Although the defintion of optimal code and the processing of writing it varies with context, here we're going to learn a technique that can be applied in many situations: *vectorization.*
 
-# #### ***DISCUSSION 1:***
+# #### *DISCUSSION 1: DEFINING VECTORIZATION*
 
 # A natural first question to ask is, *what is vectorizing/vectorization?* You may have heard of vectors before in a mathematics class, where vectors are a series of ordered values like this: [3, 2, 5] or [4, 7, 11, 8]. 
 # 
@@ -51,13 +50,11 @@ get_ipython().run_line_magic('pip', 'install numpy')
 # 
 # If the previous example makes sense to you, congratulations! You understand vectorization. Feel free to come up with your own quicker working definition (mine is, "make computer do same thing to many things at same time instead of on things one-by-one." 
 
-# #### ***DISCUSSION 2:***
+# #### *DISCUSSION 2: WHY VECTORIZE?*
 
 # In Python, (almost) any looped operation can be vectorized, but why do we need vectorization in the first place? 
-# 
-# <div>
-# <img src="./imgs/pythonloop.png" width="500"/>
-# <div>
+
+# ![pyloop](./imgs/pythonloop.png)
 
 # 
 # While loops are a wonderful and flexible programatic idiom, they're also inherently slow due to the **dynamically typed nature of Python.** What does this mean? Let's take a look in the context of executing a program:
@@ -107,7 +104,7 @@ print("And then: " + str(b.values))
 print("And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!")
 
 
-# #### ***DISCUSSION 3:***
+# #### *DISCUSSION 3: ORDER-DEPENDENCE OF OPERATIONS*
 
 # As we continue to run through our list of interrogatives, we've learned the *what* and *why* of vectorization - now it's time to learn the *when!* 
 # 
@@ -174,18 +171,17 @@ print ("Average % increase in GDP: " + str(round(sum(percent_increase)/len(perce
 # 
 # As such, the operation we just performed is order-dependent (i.e., the final result is contingent upon the order in which any sub-operations are performed) and ineligible for vectorization. Reason being, *when an operation is vectorized, Python provides no constraints on the order in which the sub-operations are carried out.*
 
-# <div>
-# <img src="./imgs/analogy.png" width="500"/>
-# <figcaption><em>Vectorized operations are to sets, as scalar looped operations are to lists!</em></figcaption>
-# <div><br>
+# ![analogy](./imgs/analogy.png)
 # 
+# *Vectorized operations are to sets, as scalar looped operations are to lists!*
+
 # Expanding upon our "add 2 to every element in this list" example from before, suppose our input now was much longer: $[3, 2, 5, 4, 6, 11, 14, 8, 1, 37, ... (100,000 \text{ more numbers}) ..., 24, 2].$ Since our computer likely does not have enough processing units to add 2 to every element concurrently, it'll perform the vectorized operation in chunks. We can't guarantee that the first chunk of say, 1000 inputs, coincides with the first 1000 elements in the list. 
 # 
 # But, in cases like these, where the final result will be independent of the order of the sub-operations, this random chunking is totally fine! And for that reason, we say *order-independent* operations can be vectorized. 
 # 
 # *Note:* Determining order-independence (or lack thereof) for any particular operation is a nonstandardized task, but reference to other objects being changed by the same loop is a usually a good sign that order-dependence is present. When in doubt, work with a subset of your data and try switching up the processing order of the loop! Does the result change? 
 
-# #### ***DISCUSSION 4:***
+# #### *DISCUSSION 4: VECTORIZATION TOOLS*
 
 # Now that we've understood the theory, it's time to tackle the practice! Here are the relevant tools:
 # 
@@ -202,7 +198,7 @@ print ("Average % increase in GDP: " + str(round(sum(percent_increase)/len(perce
 # 
 # (*Note on magic commands:* Magic commands are those suffixed by the '%' symbol in IPython or Jupyter Notebooks. If you're using Python through a local installation or IDE, packaged versions of the same tools exist for your import and use.)
 
-# #### ***CODING EXERCISE:***
+# #### **CODING EXERCISE: VECTORIZATION - DATA IMPORT**
 
 # With our tools in hand, let's go try some vectorization! 
 
@@ -214,9 +210,17 @@ import pandas as pd            # use: data intake and wranglnig
 import numpy as np             # use: computing and data structures
 import os                      # use: file access and management 
 
-# our sample data: 
-datasets_dir = os.path.dirname(os.getcwd()) + os.sep + 'sample_datasets' + os.sep 
-song_df = pd.read_csv(datasets_dir + 'unpopular_songs.csv' , encoding='utf-8')
+
+# In[ ]:
+
+
+""" BINDER USERS: """
+# uncomment: song_df = pd.read_csv('./sample_datasets/unpopular_songs.csv', encoding='utf-8')
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/unpopular_songs.csv # retrieve the dataset from remote storage on GitHub')
+song_df = pd.read_csv("data/unpopular_songs.csv", encoding='utf-8')
 
 
 # For our vectorization exercises, we're going to be taking a quick break from GDP data and instead we'll be using [this dataset](https://www.kaggle.com/datasets/estienneggx/spotify-unpopular-songs?resource=download) which contains information about more than 10,000 of the most unpopular songs on Spotify. This information includes the track name, artist, ID, and more subjective measures like danceability, energy, etc. 
@@ -255,7 +259,7 @@ def anthony_score(danceability, energy, loudness, mode, tempo, speechiness):
 
 # Let's establish a baseline: how quickly do things run when we naively loop through the data? 
 
-# ##### ***1. Looping with ```iterrows()```:***
+# ##### *1. Looping with ```iterrows()```:*
 
 # In[9]:
 
@@ -265,7 +269,7 @@ get_ipython().run_cell_magic('timeit', '# this is how you invoke the timeit magi
 
 # As you can see, things are pretty slow - at least half a second for each call of the function. We're not doing any particularly sophisticated when we access dataframe rows via the loop, so imagine the possible runtimes if we were! Let's try to speed things up.
 
-# ##### ***2. Better looping with ```apply()```:***
+# ##### *2. Better looping with ```apply()```:*
 
 # ```apply()``` is a Pandas built-in which allows you to apply a function along a specified axis (row or column). 
 
@@ -288,7 +292,7 @@ get_ipython().run_cell_magic('timeit', '', "\n# documentation on using apply(): 
 # 
 # </center>
 
-# ##### ***3. Basic vectorization:***
+# ##### *3. Basic vectorization:*
 
 # In Pandas, the basic units of data storage are: 
 # 
@@ -315,7 +319,7 @@ get_ipython().run_cell_magic('timeit', '', "\n# for simple functions, vectorizin
 # | pandas vectorization | 1.83                         | 191.26x                   | 429.51x                  |
 # </center>
 
-# ##### ***4. Vectorization with NumPy:***
+# ##### *4. Vectorization with NumPy:*
 
 # With just the base-level Pandas vectorization, we're achieving some serious speed (nearly a 500x improvement). But believe it or not, we can get even faster! 
 # 
@@ -343,13 +347,13 @@ get_ipython().run_cell_magic('timeit', '', "\n# for simple functions, vectorizin
 # | vect. with ndarrays  | 0.548                        | 3.34x                     | 1434.31x                 |
 # </center>
 
-# #### ***DISCUSSION 5:***
+# #### *DISCUSSION 5: QUALIFICATIONS*  
 
 # If you leave this chapter with one conclusion, I hope it's that vectorization can make programs run really, really fast, and therefore it's worth looking into!
 # 
 # Before you get started though, here are some important qualifications to keep in mind before you start adding ```.values()``` to all of your Pandas DataFrames: 
 
-# ##### ***Vectorization frameworks:***
+# ##### *Vectorization frameworks:*
 
 # Broadly speaking, there are two implementation frameworks being referenced when we say "vectorize X:" 
 # 
@@ -359,7 +363,7 @@ get_ipython().run_cell_magic('timeit', '', "\n# for simple functions, vectorizin
 # 
 # Framework 2 is almost always going to be more unwiedly and time-consuming, but it may become unavoidable as your processing becomes more sophisticated and your data diverges from purely numerics. Still, I would always try to make Framework 1 work first - vectorization is a well-developed practice and you'll likely be able to find some resource online seeking to accomplish the same generic task as you. 
 
-# ##### ***Vectorization with non-numeric data:***
+# ##### *Vectorization with non-numeric data:*
 
 # Vectorization is (usually) most easily implemented in the context of numerical data, but can be adapted to non-numeric data types as well. Here's a quick example: 
 
@@ -433,7 +437,7 @@ get_ipython().run_cell_magic('timeit', '', "\n# divide up each song name into it
 
 # But as you can see, all this decomposition and attempted use of built-in's didn't offer any noticeable performance gain. So, while vectorization is possible with non-numeric data types, be aware that your mileage and benefits may vary. And speaking of which...
 
-# ##### ***Benefits of and improving looping:***
+# ##### *Benefits of and improving looping:*
 
 # With all this talk of the runtime benefits of vectorization, you may be tempted to vectorize every loop you see. However, vectorization is not always faster than looping, especially when: 
 # 
@@ -449,7 +453,7 @@ get_ipython().run_cell_magic('timeit', '', "\n# divide up each song name into it
 # 
 # So, don't forget about the humble loop! Depending on how you use it, it may be more powerful than it initially seems!
 
-# #### ***CONCLUSION:***
+# #### **CONCLUSION**
 
 # Before diving into the data processing stage of your project, please remember - vectorization is a wonderful and powerful tool, but every tool has its time and place. 
 # 
@@ -464,8 +468,7 @@ get_ipython().run_cell_magic('timeit', '', "\n# divide up each song name into it
 # 5. Vector operations on NumPy's ```ndarray```'s are more efficient than on native Pandas Series. 
 # 
 # Did you enjoy making your code run faster? Add to your coding toolbox with some MOPS (**M**emory **O**ptimizations & **P**rogram **S**calability) - a future SSDS workshop on memory and runtime optimizations, especially when working with massive datasets in Pandas! Stay posted for a release date. 
+
+# ![pandagif](./imgs/panda.gif)
 # 
-# <div>
-# <img src="./imgs/panda.gif" width="500"/>
-# <figcaption><em>Was this chapter all a set-up so I could include this GIF? You'll never know...</em></figcaption>
-# <div><br>
+# *Was this chapter all a set-up so I could include this GIF? You'll never know...*

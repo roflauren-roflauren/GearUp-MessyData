@@ -404,9 +404,7 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
    <em>
-    <strong>
-     Chapter prerequisites: Python imports
-    </strong>
+    Chapter prerequisites: Python imports
    </em>
   </a>
  </li>
@@ -501,9 +499,7 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
    <em>
-    <strong>
-     Chapter prerequisites: Python imports
-    </strong>
+    Chapter prerequisites: Python imports
    </em>
   </a>
  </li>
@@ -590,49 +586,13 @@ title="Print to PDF"
 <h1>Chapter 0 - Why do we need robust data?<a class="headerlink" href="#chapter-0-why-do-we-need-robust-data" title="Permalink to this heading">#</a></h1>
 <a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/0_motivation.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a><div>
-<img src="./imgs/xkcd.png" width="500"/>
-<figcaption><em>Garbage in, garbage out...</em></figcaption>
-<div><section id="chapter-prerequisites-python-imports">
-<h2><em><strong>Chapter prerequisites: Python imports</strong></em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this heading">#</a></h2>
+</a><section id="chapter-prerequisites-python-imports">
+<h2><em>Chapter prerequisites: Python imports</em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this heading">#</a></h2>
 <p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pandas
 <span class="o">%</span><span class="k">pip</span> install matplotlib
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-Requirement already satisfied: pandas in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (1.4.3)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from pandas) (2.8.2)
-Requirement already satisfied: pytz&gt;=2020.1 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from pandas) (2022.1)
-Requirement already satisfied: numpy&gt;=1.18.5 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from pandas) (1.21.5)
-Requirement already satisfied: six&gt;=1.5 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-Note: you may need to restart the kernel to use updated packages.
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-Requirement already satisfied: matplotlib in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (3.5.1)
-Requirement already satisfied: packaging&gt;=20.0 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (21.3)
-Requirement already satisfied: pillow&gt;=6.2.0 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (9.2.0)
-Requirement already satisfied: numpy&gt;=1.17 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (1.21.5)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (3.0.4)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (4.25.0)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (0.11.0)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (2.8.2)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (1.4.2)
-Requirement already satisfied: six&gt;=1.5 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
-Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 </div>
@@ -670,6 +630,8 @@ Note: you may need to restart the kernel to use updated packages.
 </ul>
 </li>
 </ul>
+<p><img alt="xkcd" src="../_images/xkcd.png" /></p>
+<p><em>An example of how <strong>not</strong> to deal with data biases…</em></p>
 <p>For more on data bias:</p>
 <ol class="simple">
 <li><p><a class="reference external" href="https://towardsdatascience.com/types-of-biases-in-data-cafc4f2634fb">Types of Biases in Data</a></p></li>
@@ -682,9 +644,8 @@ Note: you may need to restart the kernel to use updated packages.
 <h2>Defining robust data<a class="headerlink" href="#defining-robust-data" title="Permalink to this heading">#</a></h2>
 <p>While the need for quality data may be apparent, what attributes such data would possess is not immediately obvious.</p>
 <p>What would an “ideal” dataset look like to you? How would you collect it?</p>
-<div>
-<img src="./imgs/datacollection.png" width="750"/>
-<div><p>When we look to describe the robustness of a dataset, it can be useful to think about what that data will be used for. Data may be used to:</p>
+<p><img alt="datacollection" src="../_images/datacollection.png" /></p>
+<p>When we look to describe the robustness of a dataset, it can be useful to think about what that data will be used for. Data may be used to:</p>
 <ul class="simple">
 <li><p>Run experiments</p></li>
 <li><p>Validate hypotheses</p></li>
@@ -713,12 +674,26 @@ Note: you may need to restart the kernel to use updated packages.
 <span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     <span class="c1"># use: custom data visualization </span>
-
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
 <span class="c1"># retrieving the data - this is a dataset detailing data science job salaries: </span>
 <span class="c1"># source: https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries?resource=downloadz</span>
-<span class="n">home_dir</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
-<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;ds_salaries.csv&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="c1"># uncomment: data = pd.read_csv(&#39;./sample_datasets/ds_salaries.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;
+!mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist
+!wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/ds_salaries.csv # retrieve the dataset from remote storage on GitHub
+data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 </pre></div>
 </div>
 </div>
@@ -726,7 +701,7 @@ Note: you may need to restart the kernel to use updated packages.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s get a quick look at a few entries: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="n">z</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 
 <span class="c1"># what different fields does this dataset possess for each entry? </span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
@@ -757,12 +732,26 @@ Note: you may need to restart the kernel to use updated packages.
 <span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     <span class="c1"># use: custom data visualization </span>
-
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
 <span class="c1"># retrieving the data - this is a dataset detailing time series climate data in Delhi:  </span>
 <span class="c1"># source: https://www.kaggle.com/datasets/sumanthvrao/daily-climate-time-series-data</span>
-<span class="n">home_dir</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
-<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;daily_delhi_climate.csv&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="c1"># uncomment: data = pd.read_csv(&#39;./sample_datasets/daily_delhi_climate.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
+<span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
+<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/daily_delhi_climate.csv # retrieve the dataset from remote storage on GitHub
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/daily_delhi_climate.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -784,7 +773,6 @@ Note: you may need to restart the kernel to use updated packages.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s take a look at the mean temperature in april: </span>
-
 <span class="c1"># subset just the date and temperature columns: </span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;meantemp&#39;</span><span class="p">]]</span>
 
@@ -826,12 +814,26 @@ Note: you may need to restart the kernel to use updated packages.
 <span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     <span class="c1"># use: custom data visualization </span>
-
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
 <span class="c1"># retrieving the data - this is a dataset detailing hospital capacity in SF for COVID-19:  </span>
 <span class="c1"># source: https://catalog.data.gov/dataset/covid-19-hospital-capacity</span>
-<span class="n">home_dir</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
-<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;covid19_hospital_capacity.csv&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="c1"># uncomment: data = pd.read_csv(&#39;./sample_datasets/covid19_hospital_capacity.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
+<span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
+<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/covid19_hospital_capacity.csv # retrieve the dataset from remote storage on GitHub
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/covid19_hospital_capacity.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -874,10 +876,9 @@ Note: you may need to restart the kernel to use updated packages.
 </section>
 <section id="workshop-essentials-gdp-definitions-datasets">
 <h2>Workshop essentials: GDP definitions &amp; datasets<a class="headerlink" href="#workshop-essentials-gdp-definitions-datasets" title="Permalink to this heading">#</a></h2>
-<div>
-<img src="./imgs/gdp_calculation.gif" width="700"/>
-<figcaption><em>One of economics' greatest hits!</em><figcaption>
-</div><section id="defintion-and-usage">
+<p><img alt="gdp_calc" src="../_images/gdp_calculation.gif" /></p>
+<p><em>One of economics’ greatest hits!</em></p>
+<section id="defintion-and-usage">
 <h3><em><strong>Defintion and usage:</strong></em><a class="headerlink" href="#defintion-and-usage" title="Permalink to this heading">#</a></h3>
 <p>For the rest of this workshop, we’ll be exploring topics in the context of US GDP (<strong>G</strong>ross <strong>D</strong>omestic <strong>P</strong>roduct) data. In case you haven’t worked with GDP data before, or you just want a quick refresher, here’s a rundown:</p>
 <ul class="simple">

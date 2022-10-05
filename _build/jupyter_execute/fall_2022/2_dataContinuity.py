@@ -7,12 +7,11 @@
 #   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 # </a>
 
-# <div>
-# <img src="./imgs/mind_the_gap.png" width="750"/>
-# <figcaption><em>Not every data gap is as obvious as this one...</em></figcaption>
-# <div>
+# ![mind_the_gap](./imgs/mind_the_gap.png)
+# 
+# *Not every data gap is as obvious as this one...*
 
-# #### ***Chapter prerequisites: Python imports***
+# #### *Chapter prerequisites: Python imports*
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
@@ -34,10 +33,9 @@ get_ipython().run_line_magic('pip', 'install datetime')
 # 
 # Although this is a natural consequence of prioritizing factors like data author credibility and reputable data generation approaches over usability, it's still an unfortunate obstacle to analysis. Besides administrative barriers like paywalls, institutional access, one of the most common obstacles we'll encounter when using responsibly-sourced, real-life data is data gaps, or a lack of *data continuity.*
 # 
-# <div>
-# <img src="./imgs/mouse_cookie_custom.png" width="400"/>
-# <figcaption><em>When a delightful children's classic goes data science!</em></figcaption>
-# <div>
+# ![mouse_cookie](./imgs/mouse_cookie_custom.png)
+# 
+# *When a delightful children's classic goes data science!*
 
 # ## 2.1. Defining "data continuity"
 
@@ -53,7 +51,7 @@ get_ipython().run_line_magic('pip', 'install datetime')
 # 
 # Of these issues, *data gap remediation* will be the primary focus of this chapter. 
 
-# #### ***DISCUSSION 1:***
+# #### *DISCUSSION 1: IDENTIFYING & COMPREHENDING DATA GAPS*
 
 # Data gap identification often occurs as an (un)intended consequence of attempted analysis, and data gap comprehension can be performed ad hoc using practices similar to those discussed in the data sourcing chapter. Of course, properly addressing each of these sub-issues is important and can be tricky in its own right (e.g., unintentionally writing code that generates figures which mask data gaps). If you're concerned with your handling of these sub-issues, I encourage you to [schedule a consult with SSDS](https://library.stanford.edu/research/software-and-services-data-science/schedule-consulting-appointment-contact-us).
 # 
@@ -63,7 +61,7 @@ get_ipython().run_line_magic('pip', 'install datetime')
 
 # When working with messy, real-life data, data gap remediation is one of the practices with the most tangible effects: performed correctly, it enables for an accurate and full scope of analysis. However, when done incorrectly, it can skew results and at worse, invalidate conclusions. Thus, taking the time to (1) systematize and (2) broaden our understanding of the exercise is well-advised.
 
-# #### ***DISCUSSION 2:***
+# #### *DISCUSSION 2: TYPES OF REMEDIATION PRACTICES*
 
 # Remediation practices can broadly be classified into two categories:
 # 
@@ -74,25 +72,29 @@ get_ipython().run_line_magic('pip', 'install datetime')
 # When practicing data gap omission, note that it's certainly permissible (and likely recommended) to extrapolate your results from the readily available scope of analysis to whatever data ranges are missing. The key difference between the two categories is the **quantitative versus qualitative nature of** as well as the **research community confidence in the accuracy of** said extrapolation. 
 # 
 # <center>
-# <img src="./imgs/omission.png" width="425"/> &nbsp; <img src="./imgs/filling.png" width="425"/> 
-# <figcaption><em>Data gap omission (avoidance) vs. Data gap filling - Pothole Edition</em></figcaption>
+# 
+# ![data_gaps](./imgs/omission_filling_combo.png)
+# 
+# *Data gap omission (avoidance) vs. Data gap filling - Pothole Edition*
+# 
 # </center>
 
 # Since data gap omission is not especially programatically interesting (e.g., you simply include a command to skip/omit any data with a NA, NaN, etc. during the data intake process) and its consequences on downstream analysis are fairly one-dimensional (i.e., you can't draw definitive conclusions over the missing data ranges), we'll zoom in on data gap filling in future sections. 
 # 
 # However, both categories of remediation practices have valid use cases as well as benefits and drawbacks - take a moment to review or add to the table below!
 # 
-# <div>
+# 
 # <center>
-#                         <strong>Table 3. Pros and Cons of Data Remediation Strategies</strong>
-# <br><br>
-# <img src="./imgs/pros_cons.png" width="750"/>
+# 
+# **Table 3. Pros and Cons of Data Remediation Strategies**
+# 
+# ![pros_cons](./imgs/pros_cons.png)
+# 
 # </center>
-# <div>
 
 # Hopefully you noticed the conspicuous asterisk prefixing the "Disadvantages" sub-section for the "Data gap filling" entry in the table (if not, you can take a look now - the notebook isn't going anywhere 🙂). As we continue on, I hope to convince that one of the noted disadvantages (*"can impact downstream analysis in non-obvious ways"*) can at least be partially mitigated by intelligent and intentional design. 
 
-# #### ***DISCUSSION 3:***
+# #### *DISCUSSION 3: TYPES OF DATA FILL METHODS*
 
 # However, prior to that discussion, we first can further systematize our use of data remediation techniques by dividing data gap filling strategies into two types of fill(ing) methods:
 # 
@@ -102,7 +104,7 @@ get_ipython().run_line_magic('pip', 'install datetime')
 # 
 # Here are some quick definitions-through-code:
 
-# #### ***CODING EXERCISE: (ENDO)(EXO)GENOUS DATA FILL EXAMPLES***
+# #### **CODING EXERCISE: (ENDO)(EXO)GENOUS DATA FILL EXAMPLES**
 
 # In[1]:
 
@@ -197,16 +199,15 @@ df.Amount = vals
 plt.plot(df.Year, df.Amount, linestyle='-', marker='o')
 
 
-# #### ***DISCUSSION 4:***
+# #### *DISCUSSION 4: ENDOGENOUS VS. EXOGENOUS FILLS*
 
 # Typically, when presented with two separate methods, classes, or ideology, we've considered the merits and drawbacks of employing either to help develop criteria for using each one. However, unlike a division like data gap filling versus data gap omission, exogenous and endogenous fill methods are not inherently incompatible. 
 # 
 # Depending on your data's structure and attributes as well as the nature of the discontinuities, you could very well employ *both* exogenous and endogenous fill methods to remediate different data gaps in the same dataset! This follows from both remediation strategies sharing a primary purpose: to provide accurate estimations within data gaps to enable broadened downstream analysis.  
 # 
-# <div>
-# <img src="./imgs/whoomp_thereitis.png" width="500"/>
-# <figcaption><em>Tag teams: for both data gap remediation and one of <a href=https://www.youtube.com/watch?v=L6mNa_QZVHg>hip hop's greatest single's!</a></em></figcaption>
-# <div><br>
+# ![tag-team](./imgs/whoomp_thereitis.png)
+# 
+# *Tag teams: for both data gap remediation and one of <a href=https://www.youtube.com/watch?v=L6mNa_QZVHg>hip hop's greatest single's!*
 # 
 # To help you decide which remediation strategy is best to fill which data gap, we can look to the key sub-issues and potential problems of using each one. Then, in your own research, you can evaluate which sub-issues or problems will give rise to greater inaccuracy, less tractability, etc. to help you make this decision. Let's get started! 
 
@@ -218,13 +219,13 @@ plt.plot(df.Year, df.Amount, linestyle='-', marker='o')
 # 
 # 2. *Mis-alignment of data point occurence* 
 
-# #### ***DISCUSSION 5:***
+# #### *DISCUSSION 5: DEFINING RESAMPLING*
 
 # *Data resampling* commonly refers to the practice of drawing repeated sub-samples from an original data source, but in the context of timeseries data, it can also denote the technique of **(dis)aggregating data points to estimate data values on a different time scale than the original source.**
 # 
 # For example, we could *downsample* (i.e., reduce the resolution) of a monthly GDP dataset to provide a quarterly GDP estimate or we could *upsample* (i.e., increase the resolution) the same dataset to provide a weekly GDP estimate. Let's see exactly what I mean: 
 
-# #### ***CODING EXERCISE: RESAMPLING & EXOGENOUS DATA FILLS***
+# #### **CODING EXERCISE: RESAMPLING & EXOGENOUS DATA FILLS**
 
 # In[65]:
 
@@ -234,9 +235,6 @@ import os                      # use: file management and access.
 import pandas as pd            # use: data import & wrangling.
 import numpy as np             # use: some mathematical utilities.
 import random as rd            # use: nothing suspicious, that's for sure!
-
-# data directory: 
-datasets_dir = os.path.dirname(os.getcwd()) + os.sep + 'sample_datasets' + os.sep 
 
 
 # In[68]:
@@ -257,7 +255,14 @@ def cyberattack(data):
 rd.seed(123) # use: to ensure replicablity of examples 
 
 # it's back to our friendly FRED data! 
-qoq_gdp_data = pd.read_csv(datasets_dir + 'gdp_fred.csv', encoding='utf-8')
+
+""" BINDER USERS: """
+# uncomment: qoq_gdp_data = pd.read_csv('./sample_datasets/gdp_fred.csv', encoding='utf-8')
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_fred.csv # retrieve the dataset from remote storage on GitHub')
+qoq_gdp_data = pd.read_csv("data/gdp_fred.csv", encoding='utf-8')
 
 # let's just look at the more recent data: 
 qoq_gdp_data = qoq_gdp_data[-100:].reset_index(drop=True)
@@ -277,7 +282,14 @@ print(qoq_gdp_damaged.head(10))
 
 
 # monthly estimates of GDP are hard(er) to find, but they exist! here's one (computed by https://ihsmarkit.com/products/us-monthly-gdp-index.html): 
-mom_gdp = pd.read_csv(datasets_dir + 'monthly_gdp.csv', encoding='utf-8')
+
+""" BINDER USERS: """
+# uncomment: mom_gdp = pd.read_csv('./sample_datasets/monthly_gdp.csv', encoding='utf-8')
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/monthly_gdp.csv # retrieve the dataset from remote storage on GitHub')
+mom_gdp = pd.read_csv("data/monthly_gdp.csv", encoding='utf-8')
 
 # this data includes a nominal and real estmate: 
 print(mom_gdp.head(5))
@@ -286,9 +298,9 @@ print(mom_gdp.head(5))
 mom_gdp.drop(columns=['MONTHLY_REAL_GDP'], inplace=True)
 
 
-# #### ***DISCUSSION 6:***
+# #### *DISCUSSION 6: SELECTING A RESAMPLING REGIME*
 
-# We're almost ready to employ an exogenous data fill to patch up our QoQ GDP data! But, a critical issue linked to exogenous filling methods become apparent - **the need for data resampling.** Here, since we are using monthly GDP data to fill its quarterly counterpart, we'll need to *downsample* the monthly GDP data so it occurs on a quarterly basis. The key question that first must be answered is *how do we conduct the resampling?* 
+# We're almost ready to employ an exogenous data fill to patch up our QoQ GDP data! But, a critical issue linked to exogenous filling methods has become apparent - **the need for data resampling.** Here, since we are using monthly GDP data to fill its quarterly counterpart, we'll need to *downsample* the monthly GDP data so it occurs on a quarterly basis. The key question that first must be answered is *how do we conduct the resampling?* 
 # 
 # For the three monthly measures contributing to each quarterly measurement, we could downsample the monthly data by: 
 # 
@@ -298,12 +310,11 @@ mom_gdp.drop(columns=['MONTHLY_REAL_GDP'], inplace=True)
 # 
 # or one of many more downsampling regimes. Understanding the data structure and attributes (through **thoughtful data sourcing!**) is the most responsible and accurate way of answering this question. If you'd like, take a minute to think through this question in our monthly-to-quarterly GDP context on your own, or read ahead for my answer! 
 # 
-# <div>
-# <img src="./imgs/thinker.png" width="250"/>
-# <figcaption><em>Definitely true fun fact: "The Exogenous Data Filler" was considered by Rodin, but his parents said no.</em></figcaption>
-# <div>
+# ![thinker](./imgs/thinker.png)
+# 
+# *Definitely true fun fact: "The Exogenous Data Filler" was considered by Rodin, but his parents said no.*
 
-# #### ***DISCUSSION 7:***
+# #### *DISCUSSION 7: EXAMPLE RESAMPLING METHOD*
 
 # Hopefully you've mulled and arrived at a satisfactory downsampling method! My chosen method follows from this line of thinking: 
 # 
@@ -313,7 +324,7 @@ mom_gdp.drop(columns=['MONTHLY_REAL_GDP'], inplace=True)
 # 
 # In short, my downsampling method is a mask - no statistical computations required! Novice researchers will often suggest the average as the go-to downsampling regime, and while useful, averaging is not at all universal. In fact, it would be less accurate than the mask suggested here!
 
-# #### ***CODING EXERCISE: RESAMPLING & EXOGENOUS DATA FILLS (CONT.)***
+# #### **CODING EXERCISE: RESAMPLING & EXOGENOUS DATA FILLS (CONT.)**
 
 # Let's go ahead and conduct the resampling and fill the data before we close out our discussion of exogenous fill methods: 
 
@@ -356,7 +367,7 @@ plt.tight_layout()
 
 # Now we have a continuous dataset for quarterly GDP analysis - huzzah! Celebrate and be happy 🎉!  
 
-# #### ***DISCUSSION 8:***
+# #### *DISCUSSION 8: DATA POINT MIS-ALIGNMENT*
 
 # Let's recap exogenous data fills before we celebrate too hard (data scientists are reknowned partiers, after all): 
 # 
@@ -366,10 +377,10 @@ plt.tight_layout()
 # 
 # That's all right? Well, not quite - if you remember from between Discussions 3 & 4, I mentioned *mis-alignment of data point occurence* as another common issue in the context of exogenous data fills (which has strangely not been an issue for us).
 # 
-# <div>
-# <img src="./imgs/car_drift_meme.png" width="400"/>
-# <figcaption><em>You'll start your project...eventually.</em></figcaption>
-# <div> 
+# 
+# ![car-drift](./imgs/car_drift_meme.png)
+# 
+# *You'll start your project...eventually.*
 
 # As it would be, in our working example of monthly-to-quarterly GDP, it was a conveninent construction that both our original and fill datasets reported GDP values on coincident dates. But what if our datasets had looked something like this? 
 # 
@@ -397,7 +408,7 @@ plt.tight_layout()
 # 
 # As a refresher, an endogenous fill (also called "interpolation") method refers to: "the application of a statistical method to the present points in a dataset to generate estimated values for some or all of the discontinuities present."
 
-# #### ***DISCUSSION 9:***
+# #### *DISCUSSION 9: DESIGNING AN ENDOGENOUS FILL*
 
 # Key considerations for endogenous fill methods, in contrast to exogenous ones, are typically ones of **design** rather than **implementation.** For instance, one must consider: 
 # 
@@ -413,23 +424,23 @@ plt.tight_layout()
 # 
 # There are also implementation considerations (like is your interpolation method an order-independent or dependent operation, and how does that affect your optimal programming of the method) which we won't discuss here ([but maybe later!](./appendix_vectorize.ipynb) - see "Discussion 3") but which are also notable issues.
 
-# #### ***DISCUSSION 10:***
+# #### *DISCUSSION 10: CONTEXT-DEPENDENT DESIGN*
 
 # Which interpolation method is most appropriate for your data is unfortunately context-dependent (with much of that context being informed by your dataset attributes/structure, as we saw in *Discussion 6*). Similarly, how utilizing a given method will impact downstream analysis will be dependent upon numerous factors including the original dataset, interpolation method, nature of future analysis, etc. 
 # 
 # As such, it may not be particularly fruitful to attempt to abstractly describe the potential downstream impact associated with using each endogenous fill method in every possible research project. Rather, we can more deeply examine the interactions between specific data transformation methods and analysis in just one generalizable research context to get an idea of the generic flow at hand—which is precisely what we'll do in the upcoming section. 
 
-# ## 2.5. Consequences of data filling
+# ## 2.5. Consequences of data filling (CoDF)
 
 # At a high-level, the capacity for data filling methods to influence downstream analysis is apparent: data fill methods change data values (from ```NaN, NA``` to processable numbers, text, etc.), and those data values are the inputs to analysis. Change the inputs, and the outputs of the analysis could change. 
 # 
 # But, being able to forecast how and why such downstream changes will take place is an complex and context-dependent skill. A great way to develop such skills is practice, practice, practice - let's do that! 
 
-# #### ***DISCUSSION 11.1:***
+# #### *DISCUSSION 11.1: DEFINING AGP & GDP*
 
 # Suppose you're a social science reseracher, and your supervising PI (principal investigator) wishes to predict US GDP using a machine learning algorithm that intakes a bunch of economic indicators, one of which is average gas prices (AGP). As the wise researcher you are, you caution that it would be a good idea to evaluate whether GDP and gas prices exhibit a strong correlative relationship first before throwing it into a machine learning routine. Mildly miffed that they didn't think of that first, your PI sends you off to do just that. 
 
-# #### ***CODING EXERCISE: CoDF - DATA IMPORT***
+# #### **CODING EXERCISE: CoDF - DATA IMPORT**
 
 # Here's the data you'll be working with: 
 
@@ -442,32 +453,52 @@ import pandas as pd                 # use: data import & wrangling.
 from dateutil.parser import parse   # use: handling dates as strings.
 from datetime import datetime       # use: going from string back to dates! 
 
-# data housing: 
-datasets_dir = os.path.dirname(os.getcwd()) + os.sep + 'sample_datasets' + os.sep 
-
 
 # In[95]:
 
 
 # *Weekly* US gas prices data from: https://www.kaggle.com/datasets/mruanova/us-gasoline-and-diesel-retail-prices-19952021
-gas_prices = pd.read_csv(datasets_dir + 'gas_gas_gas.csv', encoding='utf-8')
+
+""" BINDER USERS: """
+# uncomment: gas_prices = pd.read_csv('./sample_datasets/gas_gas_gas.csv', encoding='utf-8')
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gas_gas_gas.csv # retrieve the dataset from remote storage on GitHub')
+gas_prices = pd.read_csv("data/gas_gas_gas.csv", encoding='utf-8')
+
+
+# In[ ]:
+
 
 # *Monthly* GDP estimates from: https://ihsmarkit.com/products/us-monthly-gdp-index.html
-mom_gdp = pd.read_csv(datasets_dir + 'monthly_gdp.csv', encoding='utf-8')
+
+""" BINDER USERS: """
+# uncomment: mom_gdp = pd.read_csv('./sample_datasets/monthly_gdp.csv', encoding='utf-8')
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/monthly_gdp.csv # retrieve the dataset from remote storage on GitHub')
+mom_gdp = pd.read_csv("data/monthly_gdp.csv", encoding='utf-8')
+
+
+# In[ ]:
+
 
 # let's see the data! 
 # for dataset in (gas_prices, mom_gdp): print(dataset.head(5))
 
 
-# #### ***DISCUSSION 11.2:***
+# #### *DISCUSSION 11.2: LINEAR REGRESSION REFRESHER*
 
 # One way to quickly assess the strength of the relationship between two variables is to run a OLS (**O**rdinary **L**east **S**quares) regression between them. For the uninitated, a simple OLS regression attempts to model one varible as a linear function of the other (e.g., $ y = \beta_1  x + \beta_0 $). Here, our $y$-variable will be GDP and our predictor $x$-variable will be average gas price (AGP). 
 # 
 # <center>
-# <div>
-# <img src="./imgs/reg.png" width="750">
-# <figcaption><em> Example of simple linear regression </em></figcaption>
-# <div> 
+# 
+# ![reg](./imgs/reg.png)
+# 
+# *Example of simple linear regression*
+# 
 # </center>
 # 
 # The strength/quality of the relationship computed through OLS regression can be quantitatively defined using metrics including: 
@@ -480,7 +511,7 @@ mom_gdp = pd.read_csv(datasets_dir + 'monthly_gdp.csv', encoding='utf-8')
 # 
 # You decide to use these metrics, $R^2$ and $\beta_1$'s $p$-value as your assessment criteria. Results, here we come!
 
-# #### ***CODING EXERCISE: CoDF - DATA WRANGLING***
+# #### **CODING EXERCISE: CoDF - DATA WRANGLING**
 
 # First, we need to make sure we are looking at the same timeframe in each of our datasets (e.g., use 2011 average gas prices to predict 2011 GDP). Here's some quick functionality to do just that: 
 
@@ -522,7 +553,7 @@ print("start & end of our gdp data:")
 print(mom_gdp.head(1), '\n', mom_gdp.tail(1))
 
 
-# #### ***CODING EXERCISE: CoDF - OLS REGRESSION***
+# #### **CODING EXERCISE: CoDF - OLS REGRESSION**
 
 # Great, our datasets are now both ranging from the beginning of 2008 to the beginning of 2012. It's time to run some regressions! 
 
@@ -559,7 +590,7 @@ print("Number of samples (GDP data points): {num_gdp}".format(num_gdp = len(gdp_
 
 # Why the mis-match? If you were paying extra close attention during the data import stage, you might've seen that these gas price averages are computed on a *weekly* basis whereas our GDP data is a *monthly* gdp estimate! There's (on average) 4.3 weeks in a month, and accordingly, about $213/49 ≈ 4.35$ gas price observations for each GDP observation.
 
-# #### ***DISCUSSION 11.3:***
+# #### *DISCUSSION 11.3: COMPARING GDP & AGP DATASETS*
 
 # Without fixing this mis-match, we can't run the regression? What to do? Data filling to the rescue! 
 # 
@@ -578,9 +609,9 @@ print("Number of samples (GDP data points): {num_gdp}".format(num_gdp = len(gdp_
 # 
 # Then, the appearance of data discontinuities is obvious! Truth be told, implementing data *transformation* methods might be a more appropriate phrasing for this exercise rather than strictly data *filling* methods, but this logic can (and should!) be applied in either context! Caveat aside, it's back to the exercise! 
 
-# #### ***DISCUSSION 11.4:***
+# #### *DISCUSSION 11.4: UPSAMPLING VS. DOWNSAMPLING*
 
-# In this context, in order to manipulate our data so it's regression-compatible (i.e., we have the same number of $x$ and $y$ data points), there are number of specific data filling (or transformation) technieues we could apply! Those techniques can first be divided into whether they belong to the strategy of **upsampling** our GDP data, or **downsampling** our gas prices data: 
+# In this context, in order to manipulate our data so it's regression-compatible (i.e., we have the same number of $x$ and $y$ data points), there are number of specific data filling (or transformation) techniques we could apply! Those techniques can first be divided into whether they belong to the strategy of **upsampling** our GDP data, or **downsampling** our gas prices data: 
 # 
 # Strategy 1: *Upsampling GDP data*  
 #   * Fill or Tranformation: Fill 
@@ -595,7 +626,7 @@ print("Number of samples (GDP data points): {num_gdp}".format(num_gdp = len(gdp_
 
 # Which strategy is better? Which technique is best? Well, I'm not sure - so, let's try a technique from each strategy! 
 
-# #### ***CODING EXERCISE: CoDF - DATA WRANGLING (CONT.)***
+# #### **CODING EXERCISE: CoDF - DATA WRANGLING (CONT.)**
 
 # 
 # First, let's convert the 'DATE' column in each DataFrame from the ```string``` type to a ```datetime``` type - this will make it easier to perform either resampling. 
@@ -618,7 +649,7 @@ gas_prices['DATE'], mom_gdp['DATE'] = gas_data_dates, gdp_data_dates
 print(type(gas_prices['DATE'][0]))
 
 
-# #### ***CODING EXERCISE: CoDF - RESAMPLING DATA***
+# #### **CODING EXERCISE: CoDF - RESAMPLING DATA**
 
 # Now let's re-sample our data, both ways! 
 
@@ -650,7 +681,7 @@ both_monthly_data = pd.merge_asof(mom_gdp, monthly_gas_prices, on='DATE', direct
 # print(both_monthly_data.head(5))
 
 
-# #### ***CODING EXERCISE: CoDF - OLS REGRESSION REDUX***
+# #### **CODING EXERCISE: CoDF - OLS REGRESSION REDUX**
 
 # You made it! It's finally time to run our regressions - let's go! 
 
@@ -690,7 +721,7 @@ get_R2(both_quarterly_data, "quarterly")
 get_R2(both_yearly_data, "yearly")
 
 
-# #### ***DISCUSSION 11.5:***
+# #### *DISCUSSION 11.5: CONTRASTING MODELS BY DATA FILLS*
 
 # Wow! That's a pretty intense jump from low 40\%'s $R^2$ figures for our models on weekly, monthly, and quarterly data to nearly a 60\% $R^2$-figure for our yearly model! What gives?
 # 
@@ -720,7 +751,7 @@ get_R2(both_yearly_data, "yearly")
 #   
 # *Key question:* Does this reason explain why weekly $R^2$ is the lowest $R^2$ obtained for any of the regressions? 
 
-# #### ***2.5 - CONCLUSION:***
+# #### **2.5 - CONCLUSION**
 
 # Though I could (and happily would!) talk about the potential downstream effects of re-sampling methods, our key takeaway is this: 
 # 

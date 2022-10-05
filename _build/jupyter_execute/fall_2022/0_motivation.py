@@ -7,16 +7,11 @@
 #   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 # </a>
 
-# <div>
-# <img src="./imgs/xkcd.png" width="500"/>
-# <figcaption><em>Garbage in, garbage out...</em></figcaption>
-# <div>
-
-# #### ***Chapter prerequisites: Python imports***
+# #### *Chapter prerequisites: Python imports*
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
-# In[1]:
+# In[ ]:
 
 
 get_ipython().run_line_magic('pip', 'install pandas')
@@ -41,7 +36,11 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 #   - Ex: anytime we use a convenient data source instead of the best one.
 # - Outlier bias 
 #   - Ex: employing summary statistics which mask or are overly-sensitive to outliers to make conclusions and drive decisions.
+
+# ![xkcd](./imgs/xkcd.png)
 # 
+# *An example of how **not** to deal with data biases...*
+
 # For more on data bias: 
 # 1. [Types of Biases in Data](https://towardsdatascience.com/types-of-biases-in-data-cafc4f2634fb)
 # 2. [Statistical Bias Types explained](https://data36.com/statistical-bias-types-explained/)
@@ -57,9 +56,7 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 # 
 # [comment]: <> (Break for Zoom discussion)
 
-# <div>
-# <img src="./imgs/datacollection.png" width="750"/>
-# <div>
+# ![datacollection](./imgs/datacollection.png)
 
 # When we look to describe the robustness of a dataset, it can be useful to think about what that data will be used for. Data may be used to: 
 # 
@@ -100,18 +97,30 @@ import os                           # use: file management and access
 import pandas as pd                 # use: data intake and manipulation 
 import matplotlib.pyplot as plt     # use: custom data visualization 
 
+
+# In[ ]:
+
+
+""" BINDER USERS: """
 # retrieving the data - this is a dataset detailing data science job salaries: 
 # source: https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries?resource=downloadz
-home_dir  = os.path.dirname(os.getcwd())
-data_path = os.sep + 'sample_datasets' + os.sep + 'ds_salaries.csv'
-data = pd.read_csv(home_dir + data_path, encoding='utf-8')
+# uncomment: data = pd.read_csv('./sample_datasets/ds_salaries.csv', encoding='utf-8')
+
+
+# In[ ]:
+
+
+""" COLAB USERS: """
+get_ipython().system("mkdir data # create a '/data' directory if one doesn't already exist")
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/ds_salaries.csv # retrieve the dataset from remote storage on GitHub')
+data = pd.read_csv("data/ds_salaries.csv", encoding='utf-8')
 
 
 # In[ ]:
 
 
 # let's get a quick look at a few entries: 
-print(data.head(5))z
+print(data.head(5))
 
 # what different fields does this dataset possess for each entry? 
 print(list(data.columns))
@@ -143,11 +152,23 @@ import os                           # use: file management and access
 import pandas as pd                 # use: data intake and manipulation 
 import matplotlib.pyplot as plt     # use: custom data visualization 
 
+
+# In[ ]:
+
+
+""" BINDER USERS: """
 # retrieving the data - this is a dataset detailing time series climate data in Delhi:  
 # source: https://www.kaggle.com/datasets/sumanthvrao/daily-climate-time-series-data
-home_dir  = os.path.dirname(os.getcwd())
-data_path = os.sep + 'sample_datasets' + os.sep + 'daily_delhi_climate.csv'
-data = pd.read_csv(home_dir + data_path, encoding='utf-8')
+# uncomment: data = pd.read_csv('./sample_datasets/daily_delhi_climate.csv', encoding='utf-8')
+
+
+# In[ ]:
+
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/daily_delhi_climate.csv # retrieve the dataset from remote storage on GitHub')
+data = pd.read_csv("data/daily_delhi_climate.csv", encoding='utf-8')
 
 
 # In[ ]:
@@ -167,7 +188,6 @@ print(data.describe())
 
 
 # let's take a look at the mean temperature in april: 
-
 # subset just the date and temperature columns: 
 data = data[['date', 'meantemp']]
 
@@ -211,11 +231,23 @@ import os                           # use: file management and access
 import pandas as pd                 # use: data intake and manipulation 
 import matplotlib.pyplot as plt     # use: custom data visualization 
 
+
+# In[ ]:
+
+
+""" BINDER USERS: """
 # retrieving the data - this is a dataset detailing hospital capacity in SF for COVID-19:  
 # source: https://catalog.data.gov/dataset/covid-19-hospital-capacity
-home_dir  = os.path.dirname(os.getcwd())
-data_path = os.sep + 'sample_datasets' + os.sep + 'covid19_hospital_capacity.csv'
-data = pd.read_csv(home_dir + data_path, encoding='utf-8')
+# uncomment: data = pd.read_csv('./sample_datasets/covid19_hospital_capacity.csv', encoding='utf-8')
+
+
+# In[ ]:
+
+
+""" COLAB USERS: """
+# !mkdir data # create a '/data' directory if one doesn't already exist
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/covid19_hospital_capacity.csv # retrieve the dataset from remote storage on GitHub')
+data = pd.read_csv("data/covid19_hospital_capacity.csv", encoding='utf-8')
 
 
 # In[ ]:
@@ -253,10 +285,9 @@ plt.show()
 
 # ## Workshop essentials: GDP definitions & datasets
 
-# <div>
-# <img src="./imgs/gdp_calculation.gif" width="700"/>
-# <figcaption><em>One of economics' greatest hits!</em><figcaption>
-# </div>
+# ![gdp_calc](./imgs/gdp_calculation.gif)
+# 
+# *One of economics' greatest hits!*
 
 # #### ***Defintion and usage:***
 
