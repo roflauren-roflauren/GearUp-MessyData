@@ -3,6 +3,10 @@
 
 # # Optimizing data filling via Vectorization 
 
+# <a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/appendix_vectorize.ipynb">
+#   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+# </a>
+
 # <div>
 # <img src="./imgs/vectorization.png" width="500"/>
 # <figcaption><em>If you're too busy to read the chapter, this is basically it!</em></figcaption>

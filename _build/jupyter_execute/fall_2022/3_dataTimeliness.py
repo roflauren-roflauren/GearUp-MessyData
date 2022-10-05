@@ -3,6 +3,10 @@
 
 # # Chapter 3 - Data Timeliness
 
+# <a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/3_dataTimeliness.ipynb">
+#   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+# </a>
+
 # <div>
 # <img src="./imgs/timeliness.png" width="500"/>
 # <div>

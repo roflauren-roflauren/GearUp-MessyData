@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Chapter 1 - Data Sourcing" href="1_dataSourcing.html" />
-    <link rel="prev" title="Welcome to TAML!" href="../intro.html" />
+    <link rel="prev" title="Welcome to the Understanding Messy Time Series Data workshop!" href="../intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -110,7 +110,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../intro.html">
-                    Welcome to TAML!
+                    Welcome to the Understanding Messy Time Series Data workshop!
                 </a>
             </li>
         </ul>
@@ -588,7 +588,9 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="chapter-0-why-do-we-need-robust-data">
 <h1>Chapter 0 - Why do we need robust data?<a class="headerlink" href="#chapter-0-why-do-we-need-robust-data" title="Permalink to this heading">#</a></h1>
-<div>
+<a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/0_motivation.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a><div>
 <img src="./imgs/xkcd.png" width="500"/>
 <figcaption><em>Garbage in, garbage out...</em></figcaption>
 <div><section id="chapter-prerequisites-python-imports">
@@ -598,6 +600,39 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pandas
 <span class="o">%</span><span class="k">pip</span> install matplotlib
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+Requirement already satisfied: pandas in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (1.4.3)
+Requirement already satisfied: python-dateutil&gt;=2.8.1 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from pandas) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from pandas) (2022.1)
+Requirement already satisfied: numpy&gt;=1.18.5 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from pandas) (1.21.5)
+Requirement already satisfied: six&gt;=1.5 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+Note: you may need to restart the kernel to use updated packages.
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+Requirement already satisfied: matplotlib in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (3.5.1)
+Requirement already satisfied: packaging&gt;=20.0 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (21.3)
+Requirement already satisfied: pillow&gt;=6.2.0 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (9.2.0)
+Requirement already satisfied: numpy&gt;=1.17 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (1.21.5)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (3.0.4)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (4.25.0)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (0.11.0)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (2.8.2)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from matplotlib) (1.4.2)
+Requirement already satisfied: six&gt;=1.5 in /Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+<span class=" -Color -Color-Yellow">WARNING: Ignoring invalid distribution -ensorflow (/Users/evanmuzzall/opt/anaconda3/lib/python3.8/site-packages)</span>
+Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 </div>
@@ -680,7 +715,7 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     <span class="c1"># use: custom data visualization </span>
 
 <span class="c1"># retrieving the data - this is a dataset detailing data science job salaries: </span>
-<span class="c1"># source: https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries?resource=download</span>
+<span class="c1"># source: https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries?resource=downloadz</span>
 <span class="n">home_dir</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
 <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;ds_salaries.csv&#39;</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">home_dir</span> <span class="o">+</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
@@ -691,7 +726,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s get a quick look at a few entries: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="n">z</span>
 
 <span class="c1"># what different fields does this dataset possess for each entry? </span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
@@ -907,7 +942,7 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Welcome to TAML!</p>
+            <p class="prev-next-title">Welcome to the Understanding Messy Time Series Data workshop!</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="1_dataSourcing.html" title="next page">

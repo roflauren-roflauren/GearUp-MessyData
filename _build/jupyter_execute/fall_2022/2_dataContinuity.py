@@ -3,6 +3,10 @@
 
 # # Chapter 2 - Data Continuity
 
+# <a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/2_dataContinuity.ipynb">
+#   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+# </a>
+
 # <div>
 # <img src="./imgs/mind_the_gap.png" width="750"/>
 # <figcaption><em>Not every data gap is as obvious as this one...</em></figcaption>

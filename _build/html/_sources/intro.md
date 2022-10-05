@@ -1,16 +1,15 @@
-# Welcome to TAML!
+# Welcome to the Understanding Messy Time Series Data workshop!
 
-This is the Jupyter Book for the Text Analysis and Machine Learning (TAML) Group at Stanford Libraries. 
+This is the Jupyter Book for the Understanding Messy Time Series Data workshop, part of the [Fall 2022 Gear-Up for Science Data initiative.](https://library.stanford.edu/blogs/stanford-libraries-blog/2022/09/fall-2022-gear-science-data)
 
-* It explains key terms and links to the JupyterLab computational environment.
-* Click "How to use this book" in the left sidebar to see how the book is organized. 
-* Click "Start Coding!" to view instructions to launch JupyterLab. 
-* Feel free to re-visit/refer to these materials regularly, as they will be updated with new techniques, ideas, etc.
+Register here: https://events-legacy.stanford.edu/events/945/94519/
 
-* Feedback and issues are welcome! Please post them to the Github repository housing TAML materials (https://github.com/EastBayEv/SSDS-TAML)
+The goals of this workshop are to: 
+1. a
+2. b
+3. c
+4. d
+
+## Brought to you by Software and Services for Data Science (SSDS) at Green Library
 
 Visit https://ssds.stanford.edu/ to learn more about Software and Services for Data Science, schedule a consultation, or RSVP for a workshop. 
-
-## Thank you to everyone who participated in TAML's pilot iteration in Winter Quarter 2022!
-
-## Stay tuned for the next iteration of TAML coming soon in 2022.

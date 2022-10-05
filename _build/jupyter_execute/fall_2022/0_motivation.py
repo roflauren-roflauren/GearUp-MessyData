@@ -3,6 +3,10 @@
 
 # # Chapter 0 - Why do we need robust data?
 
+# <a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/0_motivation.ipynb">
+#   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+# </a>
+
 # <div>
 # <img src="./imgs/xkcd.png" width="500"/>
 # <figcaption><em>Garbage in, garbage out...</em></figcaption>
@@ -12,7 +16,7 @@
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
-# In[ ]:
+# In[1]:
 
 
 get_ipython().run_line_magic('pip', 'install pandas')
@@ -97,7 +101,7 @@ import pandas as pd                 # use: data intake and manipulation
 import matplotlib.pyplot as plt     # use: custom data visualization 
 
 # retrieving the data - this is a dataset detailing data science job salaries: 
-# source: https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries?resource=download
+# source: https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries?resource=downloadz
 home_dir  = os.path.dirname(os.getcwd())
 data_path = os.sep + 'sample_datasets' + os.sep + 'ds_salaries.csv'
 data = pd.read_csv(home_dir + data_path, encoding='utf-8')
@@ -107,7 +111,7 @@ data = pd.read_csv(home_dir + data_path, encoding='utf-8')
 
 
 # let's get a quick look at a few entries: 
-print(data.head(5))
+print(data.head(5))z
 
 # what different fields does this dataset possess for each entry? 
 print(list(data.columns))

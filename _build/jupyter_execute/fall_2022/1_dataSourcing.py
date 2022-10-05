@@ -3,6 +3,10 @@
 
 # # Chapter 1 - Data Sourcing
 
+# <a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/1_dataSourcing.ipynb">
+#   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+# </a>
+
 # <div>
 # <img src="./imgs/product-proliferation.png" width="750"/>
 # <figcaption><em>The modern data landscape has so much data...no, really—SO much data. Which data should you use?</em></figcaption>
