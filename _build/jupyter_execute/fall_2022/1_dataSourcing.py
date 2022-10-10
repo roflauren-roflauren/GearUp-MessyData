@@ -55,8 +55,6 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 # 
 # 3. **Validating data and data generation approaches.**
 # 
-# For this and future chapters, chapter sub-topics will include numbered discussion sections and accompanying coding exercises or visualizations. It's suggested that you work through them in order, but doing so is not strictly necessary. 
-# 
 # Scroll down to get started! 
 
 # ## 1.3. Deciding between multiple data authors
@@ -86,24 +84,26 @@ import pandas as pd                 # use: data intake and manipulation
 
 
 """ BINDER USERS: """
-# when I look up 'US GDP data', the first result is from the Bureau of Economic Advisors (BEA): 
-# uncomment: bea_data = pd.read_csv('./sample_datasets/gdp_bea_q2_2022_adv.csv' , encoding='utf-8')
-
-
-# In[ ]:
-
+# uncomment: bea_data  = pd.read_csv('./sample_datasets/gdp_bea_q2_2022_adv.csv', encoding='utf-8')
+# uncomment: fred_data = pd.read_csv('./sample_datasets/gdp_fred.csv', encoding='utf-8')
+# uncomment: macrotrends_data = pd.read_csv('./sample_datasets/gdp_macrotrends.csv', encoding='utf-8')
 
 """ COLAB USERS: """
 # !mkdir data # create a '/data' directory if one doesn't already exist
-get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_bea_q2_2022_adv.csv # retrieve the dataset from remote storage on GitHub')
-bea_data = pd.read_csv("data/gdp_bea_q2_2022_adv.csv", encoding='utf-8')
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_bea_q2_2022_adv.csv')
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_fred.csv ')
+get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_macrotrends.csv')
+
+bea_data  = pd.read_csv("data/gdp_bea_q2_2022_adv.csv", encoding='utf-8')
+fred_data = pd.read_csv("data/gdp_fred.csv", encoding='utf-8')
+macrotrends_data = pd.read_csv("data/gdp_macrotrends.csv", encoding='utf-8')
 
 
 # In[ ]:
 
 
-# how's it structured? is it usable?
-print(bea_data.head(10))
+# when I look up 'US GDP data', the first result is from the Bureau of Economic Advisors (BEA): 
+bea_data.head(10)
 
 
 # In[ ]:
@@ -111,32 +111,14 @@ print(bea_data.head(10))
 
 # I can also find more GDP data through other official-sounding organizations: 
 # e.g., GDP data from the St. Louis Federal Reserve (FRED): 
-
-""" BINDER USERS: """
-# uncomment: fred_data = pd.read_csv('./sample_datasets/gdp_fred.csv' , encoding='utf-8')
-
-""" COLAB USERS: """
-# !mkdir data # create a '/data' directory if one doesn't already exist
-get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_fred.csv # retrieve the dataset from remote storage on GitHub')
-fred_data = pd.read_csv("data/gdp_fred.csv" , encoding='utf-8')
-
-print(fred_data.head(10))
+fred_data.head(10)
 
 
 # In[ ]:
 
 
 # how about GDP data from a random website? here's some from macrotrends.net:
-
-""" BINDER USERS: """
-# uncomment: macrotrends_data = pd.read_csv('./sample_datasets/gdp_macrotrends.csv' , encoding='utf-8')
-
-""" COLAB USERS: """
-# !mkdir data # create a '/data' directory if one doesn't already exist
-get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_macrotrends.csv # retrieve the dataset from remote storage on GitHub')
-macrotrends_data = pd.read_csv("data/gdp_macrotrends.csv" , encoding='utf-8')
-
-print(macrotrends_data.head(10))
+macrotrends_data.head(10)
 
 
 # Do these different data sources look even remotely similar? Despite all being search results for 'US GDP data,' what are some ways that these data sources are different? 
@@ -337,8 +319,11 @@ get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-
 sgdp_data = pd.read_csv("data/sgdp_sba.csv", encoding='utf-8', header=0, index_col=0)
 
 
+# In[ ]:
+
+
 # 2017 subset of data: 
-print(sgdp_data['2017_report_sgdp_share'])
+sgdp_data['2017_report_sgdp_share']
 
 
 # In[ ]:
@@ -458,7 +443,7 @@ gdp_approaches_data = pd.read_csv("data/gdp_diff_approaches.csv", encoding='utf-
 gdp_approaches_data = gdp_approaches_data.tail(15)
 
 # data structure: index, date, gdp, gdi (billions of nominal dollars)
-print(gdp_approaches_data.tail(10))
+gdp_approaches_data.tail(10)
 
 
 # In[ ]:

@@ -18,9 +18,10 @@
 # In[ ]:
 
 
-# commented calls may be included in the base install of Python; uncomment call(s) as necessary
+# commented calls may be included in your base install of Python; uncomment call(s) as necessary
 get_ipython().run_line_magic('pip', 'install pandas')
 get_ipython().run_line_magic('pip', 'install numpy')
+get_ipython().run_line_magic('pip', 'install sklearn')
 get_ipython().run_line_magic('pip', 'install matplotlib')
 # %pip install random
 # %pip install dateutil.parser
@@ -236,6 +237,9 @@ import pandas as pd            # use: data import & wrangling.
 import numpy as np             # use: some mathematical utilities.
 import random as rd            # use: nothing suspicious, that's for sure!
 
+# options:
+rd.seed(123)                   # use: to ensure replicablity of examples 
+
 
 # In[68]:
 
@@ -251,11 +255,7 @@ def cyberattack(data):
 # In[ ]:
 
 
-# options:
-rd.seed(123) # use: to ensure replicablity of examples 
-
 # it's back to our friendly FRED data! 
-
 """ BINDER USERS: """
 # uncomment: qoq_gdp_data = pd.read_csv('./sample_datasets/gdp_fred.csv', encoding='utf-8')
 
@@ -264,6 +264,10 @@ rd.seed(123) # use: to ensure replicablity of examples
 get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_fred.csv # retrieve the dataset from remote storage on GitHub')
 qoq_gdp_data = pd.read_csv("data/gdp_fred.csv", encoding='utf-8')
 
+
+# In[ ]:
+
+
 # let's just look at the more recent data: 
 qoq_gdp_data = qoq_gdp_data[-100:].reset_index(drop=True)
 
@@ -271,7 +275,7 @@ qoq_gdp_data = qoq_gdp_data[-100:].reset_index(drop=True)
 qoq_gdp_damaged = cyberattack(qoq_gdp_data)
 
 # now we have data gaps: 
-print(qoq_gdp_damaged.head(10))
+qoq_gdp_damaged.head(10)
 
 
 # Given our somewhat contrived reason for the presence of discontinuities in our data, I hope you'll generally agree that timeseries data with missing data points is not a totally unreasonable occurrence. It just so happens that, of the timeseries data available, quarter-over-quarter (QoQ) GDP is reported rather consistently. 
@@ -291,8 +295,12 @@ print(qoq_gdp_damaged.head(10))
 get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/monthly_gdp.csv # retrieve the dataset from remote storage on GitHub')
 mom_gdp = pd.read_csv("data/monthly_gdp.csv", encoding='utf-8')
 
+
+# In[ ]:
+
+
 # this data includes a nominal and real estmate: 
-print(mom_gdp.head(5))
+mom_gdp.head(5)
 
 # our FRED data is in terms of nominal dollars (can you find out how we know this? it's a data sourcing exercise!), so drop the real_gdp estimate: 
 mom_gdp.drop(columns=['MONTHLY_REAL_GDP'], inplace=True)
@@ -472,7 +480,6 @@ gas_prices = pd.read_csv("data/gas_gas_gas.csv", encoding='utf-8')
 
 
 # *Monthly* GDP estimates from: https://ihsmarkit.com/products/us-monthly-gdp-index.html
-
 """ BINDER USERS: """
 # uncomment: mom_gdp = pd.read_csv('./sample_datasets/monthly_gdp.csv', encoding='utf-8')
 
@@ -486,7 +493,7 @@ mom_gdp = pd.read_csv("data/monthly_gdp.csv", encoding='utf-8')
 
 
 # let's see the data! 
-# for dataset in (gas_prices, mom_gdp): print(dataset.head(5))
+for dataset in (gas_prices, mom_gdp): dataset.head(5)
 
 
 # #### *DISCUSSION 11.2: LINEAR REGRESSION REFRESHER*
@@ -661,7 +668,7 @@ print(type(gas_prices['DATE'][0]))
 both_weekly_data = pd.merge_asof(gas_prices, mom_gdp, on='DATE', direction="backward") 
 
 # check the merged data out! 
-# print(both_weekly_data.head(5))
+both_weekly_data.head(5)
 
 
 # In[ ]:
@@ -678,7 +685,7 @@ monthly_gas_prices.reset_index(inplace=True) # convert the 'DATE' values (as an 
 both_monthly_data = pd.merge_asof(mom_gdp, monthly_gas_prices, on='DATE', direction="forward") 
 
 # how does the merged monthly data look?
-# print(both_monthly_data.head(5))
+both_monthly_data.head(5)
 
 
 # #### **CODING EXERCISE: CoDF - OLS REGRESSION REDUX**

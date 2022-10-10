@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Optimizing data filling via Vectorization 
+# # Appendix A: Optimizing data filling via Vectorization 
 
 # <a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/appendix_vectorize.ipynb">
 #   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -11,9 +11,9 @@
 # 
 # *If you're too busy to read the chapter, this is basically it!*
 
-# #### *Chapter prerequisites: Python imports*
+# #### *Appendix prerequisites: Python imports*
 
-# Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
+# Before running any code blocks in the following appendix, please ensure you have the necessary Python packages installed via the following code block:
 
 # In[ ]:
 
@@ -22,7 +22,7 @@ get_ipython().run_line_magic('pip', 'install pandas')
 get_ipython().run_line_magic('pip', 'install numpy')
 
 
-# #### **PREFACE**
+# ## A.0. Preface: motivating vectorization
 
 # In our running examples with GDP data, we've typically dealt with datasets that are fairly small by data science standards (~1000 rows or less). 
 # 
@@ -32,6 +32,8 @@ get_ipython().run_line_magic('pip', 'install numpy')
 # 
 # Although the defintion of optimal code and the processing of writing it varies with context, here we're going to learn a technique that can be applied in many situations: *vectorization.*
 
+# ## A.1. What, why, when, and how to vectorize
+
 # #### *DISCUSSION 1: DEFINING VECTORIZATION*
 
 # A natural first question to ask is, *what is vectorizing/vectorization?* You may have heard of vectors before in a mathematics class, where vectors are a series of ordered values like this: [3, 2, 5] or [4, 7, 11, 8]. 
@@ -40,15 +42,24 @@ get_ipython().run_line_magic('pip', 'install numpy')
 # 
 # The processing of a scalar implementation of the instruction, "add two to every element in this list," would look like: 
 # 
-# $$input: [3, 2, 5] → [3 + 2 = 5, 2, 5] → [5, 2 + 2 = 4, 5] → [5, 4, 5 + 2 = 7] → output: [5, 4, 7]$$
+# 
+# <center> 
+# 
+# *input:* [3, 2, 5] → [3 + 2 = 5, 2, 5] → [5, 2 + 2 = 4, 5] → [5, 4, 5 + 2 = 7] → *output:* [5, 4, 7]
+# 
+# </center>
 # 
 # while the processing of a vectorized implementation of the same instruction would look like: 
 # 
-# $$input: [3, 2, 5] → [3 + 2 = 5, 2 + 2 = 4, 5 + 2 = 7] → output: [5, 4, 7]$$
+# <center> 
+# 
+# *input:* [3, 2, 5] → [3 + 2 = 5, 2 + 2 = 4, 5 + 2 = 7] → *output:* [5, 4, 7]
+# 
+# </center>
 # 
 # (where different processors in your machine carry out the '+2' instruction on each element concurrently.)
 # 
-# If the previous example makes sense to you, congratulations! You understand vectorization. Feel free to come up with your own quicker working definition (mine is, "make computer do same thing to many things at same time instead of on things one-by-one." 
+# If the previous example makes sense to you, congratulations! You understand vectorization. Feel free to come up with your own quicker working definition (mine is, "make computer do same thing to many things at same time." 
 
 # #### *DISCUSSION 2: WHY VECTORIZE?*
 
@@ -198,6 +209,8 @@ print ("Average % increase in GDP: " + str(round(sum(percent_increase)/len(perce
 # 
 # (*Note on magic commands:* Magic commands are those suffixed by the '%' symbol in IPython or Jupyter Notebooks. If you're using Python through a local installation or IDE, packaged versions of the same tools exist for your import and use.)
 
+# ## A.2. Vectorization in action
+
 # #### **CODING EXERCISE: VECTORIZATION - DATA IMPORT**
 
 # With our tools in hand, let's go try some vectorization! 
@@ -229,7 +242,7 @@ song_df = pd.read_csv("data/unpopular_songs.csv", encoding='utf-8')
 
 
 # a quick view into our data: 
-print(song_df.head(5))
+song_df.head(5)
 
 # some summary statistics:
 song_df.describe()
@@ -248,7 +261,7 @@ def anthony_score(danceability, energy, loudness, mode, tempo, speechiness):
     eardrum_health = loudness/2  
 
     # i like FAST songs:
-    vibe_subscore = (240 - tempo)/240 + mode/2 # and a bonus if they're in the major key! 
+    vibe_subscore = tempo/240 + mode/2 # and a bonus if they're in the major key! 
 
     # music without talking belongs in elevators: 
     talk_subscore = (speechiness + 12)/14 
@@ -347,7 +360,7 @@ get_ipython().run_cell_magic('timeit', '', "\n# for simple functions, vectorizin
 # | vect. with ndarrays  | 0.548                        | 3.34x                     | 1434.31x                 |
 # </center>
 
-# #### *DISCUSSION 5: QUALIFICATIONS*  
+# ## A.3. Key qualifications
 
 # If you leave this chapter with one conclusion, I hope it's that vectorization can make programs run really, really fast, and therefore it's worth looking into!
 # 
@@ -415,7 +428,7 @@ get_ipython().run_cell_magic('timeit', '', "\n# string processing is difficult t
 
 
 # let's see the results:
-print(song_df['anthony_name'])
+song_df['anthony_name']
 
 
 # Since we were using ```.apply()``` (which is often your best bet with complex string processing), the operation wasn't blazingly fast. We could have also tried to speed things up by decomposing our desired functionality into smaller processes, some of which could have been handled by Pandas built-in's: 
@@ -453,7 +466,7 @@ get_ipython().run_cell_magic('timeit', '', "\n# divide up each song name into it
 # 
 # So, don't forget about the humble loop! Depending on how you use it, it may be more powerful than it initially seems!
 
-# #### **CONCLUSION**
+# ## A.4. *Concluding notes*
 
 # Before diving into the data processing stage of your project, please remember - vectorization is a wonderful and powerful tool, but every tool has its time and place. 
 # 

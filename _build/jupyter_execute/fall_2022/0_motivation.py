@@ -91,7 +91,7 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 # In[2]:
 
 
-""" DATA SOURCING INTERACTIVE DEFINITION """
+""" DATA SOURCING: INTERACTIVE DEFINITION """
 # importing some libraries: 
 import os                           # use: file management and access 
 import pandas as pd                 # use: data intake and manipulation 
@@ -106,10 +106,6 @@ import matplotlib.pyplot as plt     # use: custom data visualization
 # source: https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries?resource=downloadz
 # uncomment: data = pd.read_csv('./sample_datasets/ds_salaries.csv', encoding='utf-8')
 
-
-# In[ ]:
-
-
 """ COLAB USERS: """
 get_ipython().system("mkdir data # create a '/data' directory if one doesn't already exist")
 get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/ds_salaries.csv # retrieve the dataset from remote storage on GitHub')
@@ -120,10 +116,10 @@ data = pd.read_csv("data/ds_salaries.csv", encoding='utf-8')
 
 
 # let's get a quick look at a few entries: 
-print(data.head(5))
+data.head(5)
 
 # what different fields does this dataset possess for each entry? 
-print(list(data.columns))
+list(data.columns)
 
 
 # In[ ]:
@@ -146,7 +142,7 @@ plt.bar_label(bars)
 # In[49]:
 
 
-""" DATA CONTINUITY INTERACTIVE DEFINITION """
+""" DATA CONTINUITY: INTERACTIVE DEFINITION """
 # importing some libraries: 
 import os                           # use: file management and access 
 import pandas as pd                 # use: data intake and manipulation 
@@ -161,10 +157,6 @@ import matplotlib.pyplot as plt     # use: custom data visualization
 # source: https://www.kaggle.com/datasets/sumanthvrao/daily-climate-time-series-data
 # uncomment: data = pd.read_csv('./sample_datasets/daily_delhi_climate.csv', encoding='utf-8')
 
-
-# In[ ]:
-
-
 """ COLAB USERS: """
 # !mkdir data # create a '/data' directory if one doesn't already exist
 get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/daily_delhi_climate.csv # retrieve the dataset from remote storage on GitHub')
@@ -175,13 +167,21 @@ data = pd.read_csv("data/daily_delhi_climate.csv", encoding='utf-8')
 
 
 # let's check out the data structure:
-print(data.head(5)) 
+data.head(5)
+
+
+# In[ ]:
+
 
 # .info() provides a concise summary of a dataframe: 
-print(data.info())
+data.info()
+
+
+# In[ ]:
+
 
 # .describe() provides insight into the dispersion & shape of a dataframe's distribution: 
-print(data.describe())
+data.describe()
 
 
 # In[51]:
@@ -225,7 +225,7 @@ plt.show()
 # In[71]:
 
 
-""" DATA CONTINUITY INTERACTIVE DEFINITION """
+""" DATA TIMELINESS: INTERACTIVE DEFINITION """
 # importing some libraries: 
 import os                           # use: file management and access 
 import pandas as pd                 # use: data intake and manipulation 
@@ -240,10 +240,6 @@ import matplotlib.pyplot as plt     # use: custom data visualization
 # source: https://catalog.data.gov/dataset/covid-19-hospital-capacity
 # uncomment: data = pd.read_csv('./sample_datasets/covid19_hospital_capacity.csv', encoding='utf-8')
 
-
-# In[ ]:
-
-
 """ COLAB USERS: """
 # !mkdir data # create a '/data' directory if one doesn't already exist
 get_ipython().system('wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/covid19_hospital_capacity.csv # retrieve the dataset from remote storage on GitHub')
@@ -255,10 +251,10 @@ data = pd.read_csv("data/covid19_hospital_capacity.csv", encoding='utf-8')
 
 # always explore the data before processing it!
 # sample entries: 
-print(data.head(5)) 
+data.head(5)
 
 # info on the dataset columns and types: 
-print(data.info())
+data.info()
 
 
 # In[ ]:

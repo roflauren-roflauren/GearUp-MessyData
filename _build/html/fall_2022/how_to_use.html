@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Chapter 3 - Data Timeliness &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
+    <title>Preface: How to use this book &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -53,8 +53,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Appendix A: Optimizing data filling via Vectorization" href="appendix_vectorize.html" />
-    <link rel="prev" title="Chapter 2 - Data Continuity" href="2_dataContinuity.html" />
+    <link rel="next" title="Chapter 0 - Why do we need robust data?" href="0_motivation.html" />
+    <link rel="prev" title="Welcome to the Understanding Messy Time Series Data workshop!" href="../intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -119,9 +119,9 @@ const thebe_selector_output = ".output, .cell_output"
   WORKSHOP INTRO
  </span>
 </p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="how_to_use.html">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Preface: How to use this book
   </a>
  </li>
@@ -136,7 +136,7 @@ const thebe_selector_output = ".output, .cell_output"
   DATA BEST PRACTICES
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="1_dataSourcing.html">
    Chapter 1 - Data Sourcing
@@ -147,8 +147,8 @@ const thebe_selector_output = ".output, .cell_output"
    Chapter 2 - Data Continuity
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_dataTimeliness.html">
    Chapter 3 - Data Timeliness
   </a>
  </li>
@@ -223,7 +223,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/roflauren-roflauren/GearUp-MessyData/main?urlpath=tree/fall_2022/3_dataTimeliness.ipynb"
+        <a href="https://mybinder.org/v2/gh/roflauren-roflauren/GearUp-MessyData/main?urlpath=tree/fall_2022/how_to_use.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -241,7 +241,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/3_dataTimeliness.ipynb"
+        <a href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/how_to_use.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -319,7 +319,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData/issues/new?title=Issue%20on%20page%20%2Ffall_2022/3_dataTimeliness.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData/issues/new?title=Issue%20on%20page%20%2Ffall_2022/how_to_use.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -347,7 +347,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/fall_2022/3_dataTimeliness.ipynb"
+        <a href="../_sources/fall_2022/how_to_use.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -407,38 +407,53 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-imports">
-   <em>
-    Chapter Imports
-   </em>
+  <a class="reference internal nav-link" href="#book-layout">
+   Book layout
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#defining-data-timeliness">
-   3.0. Defining “data timeliness”
+  <a class="reference internal nav-link" href="#jupyter-icons">
+   Jupyter icons
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#workshop-format">
+   Workshop format
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-environments">
+   Python environments
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#discussion-1-types-of-data-timeliness-practices">
-     <em>
-      DISCUSSION 1: TYPES OF DATA TIMELINESS PRACTICES
-     </em>
+    <a class="reference internal nav-link" href="#installing-google-colab">
+     Installing Google Colab
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-google-colab">
+     Using Google Colab
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#colab-toolbar">
+       Colab toolbar
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#save-your-work">
+       Save your work
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#learn-more">
+       Learn more
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constructing-data-timeliness">
-   3.1. Constructing data timeliness
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-takeaways">
-   3.2.
-   <em>
-    Chapter Takeaways
-   </em>
-  </a>
  </li>
 </ul>
 
@@ -449,7 +464,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Chapter 3 - Data Timeliness</h1>
+                <h1>Preface: How to use this book</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -460,38 +475,53 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-imports">
-   <em>
-    Chapter Imports
-   </em>
+  <a class="reference internal nav-link" href="#book-layout">
+   Book layout
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#defining-data-timeliness">
-   3.0. Defining “data timeliness”
+  <a class="reference internal nav-link" href="#jupyter-icons">
+   Jupyter icons
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#workshop-format">
+   Workshop format
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-environments">
+   Python environments
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#discussion-1-types-of-data-timeliness-practices">
-     <em>
-      DISCUSSION 1: TYPES OF DATA TIMELINESS PRACTICES
-     </em>
+    <a class="reference internal nav-link" href="#installing-google-colab">
+     Installing Google Colab
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-google-colab">
+     Using Google Colab
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#colab-toolbar">
+       Colab toolbar
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#save-your-work">
+       Save your work
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#learn-more">
+       Learn more
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constructing-data-timeliness">
-   3.1. Constructing data timeliness
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-takeaways">
-   3.2.
-   <em>
-    Chapter Takeaways
-   </em>
-  </a>
  </li>
 </ul>
 
@@ -503,58 +533,117 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-3-data-timeliness">
-<h1>Chapter 3 - Data Timeliness<a class="headerlink" href="#chapter-3-data-timeliness" title="Permalink to this heading">#</a></h1>
-<a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/3_dataTimeliness.ipynb">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a><p><img alt="timeliness" src="../_images/timeliness.png" /></p>
-<section id="chapter-imports">
-<h2><em>Chapter Imports</em><a class="headerlink" href="#chapter-imports" title="Permalink to this heading">#</a></h2>
-<p>No coding (or imports) are required for this chapter - yay!</p>
-</section>
-<section id="defining-data-timeliness">
-<h2>3.0. Defining “data timeliness”<a class="headerlink" href="#defining-data-timeliness" title="Permalink to this heading">#</a></h2>
-<p>As a final consideration, let’s briefly discuss data timeliness:</p>
-<p>Data timeliness refers to the <strong>proximity</strong> of utilized data to the present moment and/or relevant analysis and projections.</p>
-<p>In general (can you think of exceptions?), more timely data is preferred; e.g., an NLP analysis on the most promient topics in 1970’s highschool science textbooks should avoid use of a text corpus of 1950’s textbooks.</p>
-<p><em>Note: The following discussion of data timeliness is most relevant to time series data. Limited applicability to other types of data should be noted.</em></p>
-<section id="discussion-1-types-of-data-timeliness-practices">
-<h3><em>DISCUSSION 1: TYPES OF DATA TIMELINESS PRACTICES</em><a class="headerlink" href="#discussion-1-types-of-data-timeliness-practices" title="Permalink to this heading">#</a></h3>
-<p>Data timeliness practices can broadly be divided into two categories:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="preface-how-to-use-this-book">
+<h1>Preface: How to use this book<a class="headerlink" href="#preface-how-to-use-this-book" title="Permalink to this heading">#</a></h1>
+<p>This book provides a reference for the exercises and code we present and discuss in the Understanding Messy Time Series Data workshop. While you can actually run the code in the book itself (although it might take a while to load - see below), think of this book as the single point to access the content, conceptual introductions, vocabulary terms, and code.</p>
+<section id="book-layout">
+<h2>Book layout<a class="headerlink" href="#book-layout" title="Permalink to this heading">#</a></h2>
+<p>This book’s layout is divided into three sections: <strong>(1) center portion</strong>, <strong>(2) left sidebar</strong>, and <strong>(3) right sidebar</strong>.</p>
 <ol class="simple">
-<li><p><em>assessing</em> data timeliness; and</p></li>
-<li><p><em>constructing</em> data timeliness.</p></li>
+<li><p>The center portion contains the main text. Here, goals, concepts, vocabulary, objectives, and code will be presented and explained.</p></li>
+<li><p>The left sidebar shows the table of contents. Use the <code class="docutils literal notranslate"><span class="pre">left</span> <span class="pre">and</span> <span class="pre">right</span> <span class="pre">arrow</span> <span class="pre">keys</span></code> to browse the different chapters.</p></li>
+<li><p>The right sidebar contains clickable section headers for the chapter you are currently viewing. Use the <code class="docutils literal notranslate"><span class="pre">up</span> <span class="pre">and</span> <span class="pre">down</span> <span class="pre">arrow</span> <span class="pre">keys</span></code> to scroll the page.</p></li>
 </ol>
-<p>The former category, while important, is mostly an exercise in identifying the structural qualities of potential datasets and is highly related to data sourcing and continuity; e.g.,</p>
-<ul class="simple">
-<li><p>Do you opt for data resource A or data resource B when resource B is more reputable but less timely?</p></li>
-<li><p>Is it better to use data resource X or data resource Y when resource Y is more timely but also subject to more frequent data gaps?</p></li>
-</ul>
-<p>Assessing data timeliness is usually a qualitative, ad hoc practice, so there are limited hard-and-fast rules to apply when selecting between more or less timely datasets.</p>
-<p>However, constructing data timeliness for a given data resource is a means to mitigate some potential tradeoffs associated with using that resource — and it’s what we’ll be discussing next!</p>
 </section>
-</section>
-<section id="constructing-data-timeliness">
-<h2>3.1. Constructing data timeliness<a class="headerlink" href="#constructing-data-timeliness" title="Permalink to this heading">#</a></h2>
-<p>Consider the applications of your project are research - are you trying to build a time-sensitive indicator? Derive a key statistic to motivate decisions? Make a near real-time prediction?</p>
-<p>In such scenarios, data timeliness is especially crucial. Utilizing data resources that are frequently updated is a must. But, if such data resources do not exist, timeliness can be <em>constructed:</em></p>
+<section id="jupyter-icons">
+<h2>Jupyter icons<a class="headerlink" href="#jupyter-icons" title="Permalink to this heading">#</a></h2>
+<p>Notice the icons at the top  of each page.</p>
+<p><img alt="jupyter-icons" src="../_images/icons.png" /></p>
 <ul class="simple">
-<li><p>For instance, consider GDP. The most accurate GDP data is published a quarter after the relevant point of measurement (e.g., final 2021 Q3 measurements are published at the end of 2021 Q4).</p></li>
-<li><p>If official advance measurements weren’t published (though they are), you could construct your own by estimating GDP from a more timely data resource; e.g., credit card spending.</p></li>
-</ul>
-<p>Constructing a more timely estimate in this way is essentially an exercise in identifying a leading indicator and quantifying its relationship with your metric of interest:</p>
-<p><img alt="leading" src="../_images/leading_indicator.png" /></p>
-<p><em>Leading indicators predict changes in a given signal.</em></p>
-<p>And best of all, this exercise is one we already have familiarity with!</p>
-<ul class="simple">
-<li><p>Selecting and sourcing an indicator is an iteration of the <em>data sourcing</em> process; and</p></li>
-<li><p>Quantifying the relationship between the indicator and metric of interest is a type of present-moment <em>data (dis)continuity</em> remediation.</p></li>
+<li><p>The <strong>rocketship</strong> icon appears on pages with executable code. Hover your mouse over it and click “Binder” to launch all of the materials there in a Jupyter Lab on Binder. Or, click <strong>“Live Code”</strong> to be able to run the code on the webpage, although this might take a long time to load!</p></li>
+<li><p>Click the <strong>square</strong> icon to enter fullscreen mode. Press the escape key to exit.</p></li>
+<li><p>Move your mouse over the <strong>Octocat</strong> icon. Click “Repository” to visit the GitHub site. Or, click “Open Issue” to contribute to this book.</p></li>
+<li><p>The <strong>download</strong> icon can be used to download this book.</p></li>
+<li><p>On the top-left of the page, click the <strong>three lines</strong> icon (toggle navigation) to hide the left sidebar.</p></li>
 </ul>
 </section>
-<section id="chapter-takeaways">
-<h2>3.2. <em>Chapter Takeaways</em><a class="headerlink" href="#chapter-takeaways" title="Permalink to this heading">#</a></h2>
-<p>If you want to develop experience with all of the practices reviewed in this workshop—data sourcing, data continuity, and data timeliness—attempting to construct your own timely estimate of GDP data is highly recommended!</p>
-<p>Otherwise, this chapter concludes the initial GearUp workshop materials! Stay posted for more workshops from SSDS, and please <a class="reference external" href="https://library.stanford.edu/research/software-and-services-data-science/schedule-consulting-appointment-contact-us">schedule a consult with SSDS</a> to further explore data best practices or for any other of your data science needs. Thank you 😊!</p>
+<section id="workshop-format">
+<h2>Workshop format<a class="headerlink" href="#workshop-format" title="Permalink to this heading">#</a></h2>
+<p>SSDS’s GearUp workshop consists of a single 2-hour session, divided into the following sections:</p>
+<ul class="simple">
+<li><p>Lecture overviews of various lengths that introduce concepts, vocabulary and code examples.</p></li>
+<li><p>A short break.</p></li>
+<li><p>Time to review and discuss material collaboratively.</p></li>
+</ul>
+<p>Chapters components include:</p>
+<ul class="simple">
+<li><p>Chapter previews (e.g., learning objectives, installation prerequisites).</p></li>
+<li><p>Discussion texts (numbered in suggested order).</p></li>
+<li><p>Coding demonstrations.</p></li>
+<li><p>Collapsible summaries for long(er) blocks of text (see below for an example).</p></li>
+</ul>
+<details>
+  <summary><em>Example collapsible section - click me!</em></summary>
+<p><img alt="normal-dist" src="../_images/normal_dist.png" /></p>
+</details>
+<p>Not all of the material present in the book may be presented in the workshop, so feel free to explore the book more when you have the time! Sharing the book is encouraged as well.</p>
+</section>
+<section id="python-environments">
+<h2>Python environments<a class="headerlink" href="#python-environments" title="Permalink to this heading">#</a></h2>
+<p>There are many interfaces through which we can interact with and run the workshop coding examples, including:</p>
+<ol class="simple">
+<li><p>Google Colab</p></li>
+<li><p>Jupyter Lab via Binder</p></li>
+<li><p>Local Anaconda environment</p></li>
+<li><p>Text editor</p></li>
+</ol>
+<p>All of these interfaces can work, and no single one is strictly better than another. However, for the purposes of the workshop presentation, we will be using <strong>Google Colab</strong> due to its ease of use and quick start-up time. <em>Prior to the workshop,</em> please see the following instructions to set up your Colab environment:</p>
+<section id="installing-google-colab">
+<h3>Installing Google Colab<a class="headerlink" href="#installing-google-colab" title="Permalink to this heading">#</a></h3>
+<p>Start by installing the extension to your Stanford Google Drive account.</p>
+<ol class="simple">
+<li><p>Click <a class="reference external" href="https://accounts.google.com/ServiceLogin/signinchooser?service=wise&amp;passive=true&amp;continue=http%3A%2F%2Fdrive.google.com%2F%3Futm_source%3Den&amp;utm_medium=button&amp;utm_campaign=web&amp;utm_content=gotodrive&amp;usp=gtd%3Cmpl=drive&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin">here</a> to visit the Google Colab sign in page</p></li>
+<li><p>Enter your SUNet email address on the “Choose an account” screen</p></li>
+<li><p>Click “My Drive”</p></li>
+<li><p>Click the “+New” button and select “Google Colaboratory”</p></li>
+</ol>
+<p><img alt="colab_new" src="../_images/colab_new.png" /></p>
+<ol class="simple">
+<li><p>If you do not see this option, click “+ Connect more apps” and search for Colaboratory and the icon will appear:</p></li>
+</ol>
+<p><img alt="colab_search" src="../_images/colab_search.png" /></p>
+<ol class="simple">
+<li><p>Click the brown and orange Colaboratory icon and click “Install:”</p></li>
+</ol>
+<p><img alt="colab_install" src="../_images/colab_install.png" /></p>
+<ol class="simple">
+<li><p>Click “Continue” and select your <strong>stanford.edu account</strong> if prompted:</p></li>
+</ol>
+<p><img alt="colab_select" src="../_images/colab_continue.png" /></p>
+<ol class="simple">
+<li><p>You will see that Colaboratory was successfully installed/connected to Google Drive when finished. Click “OK” and “Done” to complete the installation and close any remaining pop-up windows.</p></li>
+</ol>
+<p><img alt="colab_success" src="../_images/colab_success.png" /></p>
+</section>
+<section id="using-google-colab">
+<h3>Using Google Colab<a class="headerlink" href="#using-google-colab" title="Permalink to this heading">#</a></h3>
+<p>To launch Colab, click the Colab badge at the top of each chapter in the book.</p>
+<p><img alt="colab-badge" src="../_images/colab_badge.png" /></p>
+<p>Click the <code class="docutils literal notranslate"><span class="pre">Run</span></code> button in the toolbar, or press <code class="docutils literal notranslate"><span class="pre">shift</span> <span class="pre">+</span> <span class="pre">enter</span></code> on your keyboard to execute the cell.</p>
+<section id="colab-toolbar">
+<h4>Colab toolbar<a class="headerlink" href="#colab-toolbar" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Click the <strong>+ Code</strong> button to add a code cell</p></li>
+<li><p>Click the <strong>+ Text</strong> button to add a text/markdown cell</p></li>
+<li><p>Click the <strong>Menu</strong> to view the table of contents</p></li>
+<li><p>Click the <strong>File</strong> folder to view your available files</p></li>
+</ul>
+<p><img alt="colab-toolbar" src="../_images/colab_toolbar.png" /></p>
+</section>
+<section id="save-your-work">
+<h4>Save your work<a class="headerlink" href="#save-your-work" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Click the <strong>Copy to Drive</strong> toolbar button, or</p></li>
+<li><p>Click “File” –&gt; “Download” –&gt; “Download.ipynb”</p></li>
+</ul>
+<p><img alt="colab-save" src="../_images/colab_save_notebook.png" /></p>
+</section>
+<section id="learn-more">
+<h4>Learn more<a class="headerlink" href="#learn-more" title="Permalink to this heading">#</a></h4>
+<p>Check out <a class="reference external" href="https://amitness.com/2020/06/google-colaboratory-tips/">Google Colab Tips for Power Users</a> for shortcuts.</p>
+<p>(*Note: this page was heavily adapted from the <a class="reference external" href="https://eastbayev.github.io/SSDS-TAML/fall2022/1_How_to_use_this_book.html">“How to use this book”</a> chapter of SSDS’s Fall Quarter 2022 Text Analysis and Machine Learning Workshop - many thanks to its authors!)</p>
+</section>
+</section>
 </section>
 </section>
 
@@ -585,17 +674,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="2_dataContinuity.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Chapter 2 - Data Continuity</p>
+            <p class="prev-next-title">Welcome to the Understanding Messy Time Series Data workshop!</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="appendix_vectorize.html" title="next page">
+    <a class='right-next' id="next-link" href="0_motivation.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Appendix A: Optimizing data filling via Vectorization</p>
+        <p class="prev-next-title">Chapter 0 - Why do we need robust data?</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

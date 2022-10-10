@@ -121,6 +121,11 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="how_to_use.html">
+   Preface: How to use this book
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="0_motivation.html">
    Chapter 0 - Why do we need robust data?
   </a>
@@ -156,7 +161,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="appendix_vectorize.html">
-   Optimizing data filling via Vectorization
+   Appendix A: Optimizing data filling via Vectorization
   </a>
  </li>
 </ul>
@@ -802,7 +807,6 @@ title="Print to PDF"
 <li><p><strong>Understanding author incentives and purpose;</strong> and</p></li>
 <li><p><strong>Validating data and data generation approaches.</strong></p></li>
 </ol>
-<p>For this and future chapters, chapter sub-topics will include numbered discussion sections and accompanying coding exercises or visualizations. It’s suggested that you work through them in order, but doing so is not strictly necessary.</p>
 <p>Scroll down to get started!</p>
 </section>
 <section id="deciding-between-multiple-data-authors">
@@ -827,26 +831,27 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
-<span class="c1"># when I look up &#39;US GDP data&#39;, the first result is from the Bureau of Economic Advisors (BEA): </span>
-<span class="c1"># uncomment: bea_data = pd.read_csv(&#39;./sample_datasets/gdp_bea_q2_2022_adv.csv&#39; , encoding=&#39;utf-8&#39;)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
+<span class="c1"># uncomment: bea_data  = pd.read_csv(&#39;./sample_datasets/gdp_bea_q2_2022_adv.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+<span class="c1"># uncomment: fred_data = pd.read_csv(&#39;./sample_datasets/gdp_fred.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+<span class="c1"># uncomment: macrotrends_data = pd.read_csv(&#39;./sample_datasets/gdp_macrotrends.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+
+<span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
 <span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
-<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_bea_q2_2022_adv.csv # retrieve the dataset from remote storage on GitHub
-<span class="n">bea_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/gdp_bea_q2_2022_adv.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_bea_q2_2022_adv.csv
+<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_fred.csv 
+<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_macrotrends.csv
+
+<span class="n">bea_data</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/gdp_bea_q2_2022_adv.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="n">fred_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/gdp_fred.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="n">macrotrends_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/gdp_macrotrends.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># how&#39;s it structured? is it usable?</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bea_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># when I look up &#39;US GDP data&#39;, the first result is from the Bureau of Economic Advisors (BEA): </span>
+<span class="n">bea_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -855,16 +860,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># I can also find more GDP data through other official-sounding organizations: </span>
 <span class="c1"># e.g., GDP data from the St. Louis Federal Reserve (FRED): </span>
-
-<span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
-<span class="c1"># uncomment: fred_data = pd.read_csv(&#39;./sample_datasets/gdp_fred.csv&#39; , encoding=&#39;utf-8&#39;)</span>
-
-<span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
-<span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
-<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_fred.csv # retrieve the dataset from remote storage on GitHub
-<span class="n">fred_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/gdp_fred.csv&quot;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">fred_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">fred_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -872,16 +868,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># how about GDP data from a random website? here&#39;s some from macrotrends.net:</span>
-
-<span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
-<span class="c1"># uncomment: macrotrends_data = pd.read_csv(&#39;./sample_datasets/gdp_macrotrends.csv&#39; , encoding=&#39;utf-8&#39;)</span>
-
-<span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
-<span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
-<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_macrotrends.csv # retrieve the dataset from remote storage on GitHub
-<span class="n">macrotrends_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/gdp_macrotrends.csv&quot;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">macrotrends_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">macrotrends_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1114,10 +1101,14 @@ title="Print to PDF"
 <span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
 <span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/sgdp_sba.csv # retrieve the dataset from remote storage on GitHub
 <span class="n">sgdp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/sgdp_sba.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-
-<span class="c1"># 2017 subset of data: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2017_report_sgdp_share&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2017 subset of data: </span>
+<span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2017_report_sgdp_share&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1237,7 +1228,7 @@ title="Print to PDF"
 <span class="n">gdp_approaches_data</span> <span class="o">=</span> <span class="n">gdp_approaches_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
 
 <span class="c1"># data structure: index, date, gdp, gdi (billions of nominal dollars)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gdp_approaches_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">gdp_approaches_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

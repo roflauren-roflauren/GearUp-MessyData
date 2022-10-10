@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Optimizing data filling via Vectorization &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
+    <title>Appendix A: Optimizing data filling via Vectorization &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -120,6 +120,11 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="how_to_use.html">
+   Preface: How to use this book
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="0_motivation.html">
    Chapter 0 - Why do we need robust data?
   </a>
@@ -155,7 +160,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Optimizing data filling via Vectorization
+   Appendix A: Optimizing data filling via Vectorization
   </a>
  </li>
 </ul>
@@ -401,101 +406,111 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
+  <a class="reference internal nav-link" href="#appendix-prerequisites-python-imports">
    <em>
-    Chapter prerequisites: Python imports
+    Appendix prerequisites: Python imports
    </em>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#preface">
-   <strong>
-    PREFACE
-   </strong>
+  <a class="reference internal nav-link" href="#a-0-preface-motivating-vectorization">
+   A.0. Preface: motivating vectorization
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-1-defining-vectorization">
-   <em>
-    DISCUSSION 1: DEFINING VECTORIZATION
-   </em>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-2-why-vectorize">
-   <em>
-    DISCUSSION 2: WHY VECTORIZE?
-   </em>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-3-order-dependence-of-operations">
-   <em>
-    DISCUSSION 3: ORDER-DEPENDENCE OF OPERATIONS
-   </em>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-4-vectorization-tools">
-   <em>
-    DISCUSSION 4: VECTORIZATION TOOLS
-   </em>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#coding-exercise-vectorization-data-import">
-   <strong>
-    CODING EXERCISE: VECTORIZATION - DATA IMPORT
-   </strong>
+  <a class="reference internal nav-link" href="#a-1-what-why-when-and-how-to-vectorize">
+   A.1. What, why, when, and how to vectorize
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#looping-with-iterrows">
+    <a class="reference internal nav-link" href="#discussion-1-defining-vectorization">
      <em>
-      1. Looping with
-      <code class="docutils literal notranslate">
-       <span class="pre">
-        iterrows()
-       </span>
-      </code>
-      :
+      DISCUSSION 1: DEFINING VECTORIZATION
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#better-looping-with-apply">
+    <a class="reference internal nav-link" href="#discussion-2-why-vectorize">
      <em>
-      2. Better looping with
-      <code class="docutils literal notranslate">
-       <span class="pre">
-        apply()
-       </span>
-      </code>
-      :
+      DISCUSSION 2: WHY VECTORIZE?
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#basic-vectorization">
+    <a class="reference internal nav-link" href="#discussion-3-order-dependence-of-operations">
      <em>
-      3. Basic vectorization:
+      DISCUSSION 3: ORDER-DEPENDENCE OF OPERATIONS
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vectorization-with-numpy">
+    <a class="reference internal nav-link" href="#discussion-4-vectorization-tools">
      <em>
-      4. Vectorization with NumPy:
+      DISCUSSION 4: VECTORIZATION TOOLS
      </em>
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-5-qualifications">
-   <em>
-    DISCUSSION 5: QUALIFICATIONS
-   </em>
+  <a class="reference internal nav-link" href="#a-2-vectorization-in-action">
+   A.2. Vectorization in action
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-vectorization-data-import">
+     <strong>
+      CODING EXERCISE: VECTORIZATION - DATA IMPORT
+     </strong>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#looping-with-iterrows">
+       <em>
+        1. Looping with
+        <code class="docutils literal notranslate">
+         <span class="pre">
+          iterrows()
+         </span>
+        </code>
+        :
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#better-looping-with-apply">
+       <em>
+        2. Better looping with
+        <code class="docutils literal notranslate">
+         <span class="pre">
+          apply()
+         </span>
+        </code>
+        :
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#basic-vectorization">
+       <em>
+        3. Basic vectorization:
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#vectorization-with-numpy">
+       <em>
+        4. Vectorization with NumPy:
+       </em>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-3-key-qualifications">
+   A.3. Key qualifications
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -522,10 +537,11 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#conclusion">
-   <strong>
-    CONCLUSION
-   </strong>
+  <a class="reference internal nav-link" href="#a-4-concluding-notes">
+   A.4.
+   <em>
+    Concluding notes
+   </em>
   </a>
  </li>
 </ul>
@@ -537,7 +553,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Optimizing data filling via Vectorization</h1>
+                <h1>Appendix A: Optimizing data filling via Vectorization</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -548,101 +564,111 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
+  <a class="reference internal nav-link" href="#appendix-prerequisites-python-imports">
    <em>
-    Chapter prerequisites: Python imports
+    Appendix prerequisites: Python imports
    </em>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#preface">
-   <strong>
-    PREFACE
-   </strong>
+  <a class="reference internal nav-link" href="#a-0-preface-motivating-vectorization">
+   A.0. Preface: motivating vectorization
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-1-defining-vectorization">
-   <em>
-    DISCUSSION 1: DEFINING VECTORIZATION
-   </em>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-2-why-vectorize">
-   <em>
-    DISCUSSION 2: WHY VECTORIZE?
-   </em>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-3-order-dependence-of-operations">
-   <em>
-    DISCUSSION 3: ORDER-DEPENDENCE OF OPERATIONS
-   </em>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-4-vectorization-tools">
-   <em>
-    DISCUSSION 4: VECTORIZATION TOOLS
-   </em>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#coding-exercise-vectorization-data-import">
-   <strong>
-    CODING EXERCISE: VECTORIZATION - DATA IMPORT
-   </strong>
+  <a class="reference internal nav-link" href="#a-1-what-why-when-and-how-to-vectorize">
+   A.1. What, why, when, and how to vectorize
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#looping-with-iterrows">
+    <a class="reference internal nav-link" href="#discussion-1-defining-vectorization">
      <em>
-      1. Looping with
-      <code class="docutils literal notranslate">
-       <span class="pre">
-        iterrows()
-       </span>
-      </code>
-      :
+      DISCUSSION 1: DEFINING VECTORIZATION
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#better-looping-with-apply">
+    <a class="reference internal nav-link" href="#discussion-2-why-vectorize">
      <em>
-      2. Better looping with
-      <code class="docutils literal notranslate">
-       <span class="pre">
-        apply()
-       </span>
-      </code>
-      :
+      DISCUSSION 2: WHY VECTORIZE?
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#basic-vectorization">
+    <a class="reference internal nav-link" href="#discussion-3-order-dependence-of-operations">
      <em>
-      3. Basic vectorization:
+      DISCUSSION 3: ORDER-DEPENDENCE OF OPERATIONS
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vectorization-with-numpy">
+    <a class="reference internal nav-link" href="#discussion-4-vectorization-tools">
      <em>
-      4. Vectorization with NumPy:
+      DISCUSSION 4: VECTORIZATION TOOLS
      </em>
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#discussion-5-qualifications">
-   <em>
-    DISCUSSION 5: QUALIFICATIONS
-   </em>
+  <a class="reference internal nav-link" href="#a-2-vectorization-in-action">
+   A.2. Vectorization in action
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-vectorization-data-import">
+     <strong>
+      CODING EXERCISE: VECTORIZATION - DATA IMPORT
+     </strong>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#looping-with-iterrows">
+       <em>
+        1. Looping with
+        <code class="docutils literal notranslate">
+         <span class="pre">
+          iterrows()
+         </span>
+        </code>
+        :
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#better-looping-with-apply">
+       <em>
+        2. Better looping with
+        <code class="docutils literal notranslate">
+         <span class="pre">
+          apply()
+         </span>
+        </code>
+        :
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#basic-vectorization">
+       <em>
+        3. Basic vectorization:
+       </em>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#vectorization-with-numpy">
+       <em>
+        4. Vectorization with NumPy:
+       </em>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-3-key-qualifications">
+   A.3. Key qualifications
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -669,10 +695,11 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#conclusion">
-   <strong>
-    CONCLUSION
-   </strong>
+  <a class="reference internal nav-link" href="#a-4-concluding-notes">
+   A.4.
+   <em>
+    Concluding notes
+   </em>
   </a>
  </li>
 </ul>
@@ -685,15 +712,15 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="optimizing-data-filling-via-vectorization">
-<h1>Optimizing data filling via Vectorization<a class="headerlink" href="#optimizing-data-filling-via-vectorization" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="appendix-a-optimizing-data-filling-via-vectorization">
+<h1>Appendix A: Optimizing data filling via Vectorization<a class="headerlink" href="#appendix-a-optimizing-data-filling-via-vectorization" title="Permalink to this heading">#</a></h1>
 <a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/appendix_vectorize.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a><p><img alt="vect" src="../_images/vectorization.png" /></p>
 <p><em>If you’re too busy to read the chapter, this is basically it!</em></p>
-<section id="chapter-prerequisites-python-imports">
-<h2><em>Chapter prerequisites: Python imports</em><a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this heading">#</a></h2>
-<p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
+<section id="appendix-prerequisites-python-imports">
+<h2><em>Appendix prerequisites: Python imports</em><a class="headerlink" href="#appendix-prerequisites-python-imports" title="Permalink to this heading">#</a></h2>
+<p>Before running any code blocks in the following appendix, please ensure you have the necessary Python packages installed via the following code block:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pandas
@@ -703,26 +730,32 @@ title="Print to PDF"
 </div>
 </div>
 </section>
-<section id="preface">
-<h2><strong>PREFACE</strong><a class="headerlink" href="#preface" title="Permalink to this heading">#</a></h2>
+<section id="a-0-preface-motivating-vectorization">
+<h2>A.0. Preface: motivating vectorization<a class="headerlink" href="#a-0-preface-motivating-vectorization" title="Permalink to this heading">#</a></h2>
 <p>In our running examples with GDP data, we’ve typically dealt with datasets that are fairly small by data science standards (~1000 rows or less).</p>
 <p>Modern personal machines and shared computing resources (like Stanford’s <a class="reference external" href="https://www.sherlock.stanford.edu/">Sherlock</a>) are ridiculously powerful, and they can quickly chew through almost any code that you write - even if it has zero optimization.</p>
 <p>But what happens if you’re dealing with truly massive datasets with hundreds of thousands of rows? With such datasets, code runtime can actually become a constraint on research progression and completion if processing scripts are written suboptimally.</p>
 <p>Although the defintion of optimal code and the processing of writing it varies with context, here we’re going to learn a technique that can be applied in many situations: <em>vectorization.</em></p>
 </section>
+<section id="a-1-what-why-when-and-how-to-vectorize">
+<h2>A.1. What, why, when, and how to vectorize<a class="headerlink" href="#a-1-what-why-when-and-how-to-vectorize" title="Permalink to this heading">#</a></h2>
 <section id="discussion-1-defining-vectorization">
-<h2><em>DISCUSSION 1: DEFINING VECTORIZATION</em><a class="headerlink" href="#discussion-1-defining-vectorization" title="Permalink to this heading">#</a></h2>
+<h3><em>DISCUSSION 1: DEFINING VECTORIZATION</em><a class="headerlink" href="#discussion-1-defining-vectorization" title="Permalink to this heading">#</a></h3>
 <p>A natural first question to ask is, <em>what is vectorizing/vectorization?</em> You may have heard of vectors before in a mathematics class, where vectors are a series of ordered values like this: [3, 2, 5] or [4, 7, 11, 8].</p>
 <p>In computer science, vectorization is a technique related to the mathematical definition of a vector - it’s the process of converting an algorithm from a scalar implementation (which performs operations on, at most, a pair of operands at once) to a vectorized one (which performs operations on a series of values at once). For a quick example:</p>
 <p>The processing of a scalar implementation of the instruction, “add two to every element in this list,” would look like:</p>
-<p>$$input: [3, 2, 5] → [3 + 2 = 5, 2, 5] → [5, 2 + 2 = 4, 5] → [5, 4, 5 + 2 = 7] → output: [5, 4, 7]$$</p>
+<center> 
+<p><em>input:</em> [3, 2, 5] → [3 + 2 = 5, 2, 5] → [5, 2 + 2 = 4, 5] → [5, 4, 5 + 2 = 7] → <em>output:</em> [5, 4, 7]</p>
+</center>
 <p>while the processing of a vectorized implementation of the same instruction would look like:</p>
-<p>$$input: [3, 2, 5] → [3 + 2 = 5, 2 + 2 = 4, 5 + 2 = 7] → output: [5, 4, 7]$$</p>
+<center> 
+<p><em>input:</em> [3, 2, 5] → [3 + 2 = 5, 2 + 2 = 4, 5 + 2 = 7] → <em>output:</em> [5, 4, 7]</p>
+</center>
 <p>(where different processors in your machine carry out the ‘+2’ instruction on each element concurrently.)</p>
-<p>If the previous example makes sense to you, congratulations! You understand vectorization. Feel free to come up with your own quicker working definition (mine is, “make computer do same thing to many things at same time instead of on things one-by-one.”</p>
+<p>If the previous example makes sense to you, congratulations! You understand vectorization. Feel free to come up with your own quicker working definition (mine is, “make computer do same thing to many things at same time.”</p>
 </section>
 <section id="discussion-2-why-vectorize">
-<h2><em>DISCUSSION 2: WHY VECTORIZE?</em><a class="headerlink" href="#discussion-2-why-vectorize" title="Permalink to this heading">#</a></h2>
+<h3><em>DISCUSSION 2: WHY VECTORIZE?</em><a class="headerlink" href="#discussion-2-why-vectorize" title="Permalink to this heading">#</a></h3>
 <p>In Python, (almost) any looped operation can be vectorized, but why do we need vectorization in the first place?</p>
 <p><img alt="pyloop" src="../_images/pythonloop.png" /></p>
 <p>While loops are a wonderful and flexible programatic idiom, they’re also inherently slow due to the <strong>dynamically typed nature of Python.</strong> What does this mean? Let’s take a look in the context of executing a program:</p>
@@ -777,7 +810,7 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 </div>
 </section>
 <section id="discussion-3-order-dependence-of-operations">
-<h2><em>DISCUSSION 3: ORDER-DEPENDENCE OF OPERATIONS</em><a class="headerlink" href="#discussion-3-order-dependence-of-operations" title="Permalink to this heading">#</a></h2>
+<h3><em>DISCUSSION 3: ORDER-DEPENDENCE OF OPERATIONS</em><a class="headerlink" href="#discussion-3-order-dependence-of-operations" title="Permalink to this heading">#</a></h3>
 <p>As we continue to run through our list of interrogatives, we’ve learned the <em>what</em> and <em>why</em> of vectorization - now it’s time to learn the <em>when!</em></p>
 <p>If you recall, we earlier learned that almost any looped operation in Python can be vectorized. To understand the exceptions, we can first classify all looped operations into two types:</p>
 <ol class="simple">
@@ -846,7 +879,7 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 <p><em>Note:</em> Determining order-independence (or lack thereof) for any particular operation is a nonstandardized task, but reference to other objects being changed by the same loop is a usually a good sign that order-dependence is present. When in doubt, work with a subset of your data and try switching up the processing order of the loop! Does the result change?</p>
 </section>
 <section id="discussion-4-vectorization-tools">
-<h2><em>DISCUSSION 4: VECTORIZATION TOOLS</em><a class="headerlink" href="#discussion-4-vectorization-tools" title="Permalink to this heading">#</a></h2>
+<h3><em>DISCUSSION 4: VECTORIZATION TOOLS</em><a class="headerlink" href="#discussion-4-vectorization-tools" title="Permalink to this heading">#</a></h3>
 <p>Now that we’ve understood the theory, it’s time to tackle the practice! Here are the relevant tools:</p>
 <ul class="simple">
 <li><p><em>Libraries:</em></p>
@@ -869,8 +902,11 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 </ul>
 <p>(<em>Note on magic commands:</em> Magic commands are those suffixed by the ‘%’ symbol in IPython or Jupyter Notebooks. If you’re using Python through a local installation or IDE, packaged versions of the same tools exist for your import and use.)</p>
 </section>
+</section>
+<section id="a-2-vectorization-in-action">
+<h2>A.2. Vectorization in action<a class="headerlink" href="#a-2-vectorization-in-action" title="Permalink to this heading">#</a></h2>
 <section id="coding-exercise-vectorization-data-import">
-<h2><strong>CODING EXERCISE: VECTORIZATION - DATA IMPORT</strong><a class="headerlink" href="#coding-exercise-vectorization-data-import" title="Permalink to this heading">#</a></h2>
+<h3><strong>CODING EXERCISE: VECTORIZATION - DATA IMPORT</strong><a class="headerlink" href="#coding-exercise-vectorization-data-import" title="Permalink to this heading">#</a></h3>
 <p>With our tools in hand, let’s go try some vectorization!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -899,7 +935,7 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a quick view into our data: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">song_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">song_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># some summary statistics:</span>
 <span class="n">song_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -918,7 +954,7 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
     <span class="n">eardrum_health</span> <span class="o">=</span> <span class="n">loudness</span><span class="o">/</span><span class="mi">2</span>  
 
     <span class="c1"># i like FAST songs:</span>
-    <span class="n">vibe_subscore</span> <span class="o">=</span> <span class="p">(</span><span class="mi">240</span> <span class="o">-</span> <span class="n">tempo</span><span class="p">)</span><span class="o">/</span><span class="mi">240</span> <span class="o">+</span> <span class="n">mode</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># and a bonus if they&#39;re in the major key! </span>
+    <span class="n">vibe_subscore</span> <span class="o">=</span> <span class="n">tempo</span><span class="o">/</span><span class="mi">240</span> <span class="o">+</span> <span class="n">mode</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># and a bonus if they&#39;re in the major key! </span>
 
     <span class="c1"># music without talking belongs in elevators: </span>
     <span class="n">talk_subscore</span> <span class="o">=</span> <span class="p">(</span><span class="n">speechiness</span> <span class="o">+</span> <span class="mi">12</span><span class="p">)</span><span class="o">/</span><span class="mi">14</span> 
@@ -931,7 +967,7 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 </div>
 <p>Let’s establish a baseline: how quickly do things run when we naively loop through the data?</p>
 <section id="looping-with-iterrows">
-<h3><em>1. Looping with <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code>:</em><a class="headerlink" href="#looping-with-iterrows" title="Permalink to this heading">#</a></h3>
+<h4><em>1. Looping with <code class="docutils literal notranslate"><span class="pre">iterrows()</span></code>:</em><a class="headerlink" href="#looping-with-iterrows" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it # this is how you invoke the timeit magic command!
@@ -955,7 +991,7 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 <p>As you can see, things are pretty slow - at least half a second for each call of the function. We’re not doing any particularly sophisticated when we access dataframe rows via the loop, so imagine the possible runtimes if we were! Let’s try to speed things up.</p>
 </section>
 <section id="better-looping-with-apply">
-<h3><em>2. Better looping with <code class="docutils literal notranslate"><span class="pre">apply()</span></code>:</em><a class="headerlink" href="#better-looping-with-apply" title="Permalink to this heading">#</a></h3>
+<h4><em>2. Better looping with <code class="docutils literal notranslate"><span class="pre">apply()</span></code>:</em><a class="headerlink" href="#better-looping-with-apply" title="Permalink to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">apply()</span></code> is a Pandas built-in which allows you to apply a function along a specified axis (row or column).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -998,7 +1034,7 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 </table>
 </center></section>
 <section id="basic-vectorization">
-<h3><em>3. Basic vectorization:</em><a class="headerlink" href="#basic-vectorization" title="Permalink to this heading">#</a></h3>
+<h4><em>3. Basic vectorization:</em><a class="headerlink" href="#basic-vectorization" title="Permalink to this heading">#</a></h4>
 <p>In Pandas, the basic units of data storage are:</p>
 <ul class="simple">
 <li><p>Series: a one-dimensional array with axis labels</p></li>
@@ -1050,7 +1086,7 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 </table>
 </center></section>
 <section id="vectorization-with-numpy">
-<h3><em>4. Vectorization with NumPy:</em><a class="headerlink" href="#vectorization-with-numpy" title="Permalink to this heading">#</a></h3>
+<h4><em>4. Vectorization with NumPy:</em><a class="headerlink" href="#vectorization-with-numpy" title="Permalink to this heading">#</a></h4>
 <p>With just the base-level Pandas vectorization, we’re achieving some serious speed (nearly a 500x improvement). But believe it or not, we can get even faster!</p>
 <p>How so? With the help of NumPy data structures!</p>
 <p>Of interest to us are <strong>ndarray</strong>s, NumPy’s version of your classic array. Under the hood, the NumPy operations executed on these arrays are actually written in optimized, pre-compiled C code (one such optimization: known typings! C is a statically-type lanugage). Performing vectorized operations on NumPy arrays can cut down on the pre-execution overhead even Pandas must conduct (like Series-wise indexing, type checking, etc.)</p>
@@ -1105,8 +1141,9 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 </table>
 </center></section>
 </section>
-<section id="discussion-5-qualifications">
-<h2><em>DISCUSSION 5: QUALIFICATIONS</em><a class="headerlink" href="#discussion-5-qualifications" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="a-3-key-qualifications">
+<h2>A.3. Key qualifications<a class="headerlink" href="#a-3-key-qualifications" title="Permalink to this heading">#</a></h2>
 <p>If you leave this chapter with one conclusion, I hope it’s that vectorization can make programs run really, really fast, and therefore it’s worth looking into!</p>
 <p>Before you get started though, here are some important qualifications to keep in mind before you start adding <code class="docutils literal notranslate"><span class="pre">.values()</span></code> to all of your Pandas DataFrames:</p>
 <section id="vectorization-frameworks">
@@ -1174,7 +1211,7 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s see the results:</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;anthony_name&#39;</span><span class="p">])</span>
+<span class="n">song_df</span><span class="p">[</span><span class="s1">&#39;anthony_name&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1235,8 +1272,8 @@ And the band goes: 🎶🎷🎶! 🎶🎹🎶! 🎶🎻🎶!
 <p>So, don’t forget about the humble loop! Depending on how you use it, it may be more powerful than it initially seems!</p>
 </section>
 </section>
-<section id="conclusion">
-<h2><strong>CONCLUSION</strong><a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<section id="a-4-concluding-notes">
+<h2>A.4. <em>Concluding notes</em><a class="headerlink" href="#a-4-concluding-notes" title="Permalink to this heading">#</a></h2>
 <p>Before diving into the data processing stage of your project, please remember - vectorization is a wonderful and powerful tool, but every tool has its time and place.</p>
 <p>Before you try to vectorize any functionality, ask yourself <em>“does this really need to be vectorized?”</em> If it doesn’t, you could waste more time trying to create an optimized implementation than if you just ran a slightly slower for-loop in the first place!</p>
 <p>But if you are going to vectorize, here’s a (slightly modified) concise approach offered by Sofia Heisler in her <a class="reference external" href="https://www.youtube.com/watch?v=HN5d490_KKk">Pycon 2017 address</a>:</p>

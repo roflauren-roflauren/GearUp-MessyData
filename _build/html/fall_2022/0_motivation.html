@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Chapter 1 - Data Sourcing" href="1_dataSourcing.html" />
-    <link rel="prev" title="Welcome to the Understanding Messy Time Series Data workshop!" href="../intro.html" />
+    <link rel="prev" title="Preface: How to use this book" href="how_to_use.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -120,6 +120,11 @@ const thebe_selector_output = ".output, .cell_output"
  </span>
 </p>
 <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="how_to_use.html">
+   Preface: How to use this book
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Chapter 0 - Why do we need robust data?
@@ -156,7 +161,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="appendix_vectorize.html">
-   Optimizing data filling via Vectorization
+   Appendix A: Optimizing data filling via Vectorization
   </a>
  </li>
 </ul>
@@ -649,7 +654,7 @@ title="Print to PDF"
 <p><em>Data sourcing</em> refers to the process of finding, assessing, and ultimately selecting a data resource to work with (be it a specific dataset, a wider database, or a third-party data vendor). Decisions by the curator of a data resource can impact the availability, representativeness, structure, and other critical attributes of your employed data — which ultimately can influence analysis . Let’s see an example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA SOURCING INTERACTIVE DEFINITION &quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA SOURCING: INTERACTIVE DEFINITION &quot;&quot;&quot;</span>
 <span class="c1"># importing some libraries: </span>
 <span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
@@ -660,17 +665,12 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
-<span class="c1"># retrieving the data - this is a dataset detailing data science job salaries: </span>
-<span class="c1"># source: https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries?resource=downloadz</span>
-<span class="c1"># uncomment: data = pd.read_csv(&#39;./sample_datasets/ds_salaries.csv&#39;, encoding=&#39;utf-8&#39;)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;
+# retrieving the data - this is a dataset detailing data science job salaries: 
+# source: https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries?resource=downloadz
+# uncomment: data = pd.read_csv(&#39;./sample_datasets/ds_salaries.csv&#39;, encoding=&#39;utf-8&#39;)
+
+&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;
 !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist
 !wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/ds_salaries.csv # retrieve the dataset from remote storage on GitHub
 data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
@@ -681,10 +681,10 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s get a quick look at a few entries: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># what different fields does this dataset possess for each entry? </span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -707,7 +707,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <p>Although time is an intuitive dimension, it is not the only one. Datasets can be continuous with respect to color, location, price, etc. — the evaluation depends on your desired criteria of analysis. Incomplete data can limit the scope and representativeness of your analysis, and methods to rectify incomplete data (e.g., impute missing values) can also impact your analysis. Let’s see an example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA CONTINUITY INTERACTIVE DEFINITION &quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA CONTINUITY: INTERACTIVE DEFINITION &quot;&quot;&quot;</span>
 <span class="c1"># importing some libraries: </span>
 <span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
@@ -722,13 +722,8 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <span class="c1"># retrieving the data - this is a dataset detailing time series climate data in Delhi:  </span>
 <span class="c1"># source: https://www.kaggle.com/datasets/sumanthvrao/daily-climate-time-series-data</span>
 <span class="c1"># uncomment: data = pd.read_csv(&#39;./sample_datasets/daily_delhi_climate.csv&#39;, encoding=&#39;utf-8&#39;)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
+
+<span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
 <span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
 <span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/daily_delhi_climate.csv # retrieve the dataset from remote storage on GitHub
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/daily_delhi_climate.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
@@ -739,13 +734,23 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s check out the data structure:</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> 
-
-<span class="c1"># .info() provides a concise summary of a dataframe: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
-
-<span class="c1"># .describe() provides insight into the dispersion &amp; shape of a dataframe&#39;s distribution: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># .info() provides a concise summary of a dataframe: </span>
+<span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># .describe() provides insight into the dispersion &amp; shape of a dataframe&#39;s distribution: </span>
+<span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -789,7 +794,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <p>Although data timeliness may appear to be a structural product of data sourcing and continuity, we’ll later discuss methods to guarantee data timeliness (like developing a coincident/leading indicators) to ensure your data and analytic products are up-to-date.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA CONTINUITY INTERACTIVE DEFINITION &quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA TIMELINESS: INTERACTIVE DEFINITION &quot;&quot;&quot;</span>
 <span class="c1"># importing some libraries: </span>
 <span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
@@ -804,13 +809,8 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <span class="c1"># retrieving the data - this is a dataset detailing hospital capacity in SF for COVID-19:  </span>
 <span class="c1"># source: https://catalog.data.gov/dataset/covid-19-hospital-capacity</span>
 <span class="c1"># uncomment: data = pd.read_csv(&#39;./sample_datasets/covid19_hospital_capacity.csv&#39;, encoding=&#39;utf-8&#39;)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
+
+<span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
 <span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
 <span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/covid19_hospital_capacity.csv # retrieve the dataset from remote storage on GitHub
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/covid19_hospital_capacity.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
@@ -822,10 +822,10 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># always explore the data before processing it!</span>
 <span class="c1"># sample entries: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> 
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># info on the dataset columns and types: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -919,11 +919,11 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="how_to_use.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Welcome to the Understanding Messy Time Series Data workshop!</p>
+            <p class="prev-next-title">Preface: How to use this book</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="1_dataSourcing.html" title="next page">

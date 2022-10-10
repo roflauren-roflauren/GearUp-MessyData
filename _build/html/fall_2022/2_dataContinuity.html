@@ -121,6 +121,11 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="how_to_use.html">
+   Preface: How to use this book
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="0_motivation.html">
    Chapter 0 - Why do we need robust data?
   </a>
@@ -156,7 +161,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="appendix_vectorize.html">
-   Optimizing data filling via Vectorization
+   Appendix A: Optimizing data filling via Vectorization
   </a>
  </li>
 </ul>
@@ -901,9 +906,10 @@ title="Print to PDF"
 <p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># commented calls may be included in the base install of Python; uncomment call(s) as necessary</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># commented calls may be included in your base install of Python; uncomment call(s) as necessary</span>
 <span class="o">%</span><span class="k">pip</span> install pandas
 <span class="o">%</span><span class="k">pip</span> install numpy
+<span class="o">%</span><span class="k">pip</span> install sklearn
 <span class="o">%</span><span class="k">pip</span> install matplotlib
 <span class="c1"># %pip install random</span>
 <span class="c1"># %pip install dateutil.parser</span>
@@ -1100,6 +1106,9 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>            <span class="c1"># use: data import &amp; wrangling.</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>             <span class="c1"># use: some mathematical utilities.</span>
 <span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">rd</span>            <span class="c1"># use: nothing suspicious, that&#39;s for sure!</span>
+
+<span class="c1"># options:</span>
+<span class="n">rd</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>                   <span class="c1"># use: to ensure replicablity of examples </span>
 </pre></div>
 </div>
 </div>
@@ -1118,11 +1127,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># options:</span>
-<span class="n">rd</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span> <span class="c1"># use: to ensure replicablity of examples </span>
-
-<span class="c1"># it&#39;s back to our friendly FRED data! </span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># it&#39;s back to our friendly FRED data! </span>
 <span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
 <span class="c1"># uncomment: qoq_gdp_data = pd.read_csv(&#39;./sample_datasets/gdp_fred.csv&#39;, encoding=&#39;utf-8&#39;)</span>
 
@@ -1130,15 +1135,20 @@ title="Print to PDF"
 <span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
 <span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_fred.csv # retrieve the dataset from remote storage on GitHub
 <span class="n">qoq_gdp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/gdp_fred.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-
-<span class="c1"># let&#39;s just look at the more recent data: </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s just look at the more recent data: </span>
 <span class="n">qoq_gdp_data</span> <span class="o">=</span> <span class="n">qoq_gdp_data</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># but oh no! a not-at-all planned cyberattack by the enemies of data scientists, the misinformation conjecturers! </span>
 <span class="n">qoq_gdp_damaged</span> <span class="o">=</span> <span class="n">cyberattack</span><span class="p">(</span><span class="n">qoq_gdp_data</span><span class="p">)</span>
 
 <span class="c1"># now we have data gaps: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">qoq_gdp_damaged</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">qoq_gdp_damaged</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1156,9 +1166,14 @@ title="Print to PDF"
 <span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
 <span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/monthly_gdp.csv # retrieve the dataset from remote storage on GitHub
 <span class="n">mom_gdp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/monthly_gdp.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-
-<span class="c1"># this data includes a nominal and real estmate: </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mom_gdp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this data includes a nominal and real estmate: </span>
+<span class="n">mom_gdp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># our FRED data is in terms of nominal dollars (can you find out how we know this? it&#39;s a data sourcing exercise!), so drop the real_gdp estimate: </span>
 <span class="n">mom_gdp</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MONTHLY_REAL_GDP&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1368,7 +1383,6 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># *Monthly* GDP estimates from: https://ihsmarkit.com/products/us-monthly-gdp-index.html</span>
-
 <span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
 <span class="c1"># uncomment: mom_gdp = pd.read_csv(&#39;./sample_datasets/monthly_gdp.csv&#39;, encoding=&#39;utf-8&#39;)</span>
 
@@ -1383,7 +1397,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s see the data! </span>
-<span class="c1"># for dataset in (gas_prices, mom_gdp): print(dataset.head(5))</span>
+<span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="p">(</span><span class="n">gas_prices</span><span class="p">,</span> <span class="n">mom_gdp</span><span class="p">):</span> <span class="n">dataset</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1602,7 +1616,7 @@ Number of samples (GDP data points): 49
 <span class="n">both_weekly_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">gas_prices</span><span class="p">,</span> <span class="n">mom_gdp</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;DATE&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;backward&quot;</span><span class="p">)</span> 
 
 <span class="c1"># check the merged data out! </span>
-<span class="c1"># print(both_weekly_data.head(5))</span>
+<span class="n">both_weekly_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1620,7 +1634,7 @@ Number of samples (GDP data points): 49
 <span class="n">both_monthly_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">mom_gdp</span><span class="p">,</span> <span class="n">monthly_gas_prices</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;DATE&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">)</span> 
 
 <span class="c1"># how does the merged monthly data look?</span>
-<span class="c1"># print(both_monthly_data.head(5))</span>
+<span class="n">both_monthly_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
