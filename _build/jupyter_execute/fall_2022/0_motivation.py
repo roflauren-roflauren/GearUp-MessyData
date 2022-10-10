@@ -83,7 +83,7 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 # 
 # [comment]: <> (Allow time for code block running before moving onto the next chapter)
 
-# #### ***Data sourcing example:*** 
+# #### *Data sourcing example:*
 
 # 
 # *Data sourcing* refers to the process of finding, assessing, and ultimately selecting a data resource to work with (be it a specific dataset, a wider database, or a third-party data vendor). Decisions by the curator of a data resource can impact the availability, representativeness, structure, and other critical attributes of your employed data — which ultimately can influence analysis . Let's see an example: 
@@ -137,7 +137,7 @@ plt.bar_label(bars)
 
 # **Discussion**: Based on the generated chart, if we were to compute the mean/median salary for a data science job in 2020, what kind of issues might we be overlooking? Is there anything fundamentally wrong with a mean/median calculation, or is there an issue with the dataset we chose to use? How might a different data source rectify these issues? 
 
-# #### ***Data continuity example:***
+# #### *Data continuity example:*
 
 # *Data continuity* refers the completeness of the chosen data source across a given dimension of analysis. A common dimension for evaluating data continuity is time as with time series data — if we would like to conduct biweekly analysis for a given metric for a specific year, a dataset with 26 appropriately-spaced and populated entries would be continuous with respect to time. 
 # 
@@ -214,7 +214,7 @@ plt.show()
 
 # **Discussion**: Based on the scatter plot, is the April temperature data continuous? If we were trying to conduct some analysis on the April temperature data, how might the (lack of) data continuity affect us? Could we impute the points of discontinuity? How? Would one imputation method be better than others? Why? 
 
-# #### ***Data timeliness example:***
+# #### *Data timeliness example:*
 
 # *Data timeliness* refers to the proximity of utilized data to the present moment and relevant analysis and projections. Establishing data timeliness means utlizing datasets that are near-contemporaneous with your timeframe of analysis; i.e., NLP analysis on the most prominent topics in 1970's science textbooks should not use a text corpus of 1950's science textbooks. 
 # 
@@ -289,7 +289,7 @@ plt.show()
 # 
 # *One of economics' greatest hits!*
 
-# #### ***Defintion and usage:***
+# #### *Defintion and usage*
 
 # For the rest of this workshop, we'll be exploring topics in the context of US GDP (**G**ross **D**omestic **P**roduct) data. In case you haven't worked with GDP data before, or you just want a quick refresher, here's a rundown:  
 # 
@@ -303,7 +303,7 @@ plt.show()
 #   * potential GDP - an estimate of a country's GDP under ideal economic conditions (e.g., steady currency value, low inflation, full employment)
 #   * GDP per capita - GDP divided by the population of a country, productivity per person
 
-# #### ***Your "typical" GDP dataset:*** 
+# #### *Your "typical" GDP dataset:*
 
 # What makes GDP an ideal statistic to wrangle with when learning to deal with "real-life" data? Let's take a look: 
 # 

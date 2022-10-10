@@ -3,6 +3,7 @@ root: intro
 parts:
   - caption: WORKSHOP INTRO 
     chapters:
+    - file: fall_2022/how_to_use.ipynb
     - file: fall_2022/0_motivation.ipynb
   - caption: DATA BEST PRACTICES
     chapters:

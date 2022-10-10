@@ -426,27 +426,21 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-sourcing-example">
      <em>
-      <strong>
-       Data sourcing example:
-      </strong>
+      Data sourcing example:
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-continuity-example">
      <em>
-      <strong>
-       Data continuity example:
-      </strong>
+      Data continuity example:
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-timeliness-example">
      <em>
-      <strong>
-       Data timeliness example:
-      </strong>
+      Data timeliness example:
      </em>
     </a>
    </li>
@@ -460,18 +454,14 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#defintion-and-usage">
      <em>
-      <strong>
-       Defintion and usage:
-      </strong>
+      Defintion and usage
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#your-typical-gdp-dataset">
      <em>
-      <strong>
-       Your “typical” GDP dataset:
-      </strong>
+      Your “typical” GDP dataset:
      </em>
     </a>
    </li>
@@ -521,27 +511,21 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-sourcing-example">
      <em>
-      <strong>
-       Data sourcing example:
-      </strong>
+      Data sourcing example:
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-continuity-example">
      <em>
-      <strong>
-       Data continuity example:
-      </strong>
+      Data continuity example:
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#data-timeliness-example">
      <em>
-      <strong>
-       Data timeliness example:
-      </strong>
+      Data timeliness example:
      </em>
     </a>
    </li>
@@ -555,18 +539,14 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#defintion-and-usage">
      <em>
-      <strong>
-       Defintion and usage:
-      </strong>
+      Defintion and usage
      </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#your-typical-gdp-dataset">
      <em>
-      <strong>
-       Your “typical” GDP dataset:
-      </strong>
+      Your “typical” GDP dataset:
      </em>
     </a>
    </li>
@@ -665,7 +645,7 @@ title="Print to PDF"
 </ul>
 <p>In this workshop, we’re going to be exploring how each one of these considerations can impact the creation and analysis of US GDP (<strong>G</strong>ross <strong>D</strong>omestic <strong>P</strong>roduct) data. For some quick interactive definitions of these terms, take a look at the code blocks below. Otherwise, feel free to move onto the next chapter to learn some more about GDP and typical GDP data before jumping in.</p>
 <section id="data-sourcing-example">
-<h3><em><strong>Data sourcing example:</strong></em><a class="headerlink" href="#data-sourcing-example" title="Permalink to this heading">#</a></h3>
+<h3><em>Data sourcing example:</em><a class="headerlink" href="#data-sourcing-example" title="Permalink to this heading">#</a></h3>
 <p><em>Data sourcing</em> refers to the process of finding, assessing, and ultimately selecting a data resource to work with (be it a specific dataset, a wider database, or a third-party data vendor). Decisions by the curator of a data resource can impact the availability, representativeness, structure, and other critical attributes of your employed data — which ultimately can influence analysis . Let’s see an example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -722,7 +702,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <p><strong>Discussion</strong>: Based on the generated chart, if we were to compute the mean/median salary for a data science job in 2020, what kind of issues might we be overlooking? Is there anything fundamentally wrong with a mean/median calculation, or is there an issue with the dataset we chose to use? How might a different data source rectify these issues?</p>
 </section>
 <section id="data-continuity-example">
-<h3><em><strong>Data continuity example:</strong></em><a class="headerlink" href="#data-continuity-example" title="Permalink to this heading">#</a></h3>
+<h3><em>Data continuity example:</em><a class="headerlink" href="#data-continuity-example" title="Permalink to this heading">#</a></h3>
 <p><em>Data continuity</em> refers the completeness of the chosen data source across a given dimension of analysis. A common dimension for evaluating data continuity is time as with time series data — if we would like to conduct biweekly analysis for a given metric for a specific year, a dataset with 26 appropriately-spaced and populated entries would be continuous with respect to time.</p>
 <p>Although time is an intuitive dimension, it is not the only one. Datasets can be continuous with respect to color, location, price, etc. — the evaluation depends on your desired criteria of analysis. Incomplete data can limit the scope and representativeness of your analysis, and methods to rectify incomplete data (e.g., impute missing values) can also impact your analysis. Let’s see an example:</p>
 <div class="cell docutils container">
@@ -803,7 +783,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <p><strong>Discussion</strong>: Based on the scatter plot, is the April temperature data continuous? If we were trying to conduct some analysis on the April temperature data, how might the (lack of) data continuity affect us? Could we impute the points of discontinuity? How? Would one imputation method be better than others? Why?</p>
 </section>
 <section id="data-timeliness-example">
-<h3><em><strong>Data timeliness example:</strong></em><a class="headerlink" href="#data-timeliness-example" title="Permalink to this heading">#</a></h3>
+<h3><em>Data timeliness example:</em><a class="headerlink" href="#data-timeliness-example" title="Permalink to this heading">#</a></h3>
 <p><em>Data timeliness</em> refers to the proximity of utilized data to the present moment and relevant analysis and projections. Establishing data timeliness means utlizing datasets that are near-contemporaneous with your timeframe of analysis; i.e., NLP analysis on the most prominent topics in 1970’s science textbooks should not use a text corpus of 1950’s science textbooks.</p>
 <p>In the case of research motivating predictions and decision-making, data timeliness is especially relevant — e.g., predicting potential wildfire hotspots demands continuously-updated and near real-time data. To that end, data sourcing and data continuity assessments of available resources become particularly important.</p>
 <p>Although data timeliness may appear to be a structural product of data sourcing and continuity, we’ll later discuss methods to guarantee data timeliness (like developing a coincident/leading indicators) to ensure your data and analytic products are up-to-date.</p>
@@ -879,7 +859,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <p><img alt="gdp_calc" src="../_images/gdp_calculation.gif" /></p>
 <p><em>One of economics’ greatest hits!</em></p>
 <section id="defintion-and-usage">
-<h3><em><strong>Defintion and usage:</strong></em><a class="headerlink" href="#defintion-and-usage" title="Permalink to this heading">#</a></h3>
+<h3><em>Defintion and usage</em><a class="headerlink" href="#defintion-and-usage" title="Permalink to this heading">#</a></h3>
 <p>For the rest of this workshop, we’ll be exploring topics in the context of US GDP (<strong>G</strong>ross <strong>D</strong>omestic <strong>P</strong>roduct) data. In case you haven’t worked with GDP data before, or you just want a quick refresher, here’s a rundown:</p>
 <ul class="simple">
 <li><p><em>Definition:</em> GDP is “the total monetary or market value of all the finished goods and services produced within a country’s borders in a specific time period.</p></li>
@@ -895,7 +875,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 </ul>
 </section>
 <section id="your-typical-gdp-dataset">
-<h3><em><strong>Your “typical” GDP dataset:</strong></em><a class="headerlink" href="#your-typical-gdp-dataset" title="Permalink to this heading">#</a></h3>
+<h3><em>Your “typical” GDP dataset:</em><a class="headerlink" href="#your-typical-gdp-dataset" title="Permalink to this heading">#</a></h3>
 <p>What makes GDP an ideal statistic to wrangle with when learning to deal with “real-life” data? Let’s take a look:</p>
 <ul class="simple">
 <li><p><em>Qualities of GDP Data(sets):</em></p>

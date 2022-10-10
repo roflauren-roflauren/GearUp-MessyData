@@ -207,7 +207,7 @@ plt.plot(df.Year, df.Amount, linestyle='-', marker='o')
 # 
 # ![tag-team](./imgs/whoomp_thereitis.png)
 # 
-# *Tag teams: for both data gap remediation and one of <a href=https://www.youtube.com/watch?v=L6mNa_QZVHg>hip hop's greatest single's!*
+# *Tag teams: for both data gap remediation and one of [hip hop's greatest single's!](https://www.youtube.com/watch?v=L6mNa_QZVHg)*
 # 
 # To help you decide which remediation strategy is best to fill which data gap, we can look to the key sub-issues and potential problems of using each one. Then, in your own research, you can evaluate which sub-issues or problems will give rise to greater inaccuracy, less tractability, etc. to help you make this decision. Let's get started! 
 
