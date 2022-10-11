@@ -8,9 +8,22 @@
 # </a>
 
 # ![product-proliferation](./imgs/product-proliferation.png)
+# 
 # *The modern data landscape has so much data...no, really—SO much data. Which data should you use?*
 
-# #### *Chapter prerequisites: Python imports*
+# ## *Chapter preview*
+
+# ### Learning objectives
+# 
+# - [ ] Define the practice of "data sourcing."
+# 
+# - [ ] Explore common issues that arise in the context of data sourcing. 
+# 
+# - [ ] Practice operationalizing data sourcing best practices. 
+# 
+# *Key question:* Where does data come from, and how does data authorship impact data structure, richness, etc.? 
+
+# ### Chapter prerequisites: Python imports
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
@@ -29,7 +42,6 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 # * But, the modern data landscape is vast and can be overwhelming—look up "X + dataset" for almost topic, and you'll likely find a multitude of resources published by private organizations, government agencies, licensed data vendors, open-source groups, etc. Does it matter whose data you go with? 
 # 
 # * **Absolutely** — identifying and sourcing quality data is essential to the research process. If conducting analyses is like cooking, sourcing data is like acquiring ingredients—whether you're following a recipe or not, things will likely not turn out well if the base inputs are of poor quality. 
-# 
 
 # ## 1.1. Defining "data sourcing"
 

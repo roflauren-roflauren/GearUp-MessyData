@@ -11,7 +11,7 @@
 # 
 # *If you're too busy to read the chapter, this is basically it!*
 
-# #### *Appendix prerequisites: Python imports*
+# ## *Appendix prerequisites: Python imports*
 
 # Before running any code blocks in the following appendix, please ensure you have the necessary Python packages installed via the following code block:
 

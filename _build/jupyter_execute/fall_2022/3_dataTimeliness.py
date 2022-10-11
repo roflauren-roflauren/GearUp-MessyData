@@ -9,9 +9,19 @@
 
 # ![timeliness](./imgs/timeliness.png)
 
-# #### *Chapter Imports*
+# ## *Chapter preview*
 
-# No coding (or imports) are required for this chapter - yay!
+# ### Learning objectives
+# 
+# - [ ] Define data timeliness and identify data timeliness practices.
+# 
+# - [ ] Contextualize data timeliness as an intersection of prior data robustness dimensions. 
+# 
+# *Key question:* When is data present-ness important, and how do we manufacture it when not readily available? 
+
+# ### Chapter prerequisites: Python imports
+
+# No coding (or associated imports) is required for this chapter.
 
 # ## 3.0. Defining "data timeliness"
 

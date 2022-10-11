@@ -11,7 +11,19 @@
 # 
 # *Not every data gap is as obvious as this one...*
 
-# #### *Chapter prerequisites: Python imports*
+# ## *Chapter preview*
+
+# ### Learning objectives
+# 
+# - [ ] Systematize understanding of data (dis)continuity issues (i.e., data gaps) and the types of data gap remediation strategies. 
+# 
+# - [ ] Develop logic for making decisions related to the design and implementation of remediation strategies. 
+# 
+# - [ ] Explore how choice of remediation strategy can impact downstream analysis. 
+# 
+# *Key question:* When data is incomplete and/or messy, how should we think about "fixing" it?
+
+# ### Chapter prerequisites: Python imports
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 

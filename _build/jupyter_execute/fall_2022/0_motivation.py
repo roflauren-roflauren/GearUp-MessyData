@@ -7,7 +7,19 @@
 #   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 # </a>
 
-# #### *Chapter prerequisites: Python imports*
+# ## *Chapter preview*
+
+# ### Learning objectives
+# 
+# - [ ] Understand the need for "good" data. 
+# 
+# - [ ] Identify and define key dimensions of data robustness.
+# 
+# - [ ] Develop operational understanding of GDP and GDP data.  
+# 
+# *Key question:* What would an ideal dataset look like? How does that definition change depending on what the data is used for? 
+
+# ### Code prerequisites: Python imports
 
 # Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:
 
@@ -68,8 +80,6 @@ get_ipython().run_line_magic('pip', 'install matplotlib')
 # etc. These usages are all common and critical applications of data, and they all share a foundational element: they employ or rely on *data analysis.* 
 # 
 # Then, when we think about data robustness, it can be useful to think about it as being "robust to analysis" or not. When we define data robustness this way, are there additional ideal dataset qualities you can think of?
-# 
-# [comment]: <> (Break for Zoom discussion)
 
 # ## A working definition
 
@@ -131,7 +141,9 @@ bars = plt.bar(expr_lvl_data.index, expr_lvl_data.values)
 plt.bar_label(bars)
 
 
-# **Discussion**: Based on the generated chart, if we were to compute the mean/median salary for a data science job in 2020, what kind of issues might we be overlooking? Is there anything fundamentally wrong with a mean/median calculation, or is there an issue with the dataset we chose to use? How might a different data source rectify these issues? 
+# *Food for thought:*
+# 
+# * Based on the generated chart, if we were to compute the mean/median salary for a data science job in 2020, what kind of issues might we be overlooking? Is there anything fundamentally wrong with a mean/median calculation, or is there an issue with the dataset we chose to use? How might a different data source rectify these issues? 
 
 # #### *Data continuity example:*
 
@@ -212,7 +224,9 @@ plt.ylabel("Temperature (°C)")
 plt.show()
 
 
-# **Discussion**: Based on the scatter plot, is the April temperature data continuous? If we were trying to conduct some analysis on the April temperature data, how might the (lack of) data continuity affect us? Could we impute the points of discontinuity? How? Would one imputation method be better than others? Why? 
+# *Food for thought:*
+# 
+# * Based on the scatter plot, is the April temperature data continuous? If we were trying to conduct some analysis on the April temperature data, how might the (lack of) data continuity affect us? Could we impute the points of discontinuity? How? Would one imputation method be better than others? Why? 
 
 # #### *Data timeliness example:*
 
@@ -277,7 +291,9 @@ plt.ylabel("# Available Beds")
 plt.show()
 
 
-# **Discussion**: Where does this dataset end? Would this data be useful for predicting the number of available beds *today*? If no, what might be an alternative solution for this prediction task? If we can't find a better dataset for this exact metric, can we approximate it somehow? 
+# *Food for thought:*
+# 
+# * Where does this dataset end? Would this data be useful for predicting the number of available beds *today*? If no, what might be an alternative solution for this prediction task? If we can't find a better dataset for this exact metric, can we approximate it somehow? 
 
 # ## Workshop essentials: GDP definitions & datasets
 
