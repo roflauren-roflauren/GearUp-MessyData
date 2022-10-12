@@ -244,6 +244,10 @@ song_df = pd.read_csv("data/unpopular_songs.csv", encoding='utf-8')
 # a quick view into our data: 
 song_df.head(5)
 
+
+# In[ ]:
+
+
 # some summary statistics:
 song_df.describe()
 

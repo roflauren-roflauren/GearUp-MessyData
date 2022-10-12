@@ -946,8 +946,8 @@ title="Print to PDF"
 <span class="o">%</span><span class="k">pip</span> install numpy
 <span class="o">%</span><span class="k">pip</span> install sklearn
 <span class="o">%</span><span class="k">pip</span> install matplotlib
-<span class="c1"># %pip install random</span>
-<span class="c1"># %pip install dateutil.parser</span>
+<span class="o">%</span><span class="k">pip</span> install random
+<span class="o">%</span><span class="k">pip</span> install dateutil.parser
 <span class="o">%</span><span class="k">pip</span> install datetime
 </pre></div>
 </div>
@@ -1024,8 +1024,9 @@ title="Print to PDF"
 <span class="c1"># some toy (ha!) data: </span>
 <span class="n">master_data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2008</span><span class="p">,</span> <span class="s1">&#39;puzzles&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2010</span><span class="p">,</span> <span class="s1">&#39;Nerf football&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2012</span><span class="p">,</span> <span class="s1">&#39;game console&#39;</span><span class="p">]]</span>
 
-<span class="c1"># construct a DataFrame around the toy data </span>
+<span class="c1"># view &amp; construct a DataFrame around the toy data </span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">master_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;B-day Toy&#39;</span><span class="p">])</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -1053,6 +1054,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we don&#39;t what this person got for the years 2009 &amp; 2011! exogenous data fill to the rescue. </span>
 <span class="n">add_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="mi">2009</span><span class="p">,</span> <span class="s1">&#39;clothes&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2011</span><span class="p">,</span> <span class="s1">&#39;mobile phone&#39;</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;B-day Toy&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">add_df</span><span class="p">)</span>
 
 <span class="c1"># here, the mechanics of the exogenous data fill operation are as simple as: </span>
 <span class="n">franken_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">add_df</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1077,8 +1079,9 @@ title="Print to PDF"
 <span class="c1"># here&#39;s some made up timeseries data: </span>
 <span class="n">ts_data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2000</span><span class="p">,</span> <span class="mf">43.2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2001</span><span class="p">,</span> <span class="mf">45.6</span><span class="p">],</span> <span class="p">[</span><span class="mi">2002</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="p">[</span><span class="mi">2003</span><span class="p">,</span> <span class="mf">39.8</span><span class="p">],</span> <span class="p">[</span><span class="mi">2004</span><span class="p">,</span> <span class="mf">44.2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2005</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="p">[</span><span class="mi">2006</span><span class="p">,</span> <span class="mf">45.8</span><span class="p">],</span> <span class="p">[</span><span class="mi">2007</span><span class="p">,</span> <span class="mf">52.1</span><span class="p">]]</span>
 
-<span class="c1"># spin up a quick DataFrame: </span>
+<span class="c1"># spin up &amp; view a quick DataFrame: </span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ts_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;Amount&#39;</span><span class="p">])</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -1104,8 +1107,9 @@ title="Print to PDF"
 <span class="c1"># let&#39;s see our new data! </span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Filled data: </span><span class="si">{vals}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vals</span> <span class="o">=</span> <span class="n">vals</span><span class="p">))</span>
 
-<span class="c1"># and, our new plot! </span>
+<span class="c1"># and, our new plot &amp; dataframe! </span>
 <span class="n">df</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="n">vals</span> 
+<span class="n">df</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Year</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">Amount</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1180,7 +1184,15 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s just look at the more recent data: </span>
 <span class="n">qoq_gdp_data</span> <span class="o">=</span> <span class="n">qoq_gdp_data</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># but oh no! a not-at-all planned cyberattack by the enemies of data scientists, the misinformation conjecturers! </span>
+<span class="c1"># a quick fred data structure refresher:</span>
+<span class="n">qoq_gdp_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># but oh no! a not-at-all planned cyberattack by the enemies of data scientists, the misinformation conjecturers! </span>
 <span class="n">qoq_gdp_damaged</span> <span class="o">=</span> <span class="n">cyberattack</span><span class="p">(</span><span class="n">qoq_gdp_data</span><span class="p">)</span>
 
 <span class="c1"># now we have data gaps: </span>
@@ -1209,7 +1221,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this data includes a nominal and real estmate: </span>
-<span class="n">mom_gdp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mom_gdp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 
 <span class="c1"># our FRED data is in terms of nominal dollars (can you find out how we know this? it&#39;s a data sourcing exercise!), so drop the real_gdp estimate: </span>
 <span class="n">mom_gdp</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MONTHLY_REAL_GDP&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1252,7 +1264,16 @@ title="Print to PDF"
 <span class="c1"># drop rows in our monthly dataset if they do not correspond to a quarterly reporting date estimate: </span>
 <span class="n">resampled_mom_gdp</span> <span class="o">=</span> <span class="n">mom_gdp</span><span class="p">[</span><span class="n">mom_gdp</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">reporting_dates</span><span class="p">)]</span>
 
-<span class="c1"># let&#39;s fill the gaps in our original QoQ GDP dataset. first, we merge the datasets on their shared dates:  </span>
+<span class="c1"># comparing the original and resampled mom gdp datasets:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">resampled_mom_gdp</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mom_gdp</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s fill the gaps in our original QoQ GDP dataset. first, we merge the datasets on their shared dates:  </span>
 <span class="n">qoq_gdp_filled</span> <span class="o">=</span> <span class="n">qoq_gdp_damaged</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">resampled_mom_gdp</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;DATE&#39;</span><span class="p">)</span>
 
 <span class="c1"># for any rows where the QoQ gdp is missing, fill in the gap with the resampled monthly estimate: </span>
@@ -1270,7 +1291,16 @@ title="Print to PDF"
 <span class="n">qoq_gdp_damaged</span> <span class="o">=</span> <span class="n">qoq_gdp_damaged</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">qoq_gdp_filled</span>  <span class="o">=</span> <span class="n">qoq_gdp_filled</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 
-<span class="c1"># scatter plot the data: </span>
+<span class="c1"># compare our datasets:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qoq_gdp_damaged</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qoq_gdp_filled</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># scatter plot the data: </span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qoq_gdp_damaged</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">qoq_gdp_damaged</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QoQ GDP (Original)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qoq_gdp_filled</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">qoq_gdp_filled</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QoQ GDP (Filled)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 

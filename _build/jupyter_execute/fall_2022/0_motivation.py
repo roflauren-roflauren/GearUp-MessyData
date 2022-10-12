@@ -126,10 +126,10 @@ data = pd.read_csv("data/ds_salaries.csv", encoding='utf-8')
 
 
 # let's get a quick look at a few entries: 
-data.head(5)
+print(data.head(5))
 
 # what different fields does this dataset possess for each entry? 
-list(data.columns)
+print(list(data.columns))
 
 
 # In[ ]:
@@ -141,7 +141,7 @@ bars = plt.bar(expr_lvl_data.index, expr_lvl_data.values)
 plt.bar_label(bars)
 
 
-# *Food for thought:*
+# *Food for thought - impacts of data sourcing:*
 # 
 # * Based on the generated chart, if we were to compute the mean/median salary for a data science job in 2020, what kind of issues might we be overlooking? Is there anything fundamentally wrong with a mean/median calculation, or is there an issue with the dataset we chose to use? How might a different data source rectify these issues? 
 
@@ -207,6 +207,8 @@ data = data[['date', 'meantemp']]
 april_start_end_idxs = data.index[(data['date'] == "4/1/2013") | (data['date'] == "4/30/2013")].tolist()
 april_only_data = data[(april_start_end_idxs[0]) : (april_start_end_idxs[1] + 1)]
 
+april_only_data
+
 
 # In[ ]:
 
@@ -224,7 +226,7 @@ plt.ylabel("Temperature (°C)")
 plt.show()
 
 
-# *Food for thought:*
+# *Food for thought - impacts of data continuity:*
 # 
 # * Based on the scatter plot, is the April temperature data continuous? If we were trying to conduct some analysis on the April temperature data, how might the (lack of) data continuity affect us? Could we impute the points of discontinuity? How? Would one imputation method be better than others? Why? 
 
@@ -265,7 +267,7 @@ data = pd.read_csv("data/covid19_hospital_capacity.csv", encoding='utf-8')
 
 # always explore the data before processing it!
 # sample entries: 
-data.head(5)
+print(data.head(5))
 
 # info on the dataset columns and types: 
 data.info()
@@ -280,8 +282,13 @@ avail_ic_beds = data[(data['Bed Type'] == 'Intensive Care') & (data['Status'] ==
 # sort the dataset by date: 
 avail_ic_beds = avail_ic_beds.sort_values(by='Date', ignore_index=True)
 
-# let's get just the latest data: 
+# let's get just the latest data & view it: 
 avail_ic_beds = avail_ic_beds.tail(15)
+avail_ic_beds
+
+
+# In[ ]:
+
 
 # visualize the data: 
 plt.plot(avail_ic_beds['Date'], avail_ic_beds['Count'])
@@ -291,7 +298,7 @@ plt.ylabel("# Available Beds")
 plt.show()
 
 
-# *Food for thought:*
+# *Food for thought - impacts of data timeliness:*
 # 
 # * Where does this dataset end? Would this data be useful for predicting the number of available beds *today*? If no, what might be an alternative solution for this prediction task? If we can't find a better dataset for this exact metric, can we approximate it somehow? 
 
@@ -301,7 +308,7 @@ plt.show()
 # 
 # *One of economics' greatest hits!*
 
-# #### *Defintion and usage*
+# #### *GDP defintion and usage*
 
 # For the rest of this workshop, we'll be exploring topics in the context of US GDP (**G**ross **D**omestic **P**roduct) data. In case you haven't worked with GDP data before, or you just want a quick review, here's a rundown:  
 # 

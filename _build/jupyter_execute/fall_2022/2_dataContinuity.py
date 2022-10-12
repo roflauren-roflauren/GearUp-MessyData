@@ -35,8 +35,8 @@ get_ipython().run_line_magic('pip', 'install pandas')
 get_ipython().run_line_magic('pip', 'install numpy')
 get_ipython().run_line_magic('pip', 'install sklearn')
 get_ipython().run_line_magic('pip', 'install matplotlib')
-# %pip install random
-# %pip install dateutil.parser
+get_ipython().run_line_magic('pip', 'install random')
+get_ipython().run_line_magic('pip', 'install dateutil.parser')
 get_ipython().run_line_magic('pip', 'install datetime')
 
 
@@ -133,8 +133,9 @@ import pandas as pd    # use: data import & wrangling.
 # some toy (ha!) data: 
 master_data = [[2008, 'puzzles'], [2010, 'Nerf football'], [2012, 'game console']]
 
-# construct a DataFrame around the toy data 
+# view & construct a DataFrame around the toy data 
 df = pd.DataFrame(master_data, columns=['Year', 'B-day Toy'])
+df
 
 
 # In[ ]:
@@ -160,6 +161,7 @@ list_toys_received(df)
 
 # we don't what this person got for the years 2009 & 2011! exogenous data fill to the rescue. 
 add_df = pd.DataFrame(data=[[2009, 'clothes'], [2011, 'mobile phone']], columns=['Year', 'B-day Toy'])
+print(add_df)
 
 # here, the mechanics of the exogenous data fill operation are as simple as: 
 franken_df = pd.concat([df, add_df]).sort_values(by='Year', ignore_index=True)
@@ -182,8 +184,9 @@ import matplotlib.pyplot as plt    # use: data viz.
 # here's some made up timeseries data: 
 ts_data = [[2000, 43.2], [2001, 45.6], [2002, None], [2003, 39.8], [2004, 44.2], [2005, None], [2006, 45.8], [2007, 52.1]]
 
-# spin up a quick DataFrame: 
+# spin up & view a quick DataFrame: 
 df = pd.DataFrame(ts_data, columns=['Year', 'Amount'])
+df
 
 
 # In[ ]:
@@ -207,8 +210,9 @@ for idx, val in enumerate(vals):
 # let's see our new data! 
 print("Filled data: {vals}".format(vals = vals))
 
-# and, our new plot! 
+# and, our new plot & dataframe! 
 df.Amount = vals 
+df
 plt.plot(df.Year, df.Amount, linestyle='-', marker='o')
 
 
@@ -283,6 +287,13 @@ qoq_gdp_data = pd.read_csv("data/gdp_fred.csv", encoding='utf-8')
 # let's just look at the more recent data: 
 qoq_gdp_data = qoq_gdp_data[-100:].reset_index(drop=True)
 
+# a quick fred data structure refresher:
+qoq_gdp_data.tail(10)
+
+
+# In[ ]:
+
+
 # but oh no! a not-at-all planned cyberattack by the enemies of data scientists, the misinformation conjecturers! 
 qoq_gdp_damaged = cyberattack(qoq_gdp_data)
 
@@ -312,7 +323,7 @@ mom_gdp = pd.read_csv("data/monthly_gdp.csv", encoding='utf-8')
 
 
 # this data includes a nominal and real estmate: 
-mom_gdp.head(5)
+print(mom_gdp.head(5))
 
 # our FRED data is in terms of nominal dollars (can you find out how we know this? it's a data sourcing exercise!), so drop the real_gdp estimate: 
 mom_gdp.drop(columns=['MONTHLY_REAL_GDP'], inplace=True)
@@ -357,6 +368,14 @@ reporting_dates = qoq_gdp_damaged.DATE.values
 # drop rows in our monthly dataset if they do not correspond to a quarterly reporting date estimate: 
 resampled_mom_gdp = mom_gdp[mom_gdp['DATE'].isin(reporting_dates)]
 
+# comparing the original and resampled mom gdp datasets:
+print(resampled_mom_gdp.tail(5))
+print(mom_gdp.tail(5))
+
+
+# In[ ]:
+
+
 # let's fill the gaps in our original QoQ GDP dataset. first, we merge the datasets on their shared dates:  
 qoq_gdp_filled = qoq_gdp_damaged.merge(resampled_mom_gdp, on='DATE')
 
@@ -373,6 +392,14 @@ import matplotlib.pyplot as plt
 # subset our data for visibility: 
 qoq_gdp_damaged = qoq_gdp_damaged.tail(20)
 qoq_gdp_filled  = qoq_gdp_filled.tail(20)
+
+# compare our datasets:
+print(qoq_gdp_damaged)
+print(qoq_gdp_filled)
+
+
+# In[ ]:
+
 
 # scatter plot the data: 
 plt.plot(qoq_gdp_damaged['DATE'], qoq_gdp_damaged['GDP'], linestyle='-', marker='o', label='QoQ GDP (Original)', color='limegreen')

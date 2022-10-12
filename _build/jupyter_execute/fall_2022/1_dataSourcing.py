@@ -153,6 +153,7 @@ plt.scatter(fred_data['DATE'], fred_data['GDP'])
 
 # that's a lot of data - how about just the most recent observations? 
 fred_data_subset = fred_data.tail(10)
+print(fred_data_subset)
 
 # let's make sure things are a litte more read-able on the x-axis:
 plt.xticks(rotation = 30, fontsize = 8)
@@ -454,8 +455,8 @@ gdp_approaches_data = pd.read_csv("data/gdp_diff_approaches.csv", encoding='utf-
 # let's take a subset of the data:
 gdp_approaches_data = gdp_approaches_data.tail(15)
 
-# data structure: index, date, gdp, gdi (billions of nominal dollars)
-gdp_approaches_data.tail(10)
+# viewing the data structure: index, date, gdp, gdi (billions of nominal dollars)
+gdp_approaches_data
 
 
 # In[ ]:
@@ -480,6 +481,11 @@ plt.tight_layout()
 
 # compute the diff: 
 gdp_approaches_data['gdp_diff'] = gdp_approaches_data['gdi'] - gdp_approaches_data['gdp']
+print(gdp_approaches_data)
+
+
+# In[ ]:
+
 
 # plot the diff: 
 plt.plot(gdp_approaches_data['date'], gdp_approaches_data['gdp_diff'], linestyle='-', marker='o', color='dodgerblue')

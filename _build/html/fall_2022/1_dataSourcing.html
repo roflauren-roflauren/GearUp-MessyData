@@ -925,6 +925,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># that&#39;s a lot of data - how about just the most recent observations? </span>
 <span class="n">fred_data_subset</span> <span class="o">=</span> <span class="n">fred_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fred_data_subset</span><span class="p">)</span>
 
 <span class="c1"># let&#39;s make sure things are a litte more read-able on the x-axis:</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
@@ -1263,8 +1264,8 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s take a subset of the data:</span>
 <span class="n">gdp_approaches_data</span> <span class="o">=</span> <span class="n">gdp_approaches_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
 
-<span class="c1"># data structure: index, date, gdp, gdi (billions of nominal dollars)</span>
-<span class="n">gdp_approaches_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1"># viewing the data structure: index, date, gdp, gdi (billions of nominal dollars)</span>
+<span class="n">gdp_approaches_data</span>
 </pre></div>
 </div>
 </div>
@@ -1290,8 +1291,14 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute the diff: </span>
 <span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdp_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdi&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span>
-
-<span class="c1"># plot the diff: </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdp_approaches_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the diff: </span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdp_diff&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dodgerblue&#39;</span><span class="p">)</span>
 
 <span class="c1"># formatting options: </span>

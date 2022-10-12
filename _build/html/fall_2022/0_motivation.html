@@ -469,9 +469,9 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#defintion-and-usage">
+    <a class="reference internal nav-link" href="#gdp-defintion-and-usage">
      <em>
-      Defintion and usage
+      GDP defintion and usage
      </em>
     </a>
    </li>
@@ -566,9 +566,9 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#defintion-and-usage">
+    <a class="reference internal nav-link" href="#gdp-defintion-and-usage">
      <em>
-      Defintion and usage
+      GDP defintion and usage
      </em>
     </a>
    </li>
@@ -717,10 +717,10 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s get a quick look at a few entries: </span>
-<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 
 <span class="c1"># what different fields does this dataset possess for each entry? </span>
-<span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -735,7 +735,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 </div>
 </div>
 </div>
-<p><em>Food for thought:</em></p>
+<p><em>Food for thought - impacts of data sourcing:</em></p>
 <ul class="simple">
 <li><p>Based on the generated chart, if we were to compute the mean/median salary for a data science job in 2020, what kind of issues might we be overlooking? Is there anything fundamentally wrong with a mean/median calculation, or is there an issue with the dataset we chose to use? How might a different data source rectify these issues?</p></li>
 </ul>
@@ -803,6 +803,8 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <span class="c1"># filter rows for just the dates occurring in april: </span>
 <span class="n">april_start_end_idxs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;4/1/2013&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;4/30/2013&quot;</span><span class="p">)]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="n">april_only_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[(</span><span class="n">april_start_end_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">:</span> <span class="p">(</span><span class="n">april_start_end_idxs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+<span class="n">april_only_data</span>
 </pre></div>
 </div>
 </div>
@@ -824,7 +826,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 </div>
 </div>
 </div>
-<p><em>Food for thought:</em></p>
+<p><em>Food for thought - impacts of data continuity:</em></p>
 <ul class="simple">
 <li><p>Based on the scatter plot, is the April temperature data continuous? If we were trying to conduct some analysis on the April temperature data, how might the (lack of) data continuity affect us? Could we impute the points of discontinuity? How? Would one imputation method be better than others? Why?</p></li>
 </ul>
@@ -864,7 +866,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># always explore the data before processing it!</span>
 <span class="c1"># sample entries: </span>
-<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 
 <span class="c1"># info on the dataset columns and types: </span>
 <span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -880,10 +882,16 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <span class="c1"># sort the dataset by date: </span>
 <span class="n">avail_ic_beds</span> <span class="o">=</span> <span class="n">avail_ic_beds</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># let&#39;s get just the latest data: </span>
+<span class="c1"># let&#39;s get just the latest data &amp; view it: </span>
 <span class="n">avail_ic_beds</span> <span class="o">=</span> <span class="n">avail_ic_beds</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
-
-<span class="c1"># visualize the data: </span>
+<span class="n">avail_ic_beds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># visualize the data: </span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">avail_ic_beds</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span> <span class="n">avail_ic_beds</span><span class="p">[</span><span class="s1">&#39;Count&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">)</span>
@@ -893,7 +901,7 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 </div>
 </div>
 </div>
-<p><em>Food for thought:</em></p>
+<p><em>Food for thought - impacts of data timeliness:</em></p>
 <ul class="simple">
 <li><p>Where does this dataset end? Would this data be useful for predicting the number of available beds <em>today</em>? If no, what might be an alternative solution for this prediction task? If we can’t find a better dataset for this exact metric, can we approximate it somehow?</p></li>
 </ul>
@@ -903,8 +911,8 @@ data = pd.read_csv(&quot;data/ds_salaries.csv&quot;, encoding=&#39;utf-8&#39;)
 <h2>Workshop essentials: GDP refresher<a class="headerlink" href="#workshop-essentials-gdp-refresher" title="Permalink to this heading">#</a></h2>
 <p><img alt="gdp_calc" src="../_images/gdp_calculation.gif" /></p>
 <p><em>One of economics’ greatest hits!</em></p>
-<section id="defintion-and-usage">
-<h3><em>Defintion and usage</em><a class="headerlink" href="#defintion-and-usage" title="Permalink to this heading">#</a></h3>
+<section id="gdp-defintion-and-usage">
+<h3><em>GDP defintion and usage</em><a class="headerlink" href="#gdp-defintion-and-usage" title="Permalink to this heading">#</a></h3>
 <p>For the rest of this workshop, we’ll be exploring topics in the context of US GDP (<strong>G</strong>ross <strong>D</strong>omestic <strong>P</strong>roduct) data. In case you haven’t worked with GDP data before, or you just want a quick review, here’s a rundown:</p>
 <ul class="simple">
 <li><p><em>Definition:</em> GDP is “the total monetary or market value of all the finished goods and services produced within a country’s borders in a specific time period.</p></li>
