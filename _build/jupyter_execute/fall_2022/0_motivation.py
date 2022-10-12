@@ -11,11 +11,11 @@
 
 # ### Learning objectives
 # 
-# - [ ] Understand the need for "good" data. 
+# - Understand the need for "good" data. 
 # 
-# - [ ] Identify and define key dimensions of data robustness.
-# 
-# - [ ] Develop operational understanding of GDP and GDP data.  
+# - Identify and define key dimensions of data robustness.
+#   
+# - Develop operational understanding of GDP and GDP data.  
 # 
 # *Key question:* What would an ideal dataset look like? How does that definition change depending on what the data is used for? 
 
@@ -295,7 +295,7 @@ plt.show()
 # 
 # * Where does this dataset end? Would this data be useful for predicting the number of available beds *today*? If no, what might be an alternative solution for this prediction task? If we can't find a better dataset for this exact metric, can we approximate it somehow? 
 
-# ## Workshop essentials: GDP definitions & datasets
+# ## Workshop essentials: GDP refresher
 
 # ![gdp_calc](./imgs/gdp_calculation.gif)
 # 
@@ -303,7 +303,7 @@ plt.show()
 
 # #### *Defintion and usage*
 
-# For the rest of this workshop, we'll be exploring topics in the context of US GDP (**G**ross **D**omestic **P**roduct) data. In case you haven't worked with GDP data before, or you just want a quick refresher, here's a rundown:  
+# For the rest of this workshop, we'll be exploring topics in the context of US GDP (**G**ross **D**omestic **P**roduct) data. In case you haven't worked with GDP data before, or you just want a quick review, here's a rundown:  
 # 
 # * *Definition:* GDP is "the total monetary or market value of all the finished goods and services produced within a country's borders in a specific time period. 
 # 

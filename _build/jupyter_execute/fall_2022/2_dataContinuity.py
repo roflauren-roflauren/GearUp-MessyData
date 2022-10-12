@@ -15,11 +15,11 @@
 
 # ### Learning objectives
 # 
-# - [ ] Systematize understanding of data (dis)continuity issues (i.e., data gaps) and the types of data gap remediation strategies. 
+# - Systematize understanding of data (dis)continuity issues (i.e., data gaps) and the types of data gap remediation strategies. 
 # 
-# - [ ] Develop logic for making decisions related to the design and implementation of remediation strategies. 
+# - Develop logic for making decisions related to the design and implementation of remediation strategies. 
 # 
-# - [ ] Explore how choice of remediation strategy can impact downstream analysis. 
+# - Explore how choice of remediation strategy can impact downstream analysis. 
 # 
 # *Key question:* When data is incomplete and/or messy, how should we think about "fixing" it?
 
@@ -68,7 +68,7 @@ get_ipython().run_line_magic('pip', 'install datetime')
 
 # Data gap identification often occurs as an (un)intended consequence of attempted analysis, and data gap comprehension can be performed ad hoc using practices similar to those discussed in the data sourcing chapter. Of course, properly addressing each of these sub-issues is important and can be tricky in its own right (e.g., unintentionally writing code that generates figures which mask data gaps). If you're concerned with your handling of these sub-issues, I encourage you to [schedule a consult with SSDS](https://library.stanford.edu/research/software-and-services-data-science/schedule-consulting-appointment-contact-us).
 # 
-# And, a final caveat: in line with our running examples using GDP data, we'll almost entirely be discussing data gap remediation in the context of timeseries data. Data gaps can look very different with regard to other dimensions and types of data (e.g., lack of participants representing population *X* in a sample, missing attributes for an entry in a specific timeslice of panel data) - however, the thinking practied during our exploration of *how remedying data gaps can impact downstream analysis* should be useful nonetheless. 
+# And, a final caveat: in line with our running examples using GDP data, we'll almost entirely be discussing data gap remediation in the context of timeseries data. Data gaps can look very different with regard to other dimensions and types of data (e.g., lack of participants representing population *X* in a sample, missing attributes for an entry in a specific timeslice of panel data) - however, the thinking practiced during our exploration of *how remedying data gaps can impact downstream analysis* should be useful nonetheless. 
 
 # ## 2.2. Remediating data gaps
 
@@ -342,7 +342,7 @@ mom_gdp.drop(columns=['MONTHLY_REAL_GDP'], inplace=True)
 # 2. E.g., the GDP at Quarter 3, July. 1st is therefore *unrelated any other monthly GDP measurements in the same quarter*; 
 # 3. Thus, for every three monthly measurements, we can downsample to a quarterly measurement by *masking* the two measurements which did not occur on a reporting date for quarterly measurments. 
 # 
-# In short, my downsampling method is a mask - no statistical computations required! Novice researchers will often suggest the average as the go-to downsampling regime, and while useful, averaging is not at all universal. In fact, it would be less accurate than the mask suggested here!
+# In short, my downsampling method is a mask - no statistical computations required! When in a hurry, we may often default to the average as the go-to downsampling regime, and while useful, averaging is not at all universal. In fact, it would be less accurate than the mask suggested here!
 
 # #### **CODING EXERCISE: RESAMPLING & EXOGENOUS DATA FILLS (CONT.)**
 
@@ -430,7 +430,7 @@ plt.tight_layout()
 
 # #### *DISCUSSION 9: DESIGNING AN ENDOGENOUS FILL*
 
-# Key considerations for endogenous fill methods, in contrast to exogenous ones, are typically ones of **design** rather than **implementation.** For instance, one must consider: 
+# Key considerations for endogenous fill methods, like with resampling in the context of exogenous fills, are typically issues of **design** rather than **implementation.** For instance, one must consider: 
 # 
 # 1\. *What is the best interpolation method for my data?* 
 # 
@@ -510,7 +510,7 @@ for dataset in (gas_prices, mom_gdp): dataset.head(5)
 
 # #### *DISCUSSION 11.2: LINEAR REGRESSION REFRESHER*
 
-# One way to quickly assess the strength of the relationship between two variables is to run a OLS (**O**rdinary **L**east **S**quares) regression between them. For the uninitated, a simple OLS regression attempts to model one varible as a linear function of the other (e.g., $ y = \beta_1  x + \beta_0 $). Here, our $y$-variable will be GDP and our predictor $x$-variable will be average gas price (AGP). 
+# One way to quickly assess the strength of the relationship between two variables is to run a OLS (**O**rdinary **L**east **S**quares) regression between them. For the uninitated, a simple OLS regression attempts to model one varible as a linear function of the other (e.g., y = β1x + β0). Here, our y-variable will be GDP and our predictor x-variable will be average gas price (AGP). 
 # 
 # <center>
 # 
@@ -522,13 +522,13 @@ for dataset in (gas_prices, mom_gdp): dataset.head(5)
 # 
 # The strength/quality of the relationship computed through OLS regression can be quantitatively defined using metrics including: 
 # 
-# * $R^2$ (i.e., what percentage of variation in $y$ can be explained by variation in our predictor variable, $x$); and 
+# * R^2, R-squared (i.e., what percentage of variation in y can be explained by variation in our predictor variable, x); and 
 # 
-# * the $p$-value of our regression $\beta$'s (i.e., how confident are we that the function parameters we found defining the relationship between $x$ and $y$ are accurate).
+# * the p-value of our regression β's (i.e., how confident are we that the function parameters we found defining the relationship between x and y are accurate).
 # 
 # (For more on OLS regression, see this excellent [interactive guide](https://setosa.io/ev/ordinary-least-squares-regression/)). 
 # 
-# You decide to use these metrics, $R^2$ and $\beta_1$'s $p$-value as your assessment criteria. Results, here we come!
+# You decide to use R^2 as your assessment criteria. Results, here we come!
 
 # #### **CODING EXERCISE: CoDF - DATA WRANGLING**
 
@@ -607,7 +607,7 @@ print("Number of inputs (gas price data points): {num_gas_prices}".format(num_ga
 print("Number of samples (GDP data points): {num_gdp}".format(num_gdp = len(gdp_y_vals)))
 
 
-# Why the mis-match? If you were paying extra close attention during the data import stage, you might've seen that these gas price averages are computed on a *weekly* basis whereas our GDP data is a *monthly* gdp estimate! There's (on average) 4.3 weeks in a month, and accordingly, about $213/49 ≈ 4.35$ gas price observations for each GDP observation.
+# Why the mis-match? If you were paying extra close attention during the data import stage, you might've seen that these gas price averages are computed on a *weekly* basis whereas our GDP data is a *monthly* gdp estimate! There's (on average) 4.3 weeks in a month, and accordingly, about 213/49 ≈ 4.35 gas price observations for each GDP observation.
 
 # #### *DISCUSSION 11.3: COMPARING GDP & AGP DATASETS*
 
@@ -630,7 +630,7 @@ print("Number of samples (GDP data points): {num_gdp}".format(num_gdp = len(gdp_
 
 # #### *DISCUSSION 11.4: UPSAMPLING VS. DOWNSAMPLING*
 
-# In this context, in order to manipulate our data so it's regression-compatible (i.e., we have the same number of $x$ and $y$ data points), there are number of specific data filling (or transformation) techniques we could apply! Those techniques can first be divided into whether they belong to the strategy of **upsampling** our GDP data, or **downsampling** our gas prices data: 
+# In this context, in order to manipulate our data so it's regression-compatible (i.e., we have the same number of x and y data points), there are number of specific data filling (or transformation) techniques we could apply! Those techniques can first be divided into whether they belong to the strategy of **upsampling** our GDP data, or **downsampling** our gas prices data: 
 # 
 # Strategy 1: *Upsampling GDP data*  
 #   * Fill or Tranformation: Fill 
@@ -720,7 +720,7 @@ def get_R2(data, freq):
     print("R^2 for the GDP ~ AGP model, reporting on a {freq} frequency: {r2:.4f}".format(freq = freq, r2 = r_sq))
 
 
-# And just for fun, why don't we see what $R^2$ we get when we run the regression on some other frequencies too?
+# And just for fun, why don't we see what R^2 we get when we run the regression on some other frequencies too?
 
 # In[125]:
 
@@ -742,7 +742,7 @@ get_R2(both_yearly_data, "yearly")
 
 # #### *DISCUSSION 11.5: CONTRASTING MODELS BY DATA FILLS*
 
-# Wow! That's a pretty intense jump from low 40\%'s $R^2$ figures for our models on weekly, monthly, and quarterly data to nearly a 60\% $R^2$-figure for our yearly model! What gives?
+# Wow! That's a pretty intense jump from low 40\%'s R^2 figures for our models on weekly, monthly, and quarterly data to nearly a 60\% R^2-figure for our yearly model! What gives?
 # 
 # While this is not necessarily universal, we can think about what generally happens on a data-wise level when we apply a re-sampling technique: 
 
@@ -752,13 +752,13 @@ get_R2(both_yearly_data, "yearly")
 # 
 # * Depending on the downsampling technique, this data compression could lead to to omission or over-inclusion of specific points, like outliers (using ```.mean()``` vs. ```.median()```)
 # 
-#    * For our regressions: Maybe there was an off-year where GDP and gas prices both rose rapidly due to some external third factor (which is our true desired GDP predictor), inducing outliers in our data which become more heavily represented in a yearly dataset with limited points. <br></br>
-#   
-# * Downsampling means looking at data over longer time frames, which may allow us to extract a more general trend between variables that is less sensitive to temporary fluctuations 
-# 
+#    * For our regressions: Maybe there was an off-year where GDP and gas prices both rose rapidly due to some external third factor (which is our true desired GDP predictor), inducing outliers in our data which become more heavily represented in a yearly dataset with limited points.
+#     
+# * Downsampling means looking at data over longer time frames, which may allow us to extract a more general trend between variables that is less sensitive to temporary fluctuations.
+#  
 #   * For our regressions: Gasoline is a component of spending and therefore GDP; it would make sense for the two to rise together over longer time frames. 
 # 
-# *Key question:* Does one of these reasons explain why yearly $R^2$ seems to be so much higher than the $R^2$ obtained through other frequency datasets?
+# *Key question:* Does one of these reasons explain why yearly R^2 seems to be so much higher than the R^2 obtained through other frequency datasets?
 
 # ***UPSAMPLING:***
 # 
@@ -768,7 +768,7 @@ get_R2(both_yearly_data, "yearly")
 # 
 #    * For our regressions: Maybe our use of a forward fill to upsample GDP data is creating time periods where GDP is artificially insensitive to gas prices. 
 #   
-# *Key question:* Does this reason explain why weekly $R^2$ is the lowest $R^2$ obtained for any of the regressions? 
+# *Key question:* Does this reason explain why weekly R^2 is the lowest R^2 obtained for any of the regressions? 
 
 # #### **2.5 - CONCLUSION**
 
@@ -780,9 +780,9 @@ get_R2(both_yearly_data, "yearly")
 # 
 # * Imagine you are imputing missing values by averging the value of the data points two nearest neighbors - since the resulting point is an average of two existing points in the dataset, in a way, *you are increasing the sensitivity of your analysis to changes in those two neighbors.* 
 #  
-# * And this logic applies to exogenous data fills too - populating missing values dials up the sensitivity of your analysis from 0 with respect to a certain once-missing point to some non-zero sensitivity: an $\infty$\% increase! 
+# * And this logic applies to exogenous data fills too - populating missing values dials up the sensitivity of your analysis from 0 with respect to a certain once-missing point to some non-zero sensitivity: an ∞\% increase! 
 # 
-# When it comes to data continuity, there are no hard and fast about how you should do things - whether you should fill or omit gaps, whether you should use an endogenous or exogenous fill method, and what precise technique you should use to execute that fill. And there are no easy ways to know whether and how what you're doing in the data processing stage will meaningfully impact your analysis. The best advice I can offer you is to: (1) prioritize logical soundness and consistency; and (2) just try things out! Data is meant to be explored. 
+# When it comes to data continuity, there are no hard and fast rules about how you should do things - whether you should fill or omit gaps, whether you should use an endogenous or exogenous fill method, and what precise technique you should use to execute that fill. And there are no easy ways to know whether and how what you're doing in the data processing stage will meaningfully impact your analysis. The best advice I can offer you is to: (1) prioritize logical soundness and consistency; and (2) just try things out! Data is meant to be explored. 
 # 
 # Before we wrap up the workshop, let's see data sourcing and data continuity work together to define another critical aspect of real-life, messy data - data timeliness! On to Chapter 3! 
 

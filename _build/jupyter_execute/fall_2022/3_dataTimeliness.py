@@ -13,9 +13,9 @@
 
 # ### Learning objectives
 # 
-# - [ ] Define data timeliness and identify data timeliness practices.
+# - Define data timeliness and identify data timeliness practices.
 # 
-# - [ ] Contextualize data timeliness as an intersection of prior data robustness dimensions. 
+# - Contextualize data timeliness as an intersection of prior data robustness dimensions. 
 # 
 # *Key question:* When is data present-ness important, and how do we manufacture it when not readily available? 
 
