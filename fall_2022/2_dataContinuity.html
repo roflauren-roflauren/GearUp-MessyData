@@ -1,0 +1,1894 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Chapter 2 - Data Continuity &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Chapter 3 - Data Timeliness" href="3_dataTimeliness.html" />
+    <link rel="prev" title="Chapter 1 - Data Sourcing" href="1_dataSourcing.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Understanding Messy Time Series Data [Gear-Up]</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to the Understanding Messy Time Series Data workshop!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  WORKSHOP INTRO
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="how_to_use.html">
+   Preface: How to use this book
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="0_motivation.html">
+   Chapter 0 - Why do we need robust data?
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA BEST PRACTICES
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_dataSourcing.html">
+   Chapter 1 - Data Sourcing
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Chapter 2 - Data Continuity
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_dataTimeliness.html">
+   Chapter 3 - Data Timeliness
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  APPENDIX
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix_vectorize.html">
+   Appendix A: Optimizing data filling via Vectorization
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/roflauren-roflauren/GearUp-MessyData/main?urlpath=tree/fall_2022/2_dataContinuity.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/2_dataContinuity.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData/issues/new?title=Issue%20on%20page%20%2Ffall_2022/2_dataContinuity.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/fall_2022/2_dataContinuity.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-preview">
+   <em>
+    Chapter preview
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#learning-objectives">
+     Learning objectives
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
+     Chapter prerequisites: Python imports
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface-consequences-of-following-data-sourcing-best-practices">
+   2.0. Preface: Consequences of following data sourcing best practices
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#defining-data-continuity">
+   2.1. Defining “data continuity”
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-1-identifying-comprehending-data-gaps">
+     <em>
+      DISCUSSION 1: IDENTIFYING &amp; COMPREHENDING DATA GAPS
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#remediating-data-gaps">
+   2.2. Remediating data gaps
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-2-types-of-remediation-practices">
+     <em>
+      DISCUSSION 2: TYPES OF REMEDIATION PRACTICES
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-3-types-of-data-fill-methods">
+     <em>
+      DISCUSSION 3: TYPES OF DATA FILL METHODS
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-endo-exo-genous-data-fill-examples">
+     <strong>
+      CODING EXERCISE: (ENDO)(EXO)GENOUS DATA FILL EXAMPLES
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-4-endogenous-vs-exogenous-fills">
+     <em>
+      DISCUSSION 4: ENDOGENOUS VS. EXOGENOUS FILLS
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#issues-with-exogenous-fill-methods">
+   2.3. Issues with exogenous fill methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-5-defining-resampling">
+     <em>
+      DISCUSSION 5: DEFINING RESAMPLING
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-resampling-exogenous-data-fills">
+     <strong>
+      CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-6-selecting-a-resampling-regime">
+     <em>
+      DISCUSSION 6: SELECTING A RESAMPLING REGIME
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-7-example-resampling-method">
+     <em>
+      DISCUSSION 7: EXAMPLE RESAMPLING METHOD
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-resampling-exogenous-data-fills-cont">
+     <strong>
+      CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS (CONT.)
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-8-data-point-mis-alignment">
+     <em>
+      DISCUSSION 8: DATA POINT MIS-ALIGNMENT
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#issues-with-endogenous-fill-methods">
+   2.4. Issues with endogenous fill methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-9-designing-an-endogenous-fill">
+     <em>
+      DISCUSSION 9: DESIGNING AN ENDOGENOUS FILL
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-10-context-dependent-design">
+     <em>
+      DISCUSSION 10: CONTEXT-DEPENDENT DESIGN
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#consequences-of-data-filling-codf">
+   2.5. Consequences of data filling (CoDF)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-1-defining-agp-gdp">
+     <em>
+      DISCUSSION 11.1: DEFINING AGP &amp; GDP
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-data-import">
+     <strong>
+      CODING EXERCISE: CoDF - DATA IMPORT
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-2-linear-regression-refresher">
+     <em>
+      DISCUSSION 11.2: LINEAR REGRESSION REFRESHER
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-data-wrangling">
+     <strong>
+      CODING EXERCISE: CoDF - DATA WRANGLING
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-ols-regression">
+     <strong>
+      CODING EXERCISE: CoDF - OLS REGRESSION
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-3-comparing-gdp-agp-datasets">
+     <em>
+      DISCUSSION 11.3: COMPARING GDP &amp; AGP DATASETS
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-4-upsampling-vs-downsampling">
+     <em>
+      DISCUSSION 11.4: UPSAMPLING VS. DOWNSAMPLING
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-data-wrangling-cont">
+     <strong>
+      CODING EXERCISE: CoDF - DATA WRANGLING (CONT.)
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-resampling-data">
+     <strong>
+      CODING EXERCISE: CoDF - RESAMPLING DATA
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-ols-regression-redux">
+     <strong>
+      CODING EXERCISE: CoDF - OLS REGRESSION REDUX
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-5-contrasting-models-by-data-fills">
+     <em>
+      DISCUSSION 11.5: CONTRASTING MODELS BY DATA FILLS
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conclusion">
+     <strong>
+      2.5 - CONCLUSION
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-takeaways">
+   2.6.
+   <em>
+    Chapter Takeaways
+   </em>
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Chapter 2 - Data Continuity</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-preview">
+   <em>
+    Chapter preview
+   </em>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#learning-objectives">
+     Learning objectives
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#chapter-prerequisites-python-imports">
+     Chapter prerequisites: Python imports
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface-consequences-of-following-data-sourcing-best-practices">
+   2.0. Preface: Consequences of following data sourcing best practices
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#defining-data-continuity">
+   2.1. Defining “data continuity”
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-1-identifying-comprehending-data-gaps">
+     <em>
+      DISCUSSION 1: IDENTIFYING &amp; COMPREHENDING DATA GAPS
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#remediating-data-gaps">
+   2.2. Remediating data gaps
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-2-types-of-remediation-practices">
+     <em>
+      DISCUSSION 2: TYPES OF REMEDIATION PRACTICES
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-3-types-of-data-fill-methods">
+     <em>
+      DISCUSSION 3: TYPES OF DATA FILL METHODS
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-endo-exo-genous-data-fill-examples">
+     <strong>
+      CODING EXERCISE: (ENDO)(EXO)GENOUS DATA FILL EXAMPLES
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-4-endogenous-vs-exogenous-fills">
+     <em>
+      DISCUSSION 4: ENDOGENOUS VS. EXOGENOUS FILLS
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#issues-with-exogenous-fill-methods">
+   2.3. Issues with exogenous fill methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-5-defining-resampling">
+     <em>
+      DISCUSSION 5: DEFINING RESAMPLING
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-resampling-exogenous-data-fills">
+     <strong>
+      CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-6-selecting-a-resampling-regime">
+     <em>
+      DISCUSSION 6: SELECTING A RESAMPLING REGIME
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-7-example-resampling-method">
+     <em>
+      DISCUSSION 7: EXAMPLE RESAMPLING METHOD
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-resampling-exogenous-data-fills-cont">
+     <strong>
+      CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS (CONT.)
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-8-data-point-mis-alignment">
+     <em>
+      DISCUSSION 8: DATA POINT MIS-ALIGNMENT
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#issues-with-endogenous-fill-methods">
+   2.4. Issues with endogenous fill methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-9-designing-an-endogenous-fill">
+     <em>
+      DISCUSSION 9: DESIGNING AN ENDOGENOUS FILL
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-10-context-dependent-design">
+     <em>
+      DISCUSSION 10: CONTEXT-DEPENDENT DESIGN
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#consequences-of-data-filling-codf">
+   2.5. Consequences of data filling (CoDF)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-1-defining-agp-gdp">
+     <em>
+      DISCUSSION 11.1: DEFINING AGP &amp; GDP
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-data-import">
+     <strong>
+      CODING EXERCISE: CoDF - DATA IMPORT
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-2-linear-regression-refresher">
+     <em>
+      DISCUSSION 11.2: LINEAR REGRESSION REFRESHER
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-data-wrangling">
+     <strong>
+      CODING EXERCISE: CoDF - DATA WRANGLING
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-ols-regression">
+     <strong>
+      CODING EXERCISE: CoDF - OLS REGRESSION
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-3-comparing-gdp-agp-datasets">
+     <em>
+      DISCUSSION 11.3: COMPARING GDP &amp; AGP DATASETS
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-4-upsampling-vs-downsampling">
+     <em>
+      DISCUSSION 11.4: UPSAMPLING VS. DOWNSAMPLING
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-data-wrangling-cont">
+     <strong>
+      CODING EXERCISE: CoDF - DATA WRANGLING (CONT.)
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-resampling-data">
+     <strong>
+      CODING EXERCISE: CoDF - RESAMPLING DATA
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-codf-ols-regression-redux">
+     <strong>
+      CODING EXERCISE: CoDF - OLS REGRESSION REDUX
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-11-5-contrasting-models-by-data-fills">
+     <em>
+      DISCUSSION 11.5: CONTRASTING MODELS BY DATA FILLS
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conclusion">
+     <strong>
+      2.5 - CONCLUSION
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-takeaways">
+   2.6.
+   <em>
+    Chapter Takeaways
+   </em>
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-data-continuity">
+<h1>Chapter 2 - Data Continuity<a class="headerlink" href="#chapter-2-data-continuity" title="Permalink to this heading">#</a></h1>
+<a target="_blank" href="https://colab.research.google.com/github/roflauren-roflauren/GearUp-MessyData/blob/main/fall_2022/2_dataContinuity.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a><p><img alt="mind_the_gap" src="../_images/mind_the_gap.png" /></p>
+<p><em>Not every data gap is as obvious as this one…</em></p>
+<section id="chapter-preview">
+<h2><em>Chapter preview</em><a class="headerlink" href="#chapter-preview" title="Permalink to this heading">#</a></h2>
+<section id="learning-objectives">
+<h3>Learning objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Systematize understanding of data (dis)continuity issues (i.e., data gaps) and the types of data gap remediation strategies.</p></li>
+<li><p>Develop logic for making decisions related to the design and implementation of remediation strategies.</p></li>
+<li><p>Explore how choice of remediation strategy can impact downstream analysis.</p></li>
+</ul>
+<p><em>Key question:</em> When data is incomplete and/or messy, how should we think about “fixing” it?</p>
+</section>
+<section id="chapter-prerequisites-python-imports">
+<h3>Chapter prerequisites: Python imports<a class="headerlink" href="#chapter-prerequisites-python-imports" title="Permalink to this heading">#</a></h3>
+<p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># commented calls may be included in your base install of Python; uncomment call(s) as necessary</span>
+<span class="o">%</span><span class="k">pip</span> install pandas
+<span class="o">%</span><span class="k">pip</span> install numpy
+<span class="o">%</span><span class="k">pip</span> install sklearn
+<span class="o">%</span><span class="k">pip</span> install matplotlib
+<span class="o">%</span><span class="k">pip</span> install random
+<span class="o">%</span><span class="k">pip</span> install dateutil.parser
+<span class="o">%</span><span class="k">pip</span> install datetime
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="preface-consequences-of-following-data-sourcing-best-practices">
+<h2>2.0. Preface: Consequences of following data sourcing best practices<a class="headerlink" href="#preface-consequences-of-following-data-sourcing-best-practices" title="Permalink to this heading">#</a></h2>
+<p>If you follow all of the data sourcing best practices previously discussed (click <span class="xref myst">here</span> if you haven’t reviewed data sourcing yet!), it’s likely that you’ll encounter a data resource that is less immediately “usable” than we might hope.</p>
+<p>Although this is a natural consequence of prioritizing factors like data author credibility and reputable data generation approaches over usability, it’s still an unfortunate obstacle to analysis. Besides administrative barriers like paywalls, institutional access, one of the most common obstacles we’ll encounter when using responsibly-sourced, real-life data is data gaps, or a lack of <em>data continuity.</em></p>
+<p><img alt="mouse_cookie" src="../_images/mouse_cookie_custom.png" /></p>
+<p><em>When a delightful children’s classic goes data science!</em></p>
+</section>
+<section id="defining-data-continuity">
+<h2>2.1. Defining “data continuity”<a class="headerlink" href="#defining-data-continuity" title="Permalink to this heading">#</a></h2>
+<p><em>Data continuity</em> refers to the completeness of a chosen data resource across a given dimension of analysis. Specific data points or ranges of your dimension of analysis where the chosen data resource is missing/incomplete are referred to as <em>data gaps.</em></p>
+<p>Pertinent sub-issues in the practice of addressing data (dis)continuity include data gap:</p>
+<ul class="simple">
+<li><p><strong>identification</strong> (where are any data gaps present in the dataset?);</p></li>
+<li><p><strong>comprehension</strong> (why are those data gaps where they are in my dataset?); and</p></li>
+<li><p><strong>remediation</strong> (how can I work around these data gaps).</p></li>
+</ul>
+<p>Of these issues, <em>data gap remediation</em> will be the primary focus of this chapter.</p>
+<section id="discussion-1-identifying-comprehending-data-gaps">
+<h3><em>DISCUSSION 1: IDENTIFYING &amp; COMPREHENDING DATA GAPS</em><a class="headerlink" href="#discussion-1-identifying-comprehending-data-gaps" title="Permalink to this heading">#</a></h3>
+<p>Data gap identification often occurs as an (un)intended consequence of attempted analysis, and data gap comprehension can be performed ad hoc using practices similar to those discussed in the data sourcing chapter. Of course, properly addressing each of these sub-issues is important and can be tricky in its own right (e.g., unintentionally writing code that generates figures which mask data gaps). If you’re concerned with your handling of these sub-issues, I encourage you to <a class="reference external" href="https://library.stanford.edu/research/software-and-services-data-science/schedule-consulting-appointment-contact-us">schedule a consult with SSDS</a>.</p>
+<p>And, a final caveat: in line with our running examples using GDP data, we’ll almost entirely be discussing data gap remediation in the context of timeseries data. Data gaps can look very different with regard to other dimensions and types of data (e.g., lack of participants representing population <em>X</em> in a sample, missing attributes for an entry in a specific timeslice of panel data) - however, the thinking practiced during our exploration of <em>how remedying data gaps can impact downstream analysis</em> should be useful nonetheless.</p>
+</section>
+</section>
+<section id="remediating-data-gaps">
+<h2>2.2. Remediating data gaps<a class="headerlink" href="#remediating-data-gaps" title="Permalink to this heading">#</a></h2>
+<p>When working with messy, real-life data, data gap remediation is one of the practices with the most tangible effects: performed correctly, it enables for an accurate and full scope of analysis. However, when done incorrectly, it can skew results and at worse, invalidate conclusions. Thus, taking the time to (1) systematize and (2) broaden our understanding of the exercise is well-advised.</p>
+<section id="discussion-2-types-of-remediation-practices">
+<h3><em>DISCUSSION 2: TYPES OF REMEDIATION PRACTICES</em><a class="headerlink" href="#discussion-2-types-of-remediation-practices" title="Permalink to this heading">#</a></h3>
+<p>Remediation practices can broadly be classified into two categories:</p>
+<ol class="simple">
+<li><p><em>Data gap omission</em> - the exclusion any data gaps from your scope of analysis, limiting any results and conclusions to the present data ranges.</p></li>
+<li><p><em>Data gap filling</em> - the use of other data points in the native or external dataset(s) to impute values for any data gaps in your dataset occuring in the desired scope of analysis.</p></li>
+</ol>
+<p>When practicing data gap omission, note that it’s certainly permissible (and likely recommended) to extrapolate your results from the readily available scope of analysis to whatever data ranges are missing. The key difference between the two categories is the <strong>quantitative versus qualitative nature of</strong> as well as the <strong>research community confidence in the accuracy of</strong> said extrapolation.</p>
+<center>
+<p><img alt="data_gaps" src="../_images/omission_filling_combo.png" /></p>
+<p><em>Data gap omission (avoidance) vs. Data gap filling - Pothole Edition</em></p>
+</center><p>Since data gap omission is not especially programatically interesting (e.g., you simply include a command to skip/omit any data with a NA, NaN, etc. during the data intake process) and its consequences on downstream analysis are fairly one-dimensional (i.e., you can’t draw definitive conclusions over the missing data ranges), we’ll zoom in on data gap filling in future sections.</p>
+<p>However, both categories of remediation practices have valid use cases as well as benefits and drawbacks - take a moment to review or add to the table below!</p>
+<center>
+<p><strong>Table 3. Pros and Cons of Data Remediation Strategies</strong></p>
+<p><img alt="pros_cons" src="../_images/pros_cons.png" /></p>
+</center><p>Hopefully you noticed the conspicuous asterisk prefixing the “Disadvantages” sub-section for the “Data gap filling” entry in the table (if not, you can take a look now - the notebook isn’t going anywhere 🙂). As we continue on, I hope to convince that one of the noted disadvantages (<em>“can impact downstream analysis in non-obvious ways”</em>) can at least be partially mitigated by intelligent and intentional design.</p>
+</section>
+<section id="discussion-3-types-of-data-fill-methods">
+<h3><em>DISCUSSION 3: TYPES OF DATA FILL METHODS</em><a class="headerlink" href="#discussion-3-types-of-data-fill-methods" title="Permalink to this heading">#</a></h3>
+<p>However, prior to that discussion, we first can further systematize our use of data remediation techniques by dividing data gap filling strategies into two types of fill(ing) methods:</p>
+<ul class="simple">
+<li><p><em>Exogenous</em> fill methods utilize an external data source to populate some or all of the discontinuities in your master dataset.</p></li>
+<li><p><em>Endogenous</em> fill methods apply statistical methods to the present points in your master dataset to generate estimated values for some or all discontinuities.</p></li>
+</ul>
+<p>Here are some quick definitions-through-code:</p>
+</section>
+<section id="coding-exercise-endo-exo-genous-data-fill-examples">
+<h3><strong>CODING EXERCISE: (ENDO)(EXO)GENOUS DATA FILL EXAMPLES</strong><a class="headerlink" href="#coding-exercise-endo-exo-genous-data-fill-examples" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># shared imports: </span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>    <span class="c1"># use: data import &amp; wrangling.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DEF: EXOGENOUS FILL METHODS: &quot;&quot;&quot;</span>
+<span class="c1"># some toy (ha!) data: </span>
+<span class="n">master_data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2008</span><span class="p">,</span> <span class="s1">&#39;puzzles&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2010</span><span class="p">,</span> <span class="s1">&#39;Nerf football&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2012</span><span class="p">,</span> <span class="s1">&#39;game console&#39;</span><span class="p">]]</span>
+
+<span class="c1"># view &amp; construct a DataFrame around the toy data </span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">master_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;B-day Toy&#39;</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_toys_received</span><span class="p">(</span><span class="n">df</span><span class="p">):</span> 
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2008</span><span class="p">,</span> <span class="mi">2013</span><span class="p">):</span>
+        <span class="c1"># find the matching dataframe row: </span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Year</span> <span class="o">==</span> <span class="n">year</span><span class="p">]</span>
+
+        <span class="c1"># print out the year + toy data for each year: </span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We don&#39;t have data for this year!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Year: </span><span class="si">{year}</span><span class="s2">; Toy received for Birthday: </span><span class="si">{toy}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">match</span><span class="p">][</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">toy</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">match</span><span class="p">][</span><span class="s1">&#39;B-day Toy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+
+<span class="c1"># what did this person get every year? </span>
+<span class="n">list_toys_received</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we don&#39;t what this person got for the years 2009 &amp; 2011! exogenous data fill to the rescue. </span>
+<span class="n">add_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="mi">2009</span><span class="p">,</span> <span class="s1">&#39;clothes&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2011</span><span class="p">,</span> <span class="s1">&#39;mobile phone&#39;</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;B-day Toy&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">add_df</span><span class="p">)</span>
+
+<span class="c1"># here, the mechanics of the exogenous data fill operation are as simple as: </span>
+<span class="n">franken_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">add_df</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># is our list complete now? let&#39;s check!</span>
+<span class="n">list_toys_received</span><span class="p">(</span><span class="n">franken_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># new required imports: </span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>    <span class="c1"># use: data viz. </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DEF: ENDOGENOUS FILL METHODS: &quot;&quot;&quot;</span>
+<span class="c1"># here&#39;s some made up timeseries data: </span>
+<span class="n">ts_data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2000</span><span class="p">,</span> <span class="mf">43.2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2001</span><span class="p">,</span> <span class="mf">45.6</span><span class="p">],</span> <span class="p">[</span><span class="mi">2002</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="p">[</span><span class="mi">2003</span><span class="p">,</span> <span class="mf">39.8</span><span class="p">],</span> <span class="p">[</span><span class="mi">2004</span><span class="p">,</span> <span class="mf">44.2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2005</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="p">[</span><span class="mi">2006</span><span class="p">,</span> <span class="mf">45.8</span><span class="p">],</span> <span class="p">[</span><span class="mi">2007</span><span class="p">,</span> <span class="mf">52.1</span><span class="p">]]</span>
+
+<span class="c1"># spin up &amp; view a quick DataFrame: </span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ts_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;Amount&#39;</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if we try to make a quick line chart of the data, we&#39;ll notice some missing values: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Year</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">Amount</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we can use the existing data points to estimate values for the missing ones! endogenous data filling~ </span>
+<span class="n">vals</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Amount</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span> 
+    <span class="c1"># here, our fill method will be the average of the two adjacent values </span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">val</span><span class="p">):</span> 
+        <span class="n">vals</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="n">vals</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">vals</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># let&#39;s see our new data! </span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Filled data: </span><span class="si">{vals}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vals</span> <span class="o">=</span> <span class="n">vals</span><span class="p">))</span>
+
+<span class="c1"># and, our new plot &amp; dataframe! </span>
+<span class="n">df</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="n">vals</span> 
+<span class="n">df</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Year</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">Amount</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion-4-endogenous-vs-exogenous-fills">
+<h3><em>DISCUSSION 4: ENDOGENOUS VS. EXOGENOUS FILLS</em><a class="headerlink" href="#discussion-4-endogenous-vs-exogenous-fills" title="Permalink to this heading">#</a></h3>
+<p>Typically, when presented with two separate methods, classes, or ideology, we’ve considered the merits and drawbacks of employing either to help develop criteria for using each one. However, unlike a division like data gap filling versus data gap omission, exogenous and endogenous fill methods are not inherently incompatible.</p>
+<p>Depending on your data’s structure and attributes as well as the nature of the discontinuities, you could very well employ <em>both</em> exogenous and endogenous fill methods to remediate different data gaps in the same dataset! This follows from both remediation strategies sharing a primary purpose: to provide accurate estimations within data gaps to enable broadened downstream analysis.</p>
+<p><img alt="tag-team" src="../_images/whoomp_thereitis.png" /></p>
+<p><em>Tag teams: for both data gap remediation and one of <a class="reference external" href="https://www.youtube.com/watch?v=L6mNa_QZVHg">hip hop’s greatest single’s!</a></em></p>
+<p>To help you decide which remediation strategy is best to fill which data gap, we can look to the key sub-issues and potential problems of using each one. Then, in your own research, you can evaluate which sub-issues or problems will give rise to greater inaccuracy, less tractability, etc. to help you make this decision. Let’s get started!</p>
+</section>
+</section>
+<section id="issues-with-exogenous-fill-methods">
+<h2>2.3. Issues with exogenous fill methods<a class="headerlink" href="#issues-with-exogenous-fill-methods" title="Permalink to this heading">#</a></h2>
+<p>Exogenous fill methods are (generally) less statistically-oriented than their endogenous counterparts. Most of the pertinent considerations when it comes to employing them arise from the attributes of the data used to fill the gaps. Two potential issues that commonly arise include:</p>
+<ol class="simple">
+<li><p><em>Need for data resampling</em></p></li>
+<li><p><em>Mis-alignment of data point occurence</em></p></li>
+</ol>
+<section id="discussion-5-defining-resampling">
+<h3><em>DISCUSSION 5: DEFINING RESAMPLING</em><a class="headerlink" href="#discussion-5-defining-resampling" title="Permalink to this heading">#</a></h3>
+<p><em>Data resampling</em> commonly refers to the practice of drawing repeated sub-samples from an original data source, but in the context of timeseries data, it can also denote the technique of <strong>(dis)aggregating data points to estimate data values on a different time scale than the original source.</strong></p>
+<p>For example, we could <em>downsample</em> (i.e., reduce the resolution) of a monthly GDP dataset to provide a quarterly GDP estimate or we could <em>upsample</em> (i.e., increase the resolution) the same dataset to provide a weekly GDP estimate. Let’s see exactly what I mean:</p>
+</section>
+<section id="coding-exercise-resampling-exogenous-data-fills">
+<h3><strong>CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS</strong><a class="headerlink" href="#coding-exercise-resampling-exogenous-data-fills" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># required imports &amp; set-up: </span>
+<span class="kn">import</span> <span class="nn">os</span>                      <span class="c1"># use: file management and access.</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>            <span class="c1"># use: data import &amp; wrangling.</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>             <span class="c1"># use: some mathematical utilities.</span>
+<span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">rd</span>            <span class="c1"># use: nothing suspicious, that&#39;s for sure!</span>
+
+<span class="c1"># options:</span>
+<span class="n">rd</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>                   <span class="c1"># use: to ensure replicablity of examples </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># just a totally random inconspicuous code block, but you should run it anyway: </span>
+<span class="k">def</span> <span class="nf">cyberattack</span><span class="p">(</span><span class="n">data</span><span class="p">):</span> 
+    <span class="c1"># some truly nefarious stuff: </span>
+    <span class="n">rand_idxs</span> <span class="o">=</span> <span class="n">rd</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">//</span><span class="mi">3</span><span class="p">)</span> 
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">rand_idxs</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;GDP&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">return</span> <span class="n">data</span>   
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># it&#39;s back to our friendly FRED data! </span>
+<span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
+<span class="c1"># uncomment: qoq_gdp_data = pd.read_csv(&#39;./sample_datasets/gdp_fred.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+
+<span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
+<span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
+<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gdp_fred.csv # retrieve the dataset from remote storage on GitHub
+<span class="n">qoq_gdp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/gdp_fred.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s just look at the more recent data: </span>
+<span class="n">qoq_gdp_data</span> <span class="o">=</span> <span class="n">qoq_gdp_data</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># a quick fred data structure refresher:</span>
+<span class="n">qoq_gdp_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># but oh no! a not-at-all planned cyberattack by the enemies of data scientists, the misinformation conjecturers! </span>
+<span class="n">qoq_gdp_damaged</span> <span class="o">=</span> <span class="n">cyberattack</span><span class="p">(</span><span class="n">qoq_gdp_data</span><span class="p">)</span>
+
+<span class="c1"># now we have data gaps: </span>
+<span class="n">qoq_gdp_damaged</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Given our somewhat contrived reason for the presence of discontinuities in our data, I hope you’ll generally agree that timeseries data with missing data points is not a totally unreasonable occurrence. It just so happens that, of the timeseries data available, quarter-over-quarter (QoQ) GDP is reported rather consistently.</p>
+<p>Qualification aside, what can we do about filling the gaps now present in our data? Exogenous data fill methods to the rescue!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># monthly estimates of GDP are hard(er) to find, but they exist! here&#39;s one (computed by https://ihsmarkit.com/products/us-monthly-gdp-index.html): </span>
+
+<span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
+<span class="c1"># uncomment: mom_gdp = pd.read_csv(&#39;./sample_datasets/monthly_gdp.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+
+<span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
+<span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
+<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/monthly_gdp.csv # retrieve the dataset from remote storage on GitHub
+<span class="n">mom_gdp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/monthly_gdp.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># this data includes a nominal and real estmate: </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mom_gdp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># our FRED data is in terms of nominal dollars (can you find out how we know this? it&#39;s a data sourcing exercise!), so drop the real_gdp estimate: </span>
+<span class="n">mom_gdp</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MONTHLY_REAL_GDP&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># monthly gdp after dropping the real gdp col: </span>
+<span class="n">mom_gdp</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion-6-selecting-a-resampling-regime">
+<h3><em>DISCUSSION 6: SELECTING A RESAMPLING REGIME</em><a class="headerlink" href="#discussion-6-selecting-a-resampling-regime" title="Permalink to this heading">#</a></h3>
+<p>We’re almost ready to employ an exogenous data fill to patch up our QoQ GDP data! But, a critical issue linked to exogenous filling methods has become apparent - <strong>the need for data resampling.</strong> Here, since we are using monthly GDP data to fill its quarterly counterpart, we’ll need to <em>downsample</em> the monthly GDP data so it occurs on a quarterly basis. The key question that first must be answered is <em>how do we conduct the resampling?</em></p>
+<p>For the three monthly measures contributing to each quarterly measurement, we could downsample the monthly data by:</p>
+<ol class="simple">
+<li><p>taking their average;</p></li>
+<li><p>selecting the minimum/maximum measure;</p></li>
+<li><p>randomly choosing one of the measurements;</p></li>
+</ol>
+<p>or one of many more downsampling regimes. Understanding the data structure and attributes (through <strong>thoughtful data sourcing!</strong>) is the most responsible and accurate way of answering this question. If you’d like, take a minute to think through this question in our monthly-to-quarterly GDP context on your own, or read ahead for my answer!</p>
+<p><img alt="thinker" src="../_images/thinker.png" /></p>
+<p><em>Definitely true fun fact: “The Exogenous Data Filler” was considered by Rodin, but his parents said no.</em></p>
+</section>
+<section id="discussion-7-example-resampling-method">
+<h3><em>DISCUSSION 7: EXAMPLE RESAMPLING METHOD</em><a class="headerlink" href="#discussion-7-example-resampling-method" title="Permalink to this heading">#</a></h3>
+<p>Hopefully you’ve mulled and arrived at a satisfactory downsampling method! My chosen method follows from this line of thinking:</p>
+<ol class="simple">
+<li><p>For <em>both</em> the monthly and quarterly data, data point values are meant to represent <em>GDP at that specific point in time</em>;</p></li>
+<li><p>E.g., the GDP at Quarter 3, July. 1st is therefore <em>unrelated any other monthly GDP measurements in the same quarter</em>;</p></li>
+<li><p>Thus, for every three monthly measurements, we can downsample to a quarterly measurement by <em>masking</em> the two measurements which did not occur on a reporting date for quarterly measurments.</p></li>
+</ol>
+<p>In short, my downsampling method is a mask - no statistical computations required! When in a hurry, we may often default to the average as the go-to downsampling regime, and while useful, averaging is not at all universal. In fact, it would be less accurate than the mask suggested here!</p>
+</section>
+<section id="coding-exercise-resampling-exogenous-data-fills-cont">
+<h3><strong>CODING EXERCISE: RESAMPLING &amp; EXOGENOUS DATA FILLS (CONT.)</strong><a class="headerlink" href="#coding-exercise-resampling-exogenous-data-fills-cont" title="Permalink to this heading">#</a></h3>
+<p>Let’s go ahead and conduct the resampling and fill the data before we close out our discussion of exogenous fill methods:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># retrive the reporting dates of the QoQ GDP data: </span>
+<span class="n">reporting_dates</span> <span class="o">=</span> <span class="n">qoq_gdp_damaged</span><span class="o">.</span><span class="n">DATE</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># drop rows in our monthly dataset if they do not correspond to a quarterly reporting date estimate: </span>
+<span class="n">resampled_mom_gdp</span> <span class="o">=</span> <span class="n">mom_gdp</span><span class="p">[</span><span class="n">mom_gdp</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">reporting_dates</span><span class="p">)]</span>
+
+<span class="c1"># comparing the original and resampled mom gdp datasets:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;resampled monthly-to-quarterly data:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">resampled_mom_gdp</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> original monthly gdp data:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mom_gdp</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s fill the gaps in our original QoQ GDP dataset. first, we merge the datasets on their shared dates:  </span>
+<span class="n">qoq_gdp_filled</span> <span class="o">=</span> <span class="n">qoq_gdp_damaged</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">resampled_mom_gdp</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;DATE&#39;</span><span class="p">)</span>
+
+<span class="c1"># for any rows where the QoQ gdp is missing, fill in the gap with the resampled monthly estimate: </span>
+<span class="n">qoq_gdp_filled</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">qoq_gdp_filled</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;MONTHLY_NOMINAL_GDP&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">else</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for a quick visualization of the results of our filling efforts: </span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  
+
+<span class="c1"># subset our data for visibility: </span>
+<span class="n">qoq_gdp_damaged</span> <span class="o">=</span> <span class="n">qoq_gdp_damaged</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">qoq_gdp_filled</span>  <span class="o">=</span> <span class="n">qoq_gdp_filled</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># compare our datasets:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;discontinuous quarterly data:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qoq_gdp_damaged</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> filled quarterly data:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qoq_gdp_filled</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># scatter plot the data: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qoq_gdp_damaged</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">qoq_gdp_damaged</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QoQ GDP (Original)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qoq_gdp_filled</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">qoq_gdp_filled</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;QoQ GDP (Filled)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># formatting options: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Date&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;GDP&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have a continuous dataset for quarterly GDP analysis - huzzah! Celebrate and be happy 🎉!</p>
+</section>
+<section id="discussion-8-data-point-mis-alignment">
+<h3><em>DISCUSSION 8: DATA POINT MIS-ALIGNMENT</em><a class="headerlink" href="#discussion-8-data-point-mis-alignment" title="Permalink to this heading">#</a></h3>
+<p>Let’s recap exogenous data fills before we celebrate too hard (data scientists are reknowned partiers, after all):</p>
+<ul class="simple">
+<li><p>In general, implementing an exogenous data fill is <em>programmatically straightforward</em> (e.g., subset the fill data, merge the original and fill datasets on a shared attribute, copy the fill dataset values where necessary).</p></li>
+<li><p>The key nuances of the practice include thoughtfully sourcing the original and fill datasets and, when necessary (e.g., if two timeseries datasets report at different frequencies), designing and applying an <em>intentional, logically sound resampling scheme</em>.</p></li>
+</ul>
+<p>That’s all right? Well, not quite - if you remember from between Discussions 3 &amp; 4, I mentioned <em>mis-alignment of data point occurence</em> as another common issue in the context of exogenous data fills (which has strangely not been an issue for us).</p>
+<p><img alt="car-drift" src="../_images/car_drift_meme.png" /></p>
+<p><em>You’ll start your project…eventually.</em></p>
+<p>As it would be, in our working example of monthly-to-quarterly GDP, it was a conveninent construction that both our original and fill datasets reported GDP values on coincident dates. But what if our datasets had looked something like this?</p>
+<center> 
+<strong>Table 4. Mis-aligned Quarterly and Monthly GDP Dataset Slices </strong><br><br>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Dateset attribute</strong></p></th>
+<th class="head"><p>Value 1</p></th>
+<th class="head"><p>Value 2</p></th>
+<th class="head"><p>Value 3</p></th>
+<th class="head"><p>Value 4</p></th>
+<th class="head"><p>Value 5</p></th>
+<th class="head"><p>Value 6</p></th>
+<th class="head"><p>Value 7</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>Quarterly GDP reporting date:</em></p></td>
+<td><p></p></td>
+<td><p>1/1/2018</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>4/1/2018</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>Monthly GDP reporting date:</em></p></td>
+<td><p>12/15/2018</p></td>
+<td><p></p></td>
+<td><p>1/15/2018</p></td>
+<td><p>2/15/2018</p></td>
+<td><p>3/15/2018</p></td>
+<td><p></p></td>
+<td><p>5/15/2018</p></td>
+</tr>
+<tr class="row-even"><td><p><em>QoQ GDP value:</em></p></td>
+<td><p></p></td>
+<td><p>11456.37</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p><strong>*TO FILL*</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>MoM GDP value:</em></p></td>
+<td><p>9434.78</p></td>
+<td><p></p></td>
+<td><p>12346.25</p></td>
+<td><p>11774.38</p></td>
+<td><p>10409.21</p></td>
+<td><p></p></td>
+<td><p>13879.53</p></td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>Now in addition to reporting at different frequencies, our original and fill datasets report on <em>different dates</em>.</p>
+<p>If we’d still like to implement an exogenous data fill to generate complete quarterly GDP timeseries, we’ll first need to estimate values the monthly timeseries data would provide for the quarterly measure’s reporting dates.</p>
+<p>Unless we had a conveniently constructed weekly GDP estimate timeseries lying around, an exogenous data fill for this intermediary step is out of the question (and if you had one, you could just use it to directly fill the quarterly timeseries). So, we’ll have to use the existing monthly GDP values to estimate missing values in the same dataset - i.e., an endogenous data fill, our next topic of discussion!</p>
+</section>
+</section>
+<section id="issues-with-endogenous-fill-methods">
+<h2>2.4. Issues with endogenous fill methods<a class="headerlink" href="#issues-with-endogenous-fill-methods" title="Permalink to this heading">#</a></h2>
+<p>Like the exogenous counterpart, endogenous fill methods have their own critical issues to consider and be aware of.</p>
+<p>As a refresher, an endogenous fill (also called “interpolation”) method refers to: “the application of a statistical method to the present points in a dataset to generate estimated values for some or all of the discontinuities present.”</p>
+<section id="discussion-9-designing-an-endogenous-fill">
+<h3><em>DISCUSSION 9: DESIGNING AN ENDOGENOUS FILL</em><a class="headerlink" href="#discussion-9-designing-an-endogenous-fill" title="Permalink to this heading">#</a></h3>
+<p>Key considerations for endogenous fill methods, like with resampling in the context of exogenous fills, are typically issues of <strong>design</strong> rather than <strong>implementation.</strong> For instance, one must consider:</p>
+<p>1. <em>What is the best interpolation method for my data?</em></p>
+<ul class="simple">
+<li><p>A statisical measure like the mean or median? A historical model for the metric contained in my data? A machine learning algorithm like GLRM (Generalized Low Rank Models)?</p></li>
+</ul>
+<p>And, most often simultaneously, one must also answer:</p>
+<p>2. <em>What is the ideal interpolation scope for my data?</em></p>
+<ul class="simple">
+<li><p>That is, how many surrounding datapoints do I use for a missing value estimation? Are there any points that should be excluded?</p></li>
+</ul>
+<p>There are also implementation considerations (like is your interpolation method an order-independent or dependent operation, and how does that affect your optimal programming of the method) which we won’t discuss here (<a class="reference internal" href="appendix_vectorize.html"><span class="doc std std-doc">but maybe later!</span></a> - see “Discussion 3”) but which are also notable issues.</p>
+</section>
+<section id="discussion-10-context-dependent-design">
+<h3><em>DISCUSSION 10: CONTEXT-DEPENDENT DESIGN</em><a class="headerlink" href="#discussion-10-context-dependent-design" title="Permalink to this heading">#</a></h3>
+<p>Which interpolation method is most appropriate for your data is unfortunately context-dependent (with much of that context being informed by your dataset attributes/structure, as we saw in <em>Discussion 6</em>). Similarly, how utilizing a given method will impact downstream analysis will be dependent upon numerous factors including the original dataset, interpolation method, nature of future analysis, etc.</p>
+<p>As such, it may not be particularly fruitful to attempt to abstractly describe the potential downstream impact associated with using each endogenous fill method in every possible research project. Rather, we can more deeply examine the interactions between specific data transformation methods and analysis in just one generalizable research context to get an idea of the generic flow at hand—which is precisely what we’ll do in the upcoming section.</p>
+</section>
+</section>
+<section id="consequences-of-data-filling-codf">
+<h2>2.5. Consequences of data filling (CoDF)<a class="headerlink" href="#consequences-of-data-filling-codf" title="Permalink to this heading">#</a></h2>
+<p>At a high-level, the capacity for data filling methods to influence downstream analysis is apparent: data fill methods change data values (from <code class="docutils literal notranslate"><span class="pre">NaN,</span> <span class="pre">NA</span></code> to processable numbers, text, etc.), and those data values are the inputs to analysis. Change the inputs, and the outputs of the analysis could change.</p>
+<p>But, being able to forecast how and why such downstream changes will take place is an complex and context-dependent skill. A great way to develop such skills is practice, practice, practice - let’s do that!</p>
+<section id="discussion-11-1-defining-agp-gdp">
+<h3><em>DISCUSSION 11.1: DEFINING AGP &amp; GDP</em><a class="headerlink" href="#discussion-11-1-defining-agp-gdp" title="Permalink to this heading">#</a></h3>
+<p>Suppose you’re a social science reseracher, and your supervising PI (principal investigator) wishes to predict US GDP using a machine learning algorithm that intakes a bunch of economic indicators, one of which is average gas prices (AGP). As the wise researcher you are, you caution that it would be a good idea to evaluate whether GDP and gas prices exhibit a strong correlative relationship first before throwing it into a machine learning routine. Mildly miffed that they didn’t think of that first, your PI sends you off to do just that.</p>
+</section>
+<section id="coding-exercise-codf-data-import">
+<h3><strong>CODING EXERCISE: CoDF - DATA IMPORT</strong><a class="headerlink" href="#coding-exercise-codf-data-import" title="Permalink to this heading">#</a></h3>
+<p>Here’s the data you’ll be working with:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># required imports &amp; set-up: </span>
+<span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access.</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data import &amp; wrangling.</span>
+<span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="kn">import</span> <span class="n">parse</span>   <span class="c1"># use: handling dates as strings.</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>       <span class="c1"># use: going from string back to dates! </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># *Weekly* US gas prices data from: https://www.kaggle.com/datasets/mruanova/us-gasoline-and-diesel-retail-prices-19952021</span>
+
+<span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
+<span class="c1"># uncomment: gas_prices = pd.read_csv(&#39;./sample_datasets/gas_gas_gas.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+
+<span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
+<span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
+<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/gas_gas_gas.csv # retrieve the dataset from remote storage on GitHub
+<span class="n">gas_prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/gas_gas_gas.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># *Monthly* GDP estimates from: https://ihsmarkit.com/products/us-monthly-gdp-index.html</span>
+<span class="sd">&quot;&quot;&quot; BINDER USERS: &quot;&quot;&quot;</span>
+<span class="c1"># uncomment: mom_gdp = pd.read_csv(&#39;./sample_datasets/monthly_gdp.csv&#39;, encoding=&#39;utf-8&#39;)</span>
+
+<span class="sd">&quot;&quot;&quot; COLAB USERS: &quot;&quot;&quot;</span>
+<span class="c1"># !mkdir data # create a &#39;/data&#39; directory if one doesn&#39;t already exist</span>
+<span class="o">!</span>wget -P data/ https://raw.githubusercontent.com/roflauren-roflauren/GearUp-MessyData/main/fall_2022/sample_datasets/monthly_gdp.csv # retrieve the dataset from remote storage on GitHub
+<span class="n">mom_gdp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/monthly_gdp.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s see the data! </span>
+<span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="p">(</span><span class="n">gas_prices</span><span class="p">,</span> <span class="n">mom_gdp</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion-11-2-linear-regression-refresher">
+<h3><em>DISCUSSION 11.2: LINEAR REGRESSION REFRESHER</em><a class="headerlink" href="#discussion-11-2-linear-regression-refresher" title="Permalink to this heading">#</a></h3>
+<p>One way to quickly assess the strength of the relationship between two variables is to run a OLS (<strong>O</strong>rdinary <strong>L</strong>east <strong>S</strong>quares) regression between them. For the uninitated, a simple OLS regression attempts to model one varible as a linear function of the other (e.g., y = β1x + β0). Here, our y-variable will be GDP and our predictor x-variable will be average gas price (AGP).</p>
+<center>
+<p><img alt="reg" src="../_images/reg.png" /></p>
+<p><em>Example of simple linear regression</em></p>
+</center>
+<p>The strength/quality of the relationship computed through OLS regression can be quantitatively defined using metrics including:</p>
+<ul class="simple">
+<li><p>R^2, R-squared (i.e., what percentage of variation in y can be explained by variation in our predictor variable, x); and</p></li>
+<li><p>the p-value of our regression β’s (i.e., how confident are we that the function parameters we found defining the relationship between x and y are accurate).</p></li>
+</ul>
+<p>(For more on OLS regression, see this excellent <a class="reference external" href="https://setosa.io/ev/ordinary-least-squares-regression/">interactive guide</a>).</p>
+<p>You decide to use R^2 as your assessment criteria. Results, here we come!</p>
+</section>
+<section id="coding-exercise-codf-data-wrangling">
+<h3><strong>CODING EXERCISE: CoDF - DATA WRANGLING</strong><a class="headerlink" href="#coding-exercise-codf-data-wrangling" title="Permalink to this heading">#</a></h3>
+<p>First, we need to make sure we are looking at the same timeframe in each of our datasets (e.g., use 2011 average gas prices to predict 2011 GDP). Here’s some quick functionality to do just that:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_start_end_indices</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">):</span>
+    <span class="c1"># find the indices of the first (last) date in the dataset after (before) the start (end) date </span>
+    <span class="n">start_idx</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">date</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">DATE</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="n">parse</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">parse</span><span class="p">(</span><span class="n">start_date</span><span class="p">))</span>
+    <span class="n">end_idx</span>   <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">date</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">DATE</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="n">parse</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">parse</span><span class="p">(</span><span class="n">end_date</span><span class="p">))</span>   
+    
+    <span class="c1"># return those indices: </span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># establish our desired timeframe of analysis: </span>
+<span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span> <span class="o">=</span> <span class="s2">&quot;12/31/2007&quot;</span><span class="p">,</span> <span class="s2">&quot;1/31/2012&quot;</span>
+
+<span class="c1"># find the indices at which to subset each dataframe: </span>
+<span class="p">(</span><span class="n">gas_start_idx</span><span class="p">,</span> <span class="n">gas_end_idx</span><span class="p">)</span> <span class="o">=</span> <span class="n">find_start_end_indices</span><span class="p">(</span><span class="n">gas_prices</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gdp_start_idx</span><span class="p">,</span> <span class="n">gdp_end_idx</span><span class="p">)</span> <span class="o">=</span> <span class="n">find_start_end_indices</span><span class="p">(</span><span class="n">mom_gdp</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+
+<span class="c1"># subset &amp; re-index the datasets: </span>
+<span class="n">gas_prices</span> <span class="o">=</span> <span class="n">gas_prices</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">gas_start_idx</span><span class="p">:</span><span class="n">gas_end_idx</span><span class="p">,]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mom_gdp</span> <span class="o">=</span> <span class="n">mom_gdp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">gdp_start_idx</span><span class="p">:</span><span class="n">gdp_end_idx</span><span class="p">,]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view our subset-ed data: </span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;start &amp; end of our gas prices data:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gas_prices</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">gas_prices</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;start &amp; end of our gdp data:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mom_gdp</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">mom_gdp</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="coding-exercise-codf-ols-regression">
+<h3><strong>CODING EXERCISE: CoDF - OLS REGRESSION</strong><a class="headerlink" href="#coding-exercise-codf-ols-regression" title="Permalink to this heading">#</a></h3>
+<p>Great, our datasets are now both ranging from the beginning of 2008 to the beginning of 2012. It’s time to run some regressions!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># helpful linear regression packages: </span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we need to re-shape our data b/c for LinearRegression to properly parse it: </span>
+<span class="n">gas_x_vals</span> <span class="o">=</span> <span class="n">gas_prices</span><span class="o">.</span><span class="n">R1</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">gdp_y_vals</span> <span class="o">=</span> <span class="n">mom_gdp</span><span class="o">.</span><span class="n">MONTHLY_NOMINAL_GDP</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># run! that! regression! </span>
+<span class="n">gdp_gas_ols</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">gas_x_vals</span><span class="p">,</span> <span class="n">gdp_y_vals</span><span class="p">)</span> <span class="c1"># R1 - avg. of US regular grade, all formulations, retail gas prices. </span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ah - an error! What’s going on here?</p>
+<p>Take a look at the error log: <code class="docutils literal notranslate"><span class="pre">ValueError:</span> <span class="pre">Found</span> <span class="pre">input</span> <span class="pre">variables</span> <span class="pre">with</span> <span class="pre">inconsistent</span> <span class="pre">numbers</span> <span class="pre">of</span> <span class="pre">samples:</span> <span class="pre">[213,</span> <span class="pre">49]</span></code>. It appears that we have a mis-match between the number of x (input) observations and the number of y (sample) observations. Let’s check if that’s is indeed what’s going on here:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s check how many observations we have for each dataset: </span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of inputs (gas price data points): </span><span class="si">{num_gas_prices}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_gas_prices</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gas_x_vals</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of samples (GDP data points): </span><span class="si">{num_gdp}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_gdp</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gdp_y_vals</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of inputs (gas price data points): 213
+Number of samples (GDP data points): 49
+</pre></div>
+</div>
+</div>
+</div>
+<p>Why the mis-match? If you were paying extra close attention during the data import stage, you might’ve seen that these gas price averages are computed on a <em>weekly</em> basis whereas our GDP data is a <em>monthly</em> gdp estimate! There’s (on average) 4.3 weeks in a month, and accordingly, about 213/49 ≈ 4.35 gas price observations for each GDP observation.</p>
+</section>
+<section id="discussion-11-3-comparing-gdp-agp-datasets">
+<h3><em>DISCUSSION 11.3: COMPARING GDP &amp; AGP DATASETS</em><a class="headerlink" href="#discussion-11-3-comparing-gdp-agp-datasets" title="Permalink to this heading">#</a></h3>
+<p>Without fixing this mis-match, we can’t run the regression? What to do? Data filling to the rescue!</p>
+<p>A quick aside: you might find it a little strange that I’m using the term “data filling” here; after all, both datasets are technically continuous - but that’s only to their respective reporting frequencies. If we consider both datasets on the weekly frequency, our data looks something like this:</p>
+<center> 
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Dateset attribute</strong></p></th>
+<th class="head"><p>Value 1</p></th>
+<th class="head"><p>Value 2</p></th>
+<th class="head"><p>Value 3</p></th>
+<th class="head"><p>Value 4</p></th>
+<th class="head"><p>Value 5</p></th>
+<th class="head"><p>Value 6</p></th>
+<th class="head"><p>Value 7</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>Gas price reporting date</em></p></td>
+<td><p>1/7/2008</p></td>
+<td><p>1/14/2008</p></td>
+<td><p>1/21/2008</p></td>
+<td><p>1/28/2008</p></td>
+<td><p>2/4/2008</p></td>
+<td><p>2/11/2008</p></td>
+<td><p>2/18/2008</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>GDP reporting date:</em></p></td>
+<td><p>1/1/2008</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>2/1/2008</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><em>Gas price reported value:</em></p></td>
+<td><p>3.109</p></td>
+<td><p>3.068</p></td>
+<td><p>3.017</p></td>
+<td><p>2.977</p></td>
+<td><p>2.978</p></td>
+<td><p>2.96</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>GDP reported value</em></p></td>
+<td><p>14802.17</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>14627.57</p></td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>Then, the appearance of data discontinuities is obvious! Truth be told, implementing data <em>transformation</em> methods might be a more appropriate phrasing for this exercise rather than strictly data <em>filling</em> methods, but this logic can (and should!) be applied in either context! Caveat aside, it’s back to the exercise!</p>
+</section>
+<section id="discussion-11-4-upsampling-vs-downsampling">
+<h3><em>DISCUSSION 11.4: UPSAMPLING VS. DOWNSAMPLING</em><a class="headerlink" href="#discussion-11-4-upsampling-vs-downsampling" title="Permalink to this heading">#</a></h3>
+<p>In this context, in order to manipulate our data so it’s regression-compatible (i.e., we have the same number of x and y data points), there are number of specific data filling (or transformation) techniques we could apply! Those techniques can first be divided into whether they belong to the strategy of <strong>upsampling</strong> our GDP data, or <strong>downsampling</strong> our gas prices data:</p>
+<p>Strategy 1: <em>Upsampling GDP data</em></p>
+<ul class="simple">
+<li><p>Fill or Tranformation: Fill</p></li>
+<li><p>Possible techniques: fill forward, fill backward, etc.</p></li>
+<li><p>New dataset: weekly GDP data</p></li>
+</ul>
+<p>Strategy 2: <em>Downsampling gas price data</em></p>
+<ul class="simple">
+<li><p>Fill or Transformation: Transformation</p></li>
+<li><p>Possible regimes: average, median, first/last value, etc.</p></li>
+<li><p>New dataset: monthly gas price data</p></li>
+</ul>
+<p>Which strategy is better? Which technique is best? Well, I’m not sure - so, let’s try a technique from each strategy!</p>
+</section>
+<section id="coding-exercise-codf-data-wrangling-cont">
+<h3><strong>CODING EXERCISE: CoDF - DATA WRANGLING (CONT.)</strong><a class="headerlink" href="#coding-exercise-codf-data-wrangling-cont" title="Permalink to this heading">#</a></h3>
+<p>First, let’s convert the ‘DATE’ column in each DataFrame from the <code class="docutils literal notranslate"><span class="pre">string</span></code> type to a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> type - this will make it easier to perform either resampling.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert the date strings in our DataFrames into the datetime type so they can be matched: </span>
+<span class="n">gas_data_dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">gas_prices</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">infer_datetime_format</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">gdp_data_dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">mom_gdp</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">infer_datetime_format</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># replace our DataFrame &#39;date&#39; string columns with their new datetime counter-parts: </span>
+<span class="n">gas_prices</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">mom_gdp</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gas_data_dates</span><span class="p">,</span> <span class="n">gdp_data_dates</span>
+
+<span class="c1"># check out the new data type! </span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">gas_prices</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="coding-exercise-codf-resampling-data">
+<h3><strong>CODING EXERCISE: CoDF - RESAMPLING DATA</strong><a class="headerlink" href="#coding-exercise-codf-resampling-data" title="Permalink to this heading">#</a></h3>
+<p>Now let’s re-sample our data, both ways!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># strategy 1: upsample the GDP data by forward-filling!  </span>
+<span class="c1"># clever use of Pandas .merge_asof() can merge our data &amp; replicate an upsample via forward-fill!</span>
+<span class="n">both_weekly_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">gas_prices</span><span class="p">,</span> <span class="n">mom_gdp</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;DATE&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;backward&quot;</span><span class="p">)</span> 
+
+<span class="c1"># check the merged data out! </span>
+<span class="n">both_weekly_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># strategy 2: downsample the average gas price data by averaging!</span>
+<span class="n">monthly_gas_prices</span> <span class="o">=</span> <span class="n">gas_prices</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;DATE&#39;</span><span class="p">,</span> <span class="n">convention</span><span class="o">=</span><span class="s1">&#39;start&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># Pandas .resample() can also be helpful! </span>
+
+<span class="c1"># check if it&#39;s the right length - we had 49 monthly GDP datapoints: </span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">monthly_gas_prices</span><span class="p">))</span>
+
+<span class="c1"># use .merge_asof() to nicely align our dataframes as before: </span>
+<span class="n">monthly_gas_prices</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># convert the &#39;DATE&#39; values (as an index) back to a column in our gas prices dataframe.</span>
+<span class="n">both_monthly_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">mom_gdp</span><span class="p">,</span> <span class="n">monthly_gas_prices</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;DATE&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">)</span> 
+
+<span class="c1"># how does the merged monthly data look?</span>
+<span class="n">both_monthly_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="coding-exercise-codf-ols-regression-redux">
+<h3><strong>CODING EXERCISE: CoDF - OLS REGRESSION REDUX</strong><a class="headerlink" href="#coding-exercise-codf-ols-regression-redux" title="Permalink to this heading">#</a></h3>
+<p>You made it! It’s finally time to run our regressions - let’s go!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we can write a nice function that works with our monthly &amp; our weekly data: </span>
+<span class="k">def</span> <span class="nf">get_R2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span> 
+    <span class="n">gas_x_vals</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">R1</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="c1"># R1 - avg. of US regular grade, all formulations, retail gas prices. </span>
+    <span class="n">gdp_y_vals</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">MONTHLY_NOMINAL_GDP</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># run! that! regression! </span>
+    <span class="n">gdp_gas_ols</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">gas_x_vals</span><span class="p">,</span> <span class="n">gdp_y_vals</span><span class="p">)</span> 
+    <span class="n">r_sq</span> <span class="o">=</span> <span class="n">gdp_gas_ols</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">gas_x_vals</span><span class="p">,</span> <span class="n">gdp_y_vals</span><span class="p">)</span>
+
+    <span class="c1"># print the R^2:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R^2 for the GDP ~ AGP model, reporting on a </span><span class="si">{freq}</span><span class="s2"> frequency: </span><span class="si">{r2:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">freq</span> <span class="o">=</span> <span class="n">freq</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">r_sq</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And just for fun, why don’t we see what R^2 we get when we run the regression on some other frequencies too?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># and how about we do a quarterly dataset now? and a yearly one too! </span>
+<span class="n">both_quarterly_data</span> <span class="o">=</span> <span class="n">both_monthly_data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;DATE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">both_yearly_data</span>    <span class="o">=</span> <span class="n">both_monthly_data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;DATE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get the r2 for *all* of our datasets: </span>
+<span class="n">get_R2</span><span class="p">(</span><span class="n">both_weekly_data</span><span class="p">,</span> <span class="s2">&quot;weekly&quot;</span><span class="p">)</span>
+<span class="n">get_R2</span><span class="p">(</span><span class="n">both_monthly_data</span><span class="p">,</span> <span class="s2">&quot;monthly&quot;</span><span class="p">)</span>
+<span class="n">get_R2</span><span class="p">(</span><span class="n">both_quarterly_data</span><span class="p">,</span> <span class="s2">&quot;quarterly&quot;</span><span class="p">)</span>
+<span class="n">get_R2</span><span class="p">(</span><span class="n">both_yearly_data</span><span class="p">,</span> <span class="s2">&quot;yearly&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>R^2 for the GDP ~ AGP model, reporting on a weekly frequency: 0.4258
+R^2 for the GDP ~ AGP model, reporting on a monthly frequency: 0.4320
+R^2 for the GDP ~ AGP model, reporting on a quarterly frequency: 0.4426
+R^2 for the GDP ~ AGP model, reporting on a yearly frequency: 0.5965
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion-11-5-contrasting-models-by-data-fills">
+<h3><em>DISCUSSION 11.5: CONTRASTING MODELS BY DATA FILLS</em><a class="headerlink" href="#discussion-11-5-contrasting-models-by-data-fills" title="Permalink to this heading">#</a></h3>
+<p>Wow! That’s a pretty intense jump from low 40%’s R^2 figures for our models on weekly, monthly, and quarterly data to nearly a 60% R^2-figure for our yearly model! What gives?</p>
+<p>While this is not necessarily universal, we can think about what generally happens on a data-wise level when we apply a re-sampling technique:</p>
+<p><em><strong>DOWNSAMPLING:</strong></em></p>
+<ul class="simple">
+<li><p>When we <em>downsample</em> data, we are compressing and/or losing data points over which we could evaluate the relationship of GDP &amp; AGP.</p></li>
+<li><p>Depending on the downsampling technique, this data compression could lead to to omission or over-inclusion of specific points, like outliers (using <code class="docutils literal notranslate"><span class="pre">.mean()</span></code> vs. <code class="docutils literal notranslate"><span class="pre">.median()</span></code>)</p>
+<ul>
+<li><p>For our regressions: Maybe there was an off-year where GDP and gas prices both rose rapidly due to some external third factor (which is our true desired GDP predictor), inducing outliers in our data which become more heavily represented in a yearly dataset with limited points.</p></li>
+</ul>
+</li>
+<li><p>Downsampling means looking at data over longer time frames, which may allow us to extract a more general trend between variables that is less sensitive to temporary fluctuations.</p>
+<ul>
+<li><p>For our regressions: Gasoline is a component of spending and therefore GDP; it would make sense for the two to rise together over longer time frames.</p></li>
+</ul>
+</li>
+</ul>
+<p><em>Key question:</em> Does one of these reasons explain why yearly R^2 seems to be so much higher than the R^2 obtained through other frequency datasets?</p>
+<p><em><strong>UPSAMPLING:</strong></em></p>
+<ul class="simple">
+<li><p>When we <em>upsample</em> data, we are gaining data points over which we could evaluate the relationship of GDP &amp; AGP, but we’re filling in those points.</p></li>
+<li><p>Depending on the upsampling technique, there could be assumed consistency of a value (through a <code class="docutils literal notranslate"><span class="pre">.fill_forward()</span></code>), inducing extra (relative to the original data) periods of no change in one variable while the other is changing.</p>
+<ul>
+<li><p>For our regressions: Maybe our use of a forward fill to upsample GDP data is creating time periods where GDP is artificially insensitive to gas prices.</p></li>
+</ul>
+</li>
+</ul>
+<p><em>Key question:</em> Does this reason explain why weekly R^2 is the lowest R^2 obtained for any of the regressions?</p>
+</section>
+<section id="conclusion">
+<h3><strong>2.5 - CONCLUSION</strong><a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
+<p>Though I could (and happily would!) talk about the potential downstream effects of re-sampling methods, our key takeaway is this:</p>
+<ul class="simple">
+<li><p>By applying any data transformation or fill method, we’re <em>implicitly re-weighting the analytic importance/consideration given to specific data points.</em></p></li>
+</ul>
+<p>Although the transferability between this takeaway in the context of data re-sampling to the context of data filling may not be immediately apparent, here’s a way I like to think about it:</p>
+<ul class="simple">
+<li><p>Imagine you are imputing missing values by averging the value of the data points two nearest neighbors - since the resulting point is an average of two existing points in the dataset, in a way, <em>you are increasing the sensitivity of your analysis to changes in those two neighbors.</em></p></li>
+<li><p>And this logic applies to exogenous data fills too - populating missing values dials up the sensitivity of your analysis from 0 with respect to a certain once-missing point to some non-zero sensitivity: an ∞% increase!</p></li>
+</ul>
+<p>When it comes to data continuity, there are no hard and fast rules about how you should do things - whether you should fill or omit gaps, whether you should use an endogenous or exogenous fill method, and what precise technique you should use to execute that fill. And there are no easy ways to know whether and how what you’re doing in the data processing stage will meaningfully impact your analysis. The best advice I can offer you is to: (1) prioritize logical soundness and consistency; and (2) just try things out! Data is meant to be explored.</p>
+<p>Before we wrap up the workshop, let’s see data sourcing and data continuity work together to define another critical aspect of real-life, messy data - data timeliness! On to Chapter 3!</p>
+</section>
+</section>
+<section id="chapter-takeaways">
+<h2>2.6. <em>Chapter Takeaways</em><a class="headerlink" href="#chapter-takeaways" title="Permalink to this heading">#</a></h2>
+<ol class="simple">
+<li><p>For a general systemization, data remediation strategies can first be classifed as either <em>data gap omission</em> or <em>data gap filling</em>, and data gap filling techniques can further be divided into <strong>endogenous</strong> and <strong>exogenous</strong> fill methods.</p></li>
+<li><p>Exogenous fill techniques are often associated with the need for resampling or mis-alignment of original &amp; filling data points, while endogenous fill techniques demand consideration as to the appropriate scope and method of interpolation—use of either type should be accompanied by intelligent, intentional design and consistency with relevant dataset structure/attributes.</p></li>
+<li><p>How a given fill method will impact downstream analysis for a project is dependent both on the data source being used and the context in which the fill method is being employed. However, as some guiding principles:</p>
+<ul class="simple">
+<li><p>Data augmentation protocols (like upsampling) can strengthen pre-existing biases/relationships by assuming in-period consistency; while</p></li>
+<li><p>Data compression protocols (like downsampling, filling via local means, medians, etc.) can dampen changes in and outliers of a signal.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "roflauren-roflauren/GearUp-MessyData",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./fall_2022"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="1_dataSourcing.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Chapter 1 - Data Sourcing</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="3_dataTimeliness.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 3 - Data Timeliness</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Software and Services for Data Science (SSDS) at Stanford Libraries<br/>
+  
+      &copy; Copyright 2022-2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

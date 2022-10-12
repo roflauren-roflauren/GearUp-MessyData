@@ -1,0 +1,729 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Chapter 1.2.2. - Understanding author incentives and purpose &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Understanding Messy Time Series Data [Gear-Up]</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to TAML!
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/roflauren-roflauren/GearUp-MessyData/master?urlpath=tree/fall_2022/archive/chp1.2.2_incentives.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData/issues/new?title=Issue%20on%20page%20%2Ffall_2022/archive/chp1.2.2_incentives.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/fall_2022/archive/chp1.2.2_incentives.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface">
+   <em>
+    <strong>
+     PREFACE:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-1">
+   <em>
+    <strong>
+     DISCUSSION 1:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-2">
+   <em>
+    <strong>
+     DISCUSSION 2:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coding-exercise">
+   <em>
+    <strong>
+     CODING EXERCISE:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-3">
+   <em>
+    <strong>
+     DISCUSSION 3:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   <em>
+    <strong>
+     CONCLUSION:
+    </strong>
+   </em>
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Chapter 1.2.2. - Understanding author incentives and purpose</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface">
+   <em>
+    <strong>
+     PREFACE:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-1">
+   <em>
+    <strong>
+     DISCUSSION 1:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-2">
+   <em>
+    <strong>
+     DISCUSSION 2:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coding-exercise">
+   <em>
+    <strong>
+     CODING EXERCISE:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discussion-3">
+   <em>
+    <strong>
+     DISCUSSION 3:
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   <em>
+    <strong>
+     CONCLUSION:
+    </strong>
+   </em>
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="chapter-1-2-2-understanding-author-incentives-and-purpose">
+<h1>Chapter 1.2.2. - <em>Understanding author incentives and purpose</em><a class="headerlink" href="#chapter-1-2-2-understanding-author-incentives-and-purpose" title="Permalink to this headline">#</a></h1>
+<p>(continued from end of Chapter 1.2.1.)</p>
+<p>…and wouldn’t you believe it, there is! We can consider the research <em>intended purpose and incentives</em> of “generic research entity types.”</p>
+<section id="preface">
+<h2><em><strong>PREFACE:</strong></em><a class="headerlink" href="#preface" title="Permalink to this headline">#</a></h2>
+<p>Two quick notes before we get started:</p>
+<p>1. What is a “generic research entity type?” Well, it’s a (bit of an awkward) name for a type of individual/group that would conduct research and publish data. A non-exhaustive list includes:</p>
+<ul class="simple">
+<li><p><strong>Academic</strong> - students, professors, research aides, organized labs and groups, reserach institutes, etc.</p></li>
+<li><p><strong>Governmental</strong> - state and local governments, individual bureaucrats, federal departments and associations (e.g., Dept. of Defense, NASA), international bodies like the U.N.</p></li>
+<li><p><strong>Commerical</strong> - companies and corporations (espeically advisory companies - e.g.,  management consulting firms)</p></li>
+</ul>
+<p>Going forward, I’ll refer to these generics as “reseacher types” with the caveat that we aren’t necessarily referring to individual researchers. Name suggestions for this concept are welcome!</p>
+<p>2. Also, we can certainly do the forthcoming data sourcing practice on a dataset-by-dataset level (and I would encourage you to do so)!</p>
+<ul class="simple">
+<li><p>But, applying this practice in the context of research entity-types rather than specific entities can be a useful way to expedite the data sourcing process, as different entities belonging to the same researcher type can have similar/shared purposes and incentives.</p></li>
+</ul>
+<p>Now we’re ready to dive in!</p>
+<div>
+<img src="../imgs/incentives.png" width="500"/>
+<figcaption><em> When you're a [research entity], everything looks like a [carrot], or something like that... </em></figcaption>
+<div> 
+<br>
+</section>
+<section id="discussion-1">
+<h2><em><strong>DISCUSSION 1:</strong></em><a class="headerlink" href="#discussion-1" title="Permalink to this headline">#</a></h2>
+<p>What does it mean to consider the intended purpose and incentives of a generic entity? For me, it’s all about answering two key questions:</p>
+<ul class="simple">
+<li><p>To identify an <strong>intended purpose,</strong> I ask myself: <em>“How did the person/group/researcher type who published this data want it to be used?”</em></p></li>
+<li><p>To identify <strong>incentives,</strong> I ask myself: <em>“Why did this person/group/researcher type conduct the research that gave rise to this data resource in the first place?</em></p></li>
+</ul>
+<p>Take a few minutes to brainstorm some potential answers to these questions in the context of researcher types, and then take a look at the following table!</p>
+<center>
+                                                   <strong>Table 2. Research type incentives</strong> 
+<br><br>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Researcher type</strong></p></th>
+<th class="head"><p><strong>Researcher sub-type</strong></p></th>
+<th class="head"><p><strong>Potential incentives</strong></p></th>
+<th class="head"><p><strong>Potential intended purposes</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Academic</p></td>
+<td><p>Professor</p></td>
+<td><p>Boosting reputation, securing tenure, “scooping” competitors</p></td>
+<td><p>To suggest a causal relationship between ___ and ___</p></td>
+</tr>
+<tr class="row-odd"><td><p>Academic</p></td>
+<td><p>Student</p></td>
+<td><p>Jockeying for authorship position, ensuring lab employment</p></td>
+<td><p>(Commonly aligned with a supervising faculty/lab)</p></td>
+</tr>
+<tr class="row-even"><td><p>Governmental</p></td>
+<td><p>Department of Defense</p></td>
+<td><p>Lobbying for funding, influencing other dept.’s spending &amp; efforts</p></td>
+<td><p>To demonstrate a security vulnerability to ___ from ___</p></td>
+</tr>
+<tr class="row-odd"><td><p>Governmental</p></td>
+<td><p>U.N.</p></td>
+<td><p>Motivating international sanctions, initiatives, coalition-building, etc.</p></td>
+<td><p>To coordinate the policies of ___ and ___</p></td>
+</tr>
+<tr class="row-even"><td><p>Commercial</p></td>
+<td><p>Financial Analyst</p></td>
+<td><p>Identifying investment opportunities, improving perceived performance</p></td>
+<td><p>To encourage/expedite internal or external financial decisions</p></td>
+</tr>
+<tr class="row-odd"><td><p>Commercial</p></td>
+<td><p>Management Consulting Firm</p></td>
+<td><p>Generating &amp; securing additional clientele through discovered needs</p></td>
+<td><p>To be read and create demand for their services</p></td>
+</tr>
+</tbody>
+</table>
+</center><p>This is in no way a complete list (where would you make changes? additions? deletions?) - but hopefully it can help you see that researchers may be operating with conscious/unconscious biases when collecting the data that ultimately underpins their research. Then, how should this knowledge impact your data sourcing process?</p>
+<ul class="simple">
+<li><p>Always keep in mind that most research (and supporting data) suffers from <em>publication bias,</em> or the failure to publish the results of a study on the basis of the direction and/or strength of the study findings. Relatedly, studies can suffer from a <em>“newsworthy bias,”</em> where individuals only publish research and accompanying data which demonstrates an interesting or notable result, which can already suggest anomalies in the collected data.</p></li>
+<li><p>Opting for alternate researcher types when there are egregious conflicts on interest (e.g., climate studies data collected by petroleum companies) is a logical first step. Most of the time, maintaining a weak preference for academic &amp; governmental sources is recommended.</p></li>
+<li><p>More generally, you can select data sources such that the original dataset’s intended purpose and related incentives are orthogonal to your current study’s purpose; i.e., if you wanted to collect data on non-exercise cancer risk factors, you could think about using the covariates data from another study that proposes a link between cancer risk and being sedentary.</p></li>
+</ul>
+</section>
+<section id="discussion-2">
+<h2><em><strong>DISCUSSION 2:</strong></em><a class="headerlink" href="#discussion-2" title="Permalink to this headline">#</a></h2>
+<p>Of special note is the fact that for both researcher types and specific researchers within a type, incentives and intended purpose of analogous studies (and their related data) <em>can change over time</em> - this is especially important to consider in the context of timeseries analysis. To understand how changing incentives and intended purpose can impact collected data, let’s see an example:</p>
+<div>
+<img src="../imgs/small_business.png" width="500"/>
+<div><br>
+<p>We’re going to zoom in on the contribution of portion of national GDP generated by small businesses. Essentially all of the recent studies and available data on small business GDP (SGDP) is spearheaded by one author within one organization, the federal government’s Small Business Administration. Here’s some info about two reports released by this same author:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.richschwinn.com/index/sgdp_v1.8_SBA.pdf">Report 1</a>:</p>
+<ul>
+<li><p>Published: April 2007</p></li>
+<li><p>Data timeframe: 1998-2004</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://permanent.fdlp.gov/websites/www.sba.gov/advo/research/rs299.pdf">Report 2</a>:</p>
+<ul>
+<li><p>Published: December 2017</p></li>
+<li><p>Data timeframe: 1998-2014</p></li>
+</ul>
+</li>
+</ul>
+<p><em>(Note: All data used in the following dicussion were sourced from these reports.)</em></p>
+<p>As part of both reports, SGDP as a percentage of GDP (both nominal figures) is calculated. In the overlapping timeframes of the two reports (i.e., 1998-2004), would we expect there to be dramatic differences in the SGDP as a percentage of GDP data? Why? Could incentives and intended purpose changed - how so?</p>
+<p>Let’s take a look with some code:</p>
+</section>
+<section id="coding-exercise">
+<h2><em><strong>CODING EXERCISE:</strong></em><a class="headerlink" href="#coding-exercise" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># required imports: </span>
+<span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                  <span class="c1"># use: some calculations</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     <span class="c1"># use: data viz. </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA SOURCING: CHANGING INCENTIVES AND INTENDED PURPOSE &quot;&quot;&quot;</span>
+<span class="c1"># importing the data (index column has year values): </span>
+<span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> 
+<span class="n">sgdp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;sgdp_sba.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 2017 subset of data: </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2017_report_sgdp_share&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>year
+1998    49.2
+1999    49.1
+2000    48.5
+2001    48.8
+2002    47.1
+2003    47.0
+2004    46.5
+2005    45.5
+2006    45.4
+2007    45.4
+2008    45.0
+2009    44.7
+2010    44.4
+2011    44.3
+2012    44.2
+2013    43.6
+2014    43.5
+Name: 2017_report_sgdp_share, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># some scatter plots of the data: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2007_report_sgdp_share&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2007: SGDP SHARE OF GDP (%)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2017_report_sgdp_share&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2017: SGDP SHARE OF GDP (%)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2007 best fit line: </span>
+<span class="n">xvals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1998</span><span class="p">,</span> <span class="mi">2004</span><span class="p">]</span>
+<span class="n">yvals</span> <span class="o">=</span> <span class="p">[</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1998</span><span class="p">]][</span><span class="s1">&#39;2007_report_sgdp_share&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sgdp_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">2004</span><span class="p">]][</span><span class="s1">&#39;2007_report_sgdp_share&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;seagreen&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2017 best fit line: </span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2017_report_sgdp_share&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+
+<span class="c1"># formatting options: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;SGDP DATA: 2007 vs. 2017 REPORT&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;SGDP SHARE OF NON-FARM GDP (%)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/chp1.2.2_incentives_8_0.png" src="../../_images/chp1.2.2_incentives_8_0.png" />
+</div>
+</div>
+</section>
+<section id="discussion-3">
+<h2><em><strong>DISCUSSION 3:</strong></em><a class="headerlink" href="#discussion-3" title="Permalink to this headline">#</a></h2>
+<p>Even from this quick visualization, major discrepancies are apparent:</p>
+<ul class="simple">
+<li><p>The 2007 report contained only initial and ending figures for SGDP share as a % of GDP, while the 2017 report offered data points for all years reviewed in the report.</p></li>
+<li><p>The trend in SGDP share is directionally opposite for the two reports.</p></li>
+<li><p>The two reports aim to measure the same metric, but have differing figures for their shared years of measurement (1998, 2004).</p></li>
+</ul>
+<p>What might be the cause of the lack of granular data in the 2007 report? How about the apparent switch in the trend of SGDP share? Is there reason to suspect a shift in intended purpose and incentives (recall that both reports were sanctioned by the Small Business Administration, and their respective years of publication)?</p>
+</section>
+<section id="conclusion">
+<h2><em><strong>CONCLUSION:</strong></em><a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>Ultimately, while we aren’t here to play whistleblower, in this case and almost all others, it’s worth noting that which dataset you elect to use may have great impact on your research results - especially when it comes to multiple data resources claiming to measure the same metric; i.e., suppose you wanted to investigate small business health in the decade before and after the Great Recession. How would which dataset you use impact your results? How so?</p>
+<p>In short, incentives &amp; intended purposes of research can change across researcher types, for the same researcher type, and even for the same researcher. These changes may not give rise to drastically misreported or conflicting data - but in research, the details matter. So, it’s always worth thinking about what incentives and intended purpose can imply for data resources, and your research.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "roflauren-roflauren/GearUp-MessyData",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./fall_2022\archive"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Software and Services for Data Science (SSDS) at Stanford Libraries<br/>
+  
+      &copy; Copyright 2022-2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,1590 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Chapter 1 - Data Sourcing &#8212; Understanding Messy Time Series Data [Gear-Up]</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Understanding Messy Time Series Data [Gear-Up]</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to TAML!
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/roflauren-roflauren/GearUp-MessyData/master?urlpath=tree/fall_2022/chapters/chp1_dataSourcing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/roflauren-roflauren/GearUp-MessyData/issues/new?title=Issue%20on%20page%20%2Ffall_2022/chapters/chp1_dataSourcing.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/fall_2022/chapters/chp1_dataSourcing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-imports">
+   <em>
+    <strong>
+     Chapter Imports
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface-why-source-good-data">
+   1.0. Preface: why source good data?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#defining-data-sourcing">
+   1.1. Defining “data sourcing”
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#issues-in-data-sourcing">
+   1.2. Issues in data sourcing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#deciding-between-multiple-data-authors">
+   1.3. Deciding between multiple data authors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-sourcing-gdp-data">
+     <em>
+      <strong>
+       CODING EXERCISE: SOURCING GDP DATA
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-1">
+     <em>
+      <strong>
+       DISCUSSION 1:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-2">
+     <em>
+      <strong>
+       DISCUSSION 2:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-3">
+     <em>
+      <strong>
+       DISCUSSION 3:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conclusion">
+     <em>
+      <strong>
+       1.3. - CONCLUSION:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#understanding-author-incentives-and-purpose">
+   1.4. Understanding author incentives and purpose
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#preface">
+     <em>
+      <strong>
+       PREFACE:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-4">
+     <em>
+      <strong>
+       DISCUSSION 4:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-5">
+     <em>
+      <strong>
+       DISCUSSION 5:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-author-incentives-sgdp">
+     <em>
+      <strong>
+       CODING EXERCISE: AUTHOR INCENTIVES &amp; SGDP
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-6">
+     <em>
+      <strong>
+       DISCUSSION 6:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     <em>
+      <strong>
+       1.4. - CONCLUSION:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#validating-data-and-data-generation-approaches">
+   1.5. Validating data and data generation approaches
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-7">
+     <em>
+      <strong>
+       DISCUSSION 7:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-8">
+     <em>
+      <strong>
+       DISCUSSION 8:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-data-generation-gdp-computation-approaches">
+     <em>
+      <strong>
+       CODING EXERCISE: DATA GENERATION &amp; GDP COMPUTATION APPROACHES
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-9">
+     <em>
+      <strong>
+       DISCUSSION 9:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     <em>
+      <strong>
+       1.5. - CONCLUSION:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-takeaways">
+   1.6.
+   <em>
+    Chapter Takeaways
+   </em>
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Chapter 1 - Data Sourcing</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-imports">
+   <em>
+    <strong>
+     Chapter Imports
+    </strong>
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface-why-source-good-data">
+   1.0. Preface: why source good data?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#defining-data-sourcing">
+   1.1. Defining “data sourcing”
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#issues-in-data-sourcing">
+   1.2. Issues in data sourcing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#deciding-between-multiple-data-authors">
+   1.3. Deciding between multiple data authors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-sourcing-gdp-data">
+     <em>
+      <strong>
+       CODING EXERCISE: SOURCING GDP DATA
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-1">
+     <em>
+      <strong>
+       DISCUSSION 1:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-2">
+     <em>
+      <strong>
+       DISCUSSION 2:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-3">
+     <em>
+      <strong>
+       DISCUSSION 3:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conclusion">
+     <em>
+      <strong>
+       1.3. - CONCLUSION:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#understanding-author-incentives-and-purpose">
+   1.4. Understanding author incentives and purpose
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#preface">
+     <em>
+      <strong>
+       PREFACE:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-4">
+     <em>
+      <strong>
+       DISCUSSION 4:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-5">
+     <em>
+      <strong>
+       DISCUSSION 5:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-author-incentives-sgdp">
+     <em>
+      <strong>
+       CODING EXERCISE: AUTHOR INCENTIVES &amp; SGDP
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-6">
+     <em>
+      <strong>
+       DISCUSSION 6:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     <em>
+      <strong>
+       1.4. - CONCLUSION:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#validating-data-and-data-generation-approaches">
+   1.5. Validating data and data generation approaches
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-7">
+     <em>
+      <strong>
+       DISCUSSION 7:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-8">
+     <em>
+      <strong>
+       DISCUSSION 8:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-exercise-data-generation-gdp-computation-approaches">
+     <em>
+      <strong>
+       CODING EXERCISE: DATA GENERATION &amp; GDP COMPUTATION APPROACHES
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion-9">
+     <em>
+      <strong>
+       DISCUSSION 9:
+      </strong>
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     <em>
+      <strong>
+       1.5. - CONCLUSION:
+      </strong>
+     </em>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-takeaways">
+   1.6.
+   <em>
+    Chapter Takeaways
+   </em>
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-data-sourcing">
+<h1>Chapter 1 - Data Sourcing<a class="headerlink" href="#chapter-1-data-sourcing" title="Permalink to this headline">#</a></h1>
+<div>
+<img src="../imgs/product-proliferation.png" width="750"/>
+<figcaption><em>The modern data landscape has so much data...no, really—SO much data. Which data should you use?</em></figcaption>
+<div><section id="chapter-imports">
+<h2><em><strong>Chapter Imports</strong></em><a class="headerlink" href="#chapter-imports" title="Permalink to this headline">#</a></h2>
+<p>Before running any code blocks in the following chapter, please ensure you have the necessary Python packages installed via the following code block:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pandas
+<span class="o">%</span><span class="k">pip</span> install numpy
+<span class="o">%</span><span class="k">pip</span> install matplotlib
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.4.3)
+Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2022.1)
+Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ad2we\anaconda3\lib\site-packages (from pandas) (2.8.2)
+Requirement already satisfied: numpy&gt;=1.18.5 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from pandas) (1.22.4)
+Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in c:\users\ad2we\appdata\roaming\python\python39\site-packages (1.22.4)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib in c:\users\ad2we\appdata\roaming\python\python39\site-packages (3.5.2)
+Requirement already satisfied: numpy&gt;=1.17 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.22.4)
+Requirement already satisfied: packaging&gt;=20.0 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (21.3)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (3.0.4)
+Requirement already satisfied: python-dateutil&gt;=2.7 in c:\users\ad2we\anaconda3\lib\site-packages (from matplotlib) (2.8.2)
+Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (9.2.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (4.34.4)
+Requirement already satisfied: cycler&gt;=0.10 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (0.11.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\ad2we\appdata\roaming\python\python39\site-packages (from matplotlib) (1.4.4)
+Requirement already satisfied: six&gt;=1.5 in c:\users\ad2we\anaconda3\lib\site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preface-why-source-good-data">
+<h2>1.0. Preface: why source good data?<a class="headerlink" href="#preface-why-source-good-data" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Analysis for any research project begins with data sourcing; without any data, there’s no tests to run, no trends to identify, no hypotheses to validate, etc.</p></li>
+<li><p>But, the modern data landscape is vast and can be overwhelming—look up “X + dataset” for almost topic, and you’ll likely find a multitude of resources published by private organizations, government agencies, licensed data vendors, open-source groups, etc. Does it matter whose data you go with?</p></li>
+<li><p><strong>Absolutely</strong> — identifying and sourcing quality data is essential to the research process. If conducting analyses is like cooking, sourcing data is like acquiring ingredients—whether you’re following a recipe or not, things will likely not turn out well if the base inputs are of poor quality.</p></li>
+</ul>
+</section>
+<section id="defining-data-sourcing">
+<h2>1.1. Defining “data sourcing”<a class="headerlink" href="#defining-data-sourcing" title="Permalink to this headline">#</a></h2>
+<p>Data sourcing is the process of:</p>
+<ul class="simple">
+<li><p><strong>finding</strong>;</p></li>
+<li><p><strong>assessing</strong>; and,</p></li>
+<li><p><strong>selecting</strong></p></li>
+</ul>
+<p>a data resource to work with. Even for the same statistic, data resources can differ by basic attributes like values, author, purpose and more meta factors like availability, structure, representativeness, etc.</p>
+<p>Purposeful data sourcing is often overlooked in favor of convenience (i.e., using the first available and/or most popular dataset), but as we’ll see, data sourcing decisions determine data attributes—which can ultimately impact downstream analysis.</p>
+</section>
+<section id="issues-in-data-sourcing">
+<h2>1.2. Issues in data sourcing<a class="headerlink" href="#issues-in-data-sourcing" title="Permalink to this headline">#</a></h2>
+<p>Many issues can arise when attempting to source quality data, but in this chapter, we’re going to explore this topic in the context of three practices:</p>
+<ol class="simple">
+<li><p><strong>Deciding between multiple data authors;</strong></p></li>
+<li><p><strong>Understanding author incentives and purpose;</strong> and</p></li>
+<li><p><strong>Validating data and data generation approaches.</strong></p></li>
+</ol>
+<p>For this and future chapters, chapter sub-topics will include numbered discussion sections and accompanying coding exercises or visualizations. It’s suggested that you work through them in order, but doing so is not strictly necessary.</p>
+<p>Scroll down to get started!</p>
+</section>
+<section id="deciding-between-multiple-data-authors">
+<h2>1.3. Deciding between multiple data authors<a class="headerlink" href="#deciding-between-multiple-data-authors" title="Permalink to this headline">#</a></h2>
+<p>Look up “US GDP data” in your web browser of choice.</p>
+<div>
+<img src="../imgs/gdp_webquery.png" width="500"/>
+<div> 
+<br>
+<p>How many potential data sources can you find in just a minute? 10? 20? 100? Is one clearly better than the others? Despite looking up ‘US GDP data,’ are all sources providing you with the same values in their data stores? Which one would you use in what circumstances?</p>
+<p>In a way, all data sourcing practices are trying to solve this exact problem: reasonably decide between multiple data authors. The issues we’ll talk about later in this chapter and others are all, in some way, shape, or form, determined by who the data author is (even if it’s yourself) and what decisions they chose to make when collecting and crafting the dataset.</p>
+<p>For now, let’s explore a few different GDP datasets and consider which one we might choose and why:</p>
+<section id="coding-exercise-sourcing-gdp-data">
+<h3><em><strong>CODING EXERCISE: SOURCING GDP DATA</strong></em><a class="headerlink" href="#coding-exercise-sourcing-gdp-data" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># importing some libraries: </span>
+<span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA SOURCING: DIFFERENT DATA AUTHORS &quot;&quot;&quot;</span>
+<span class="c1"># when I look up &#39;US GDP data&#39;, the first result is from the Bureau of Economic Advisors (BEA): </span>
+<span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> 
+<span class="n">bea_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;gdp_bea_q2_2022_adv.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="c1"># how&#39;s it structured? is it usable?</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bea_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Table 2. Contributions to Percent Change in Real Gross Domestic Product  \
+0                                               Line                        
+1                                               Line                        
+2                                               Line                        
+3                                                NaN                        
+4                                                  1                        
+5                                                NaN                        
+6                                                  2                        
+7                                                  3                        
+8                                                  4                        
+9                                                  5                        
+
+                           Unnamed: 1  Unnamed: 2  Unnamed: 3  Unnamed: 4  \
+0                                 NaN     2019.00     2020.00     2021.00   
+1                                 NaN     2019.00     2020.00     2021.00   
+2                                 NaN     2019.00     2020.00     2021.00   
+3      Percent change at annual rate:         NaN         NaN         NaN   
+4              Gross domestic product        2.30       -3.40        5.70   
+5  Percentage points at annual rates:         NaN         NaN         NaN   
+6   Personal consumption expenditures        1.48       -2.55        5.27   
+7                               Goods        0.71        0.96        2.69   
+8                       Durable goods        0.30        0.54        1.39   
+9            Motor vehicles and parts       -0.03        0.08        0.37   
+
+                            Unnamed: 5                           Unnamed: 6  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2018                                 2018   
+2                                   Q3                                   Q4   
+3                                  NaN                                  NaN   
+4                                  1.9                                  0.9   
+5                                  NaN                                  NaN   
+6                                 1.79                                 1.16   
+7                                 0.61                                 0.44   
+8                                 0.27                                 0.08   
+9                                 0.01                                -0.03   
+
+                            Unnamed: 7                           Unnamed: 8  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2019                                 2019   
+2                                   Q1                                   Q2   
+3                                  NaN                                  NaN   
+4                                  2.4                                  3.2   
+5                                  NaN                                  NaN   
+6                                 0.43                                 2.37   
+7                                 0.29                                 1.42   
+8                                -0.05                                 0.73   
+9                                -0.37                                 0.19   
+
+                            Unnamed: 9  ...  \
+0  Seasonally adjusted at annual rates  ...   
+1                                 2019  ...   
+2                                   Q3  ...   
+3                                  NaN  ...   
+4                                  2.8  ...   
+5                                  NaN  ...   
+6                                 2.12  ...   
+7                                 0.99  ...   
+8                                 0.58  ...   
+9                                 0.12  ...   
+
+                           Unnamed: 11                          Unnamed: 12  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2020                                 2020   
+2                                   Q1                                   Q2   
+3                                  NaN                                  NaN   
+4                                 -5.1                                -31.2   
+5                                  NaN                                  NaN   
+6                                -4.79                               -24.10   
+7                                 0.04                                -1.89   
+8                                -0.89                                 0.01   
+9                                -0.80                                 0.12   
+
+                           Unnamed: 13                          Unnamed: 14  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2020                                 2020   
+2                                   Q3                                   Q4   
+3                                  NaN                                  NaN   
+4                                 33.8                                  4.5   
+5                                  NaN                                  NaN   
+6                                25.51                                 2.26   
+7                                 9.92                                -0.07   
+8                                 5.49                                 0.10   
+9                                 1.89                                 0.06   
+
+                           Unnamed: 15                          Unnamed: 16  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2021                                 2021   
+2                                   Q1                                   Q2   
+3                                  NaN                                  NaN   
+4                                  6.3                                  6.7   
+5                                  NaN                                  NaN   
+6                                 7.44                                 7.92   
+7                                 5.69                                 2.99   
+8                                 3.50                                 1.01   
+9                                 1.36                                 0.48   
+
+                           Unnamed: 17                          Unnamed: 18  \
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates   
+1                                 2021                                 2021   
+2                                   Q3                                   Q4   
+3                                  NaN                                  NaN   
+4                                  2.3                                  6.9   
+5                                  NaN                                  NaN   
+6                                 1.35                                 1.76   
+7                                -2.21                                 0.28   
+8                                -2.52                                 0.22   
+9                                -2.18                                -0.13   
+
+                           Unnamed: 19                          Unnamed: 20  
+0  Seasonally adjusted at annual rates  Seasonally adjusted at annual rates  
+1                                 2022                                 2022  
+2                                   Q1                                   Q2  
+3                                  NaN                                  NaN  
+4                                 -1.6                                 -0.9  
+5                                  NaN                                  NaN  
+6                                 1.24                                 0.70  
+7                                -0.07                                -1.08  
+8                                 0.49                                -0.22  
+9                                 0.44                                -0.02  
+
+[10 rows x 21 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># I can also find more GDP data through other official-sounding organizations: </span>
+<span class="c1"># e.g., GDP data from the St. Louis Federal Reserve (FRED): </span>
+<span class="n">fred_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;gdp_fred.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fred_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        DATE      GDP
+0   1/1/1947  243.164
+1   4/1/1947  245.968
+2   7/1/1947  249.585
+3  10/1/1947  259.745
+4   1/1/1948  265.742
+5   4/1/1948  272.567
+6   7/1/1948  279.196
+7  10/1/1948  280.366
+8   1/1/1949  275.034
+9   4/1/1949  271.351
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># how about GDP data from a random website? here&#39;s some from macrotrends.net:</span>
+<span class="n">macrotrends_data</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;gdp_macrotrends.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">macrotrends_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                           Macrotrends Data Download Unnamed: 1 Unnamed: 2  \
+0                                                NaN        NaN        NaN   
+1                                 U.S. GDP 1960-2022        NaN        NaN   
+2                                                NaN        NaN        NaN   
+3                                                NaN        NaN        NaN   
+4  DISCLAIMER AND TERMS OF USE: HISTORICAL DATA I...        NaN        NaN   
+5  FOR INFORMATIONAL PURPOSES - NOT FOR TRADING P...        NaN        NaN   
+6  NEITHER MACROTRENDS LLC NOR ANY OF OUR INFORMA...        NaN        NaN   
+7  FOR ANY DAMAGES RELATING TO YOUR USE OF THE DA...        NaN        NaN   
+8                                                NaN        NaN        NaN   
+9                                                NaN        NaN        NaN   
+
+  Unnamed: 3  
+0        NaN  
+1        NaN  
+2        NaN  
+3        NaN  
+4        NaN  
+5        NaN  
+6        NaN  
+7        NaN  
+8        NaN  
+9        NaN  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Do these different data sources look even remotely similar? Despite all being search results for ‘US GDP data,’ what are some ways that these data sources are different?</p>
+<p>Among others, a key difference in these data resources is <em><strong>usability</strong></em>. As provided, we can visualize and manipulate the FRED data most easily using code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     <span class="c1"># use: custom data visualization </span>
+
+<span class="c1"># generate a simple scatter plot of the GDP by date: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fred_data</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">fred_data</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x27f75c1b8e0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/chp1_dataSourcing_19_1.png" src="../../_images/chp1_dataSourcing_19_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># that&#39;s a lot of data - how about just the most recent observations? </span>
+<span class="n">fred_data_subset</span> <span class="o">=</span> <span class="n">fred_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># let&#39;s make sure things are a litte more read-able on the x-axis:</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fred_data_subset</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">],</span> <span class="n">fred_data_subset</span><span class="p">[</span><span class="s1">&#39;GDP&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x27f79061cd0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/chp1_dataSourcing_20_1.png" src="../../_images/chp1_dataSourcing_20_1.png" />
+</div>
+</div>
+</section>
+<section id="discussion-1">
+<h3><em><strong>DISCUSSION 1:</strong></em><a class="headerlink" href="#discussion-1" title="Permalink to this headline">#</a></h3>
+<p>From this quick exploration and visualization exercise, we can see that the FRED data is a timeseries dataset which appears relatively clean and ready for analysis - it contains only two columns: <code class="docutils literal notranslate"><span class="pre">DATE</span></code> and <code class="docutils literal notranslate"><span class="pre">GDP</span></code>. You might be tempted to just go ahead and run with it. But, for official and/or frequently-used statistics in particular, it’s worth taking a step back from usability during the data sourcing process. Why?</p>
+<ol class="simple">
+<li><p>Individuals and groups may publish their own versions of statistics which are usable, but perhaps not official. Using the official source can establish credibility for your research.</p></li>
+<li><p>Or, maybe these off-shoot datasets are based on the official version, but have been processed in a meaningful way.</p>
+<ul class="simple">
+<li><p>e.g., the FRED data (found <a class="reference external" href="https://fred.stlouisfed.org/series/GDP">here</a>) is notated as ‘GDP, Billions of Dollars, Seasonally Adjusted Annual Rate’. Maybe this adjustment isn’t desirable for your research. <br></br></p></li>
+</ul>
+</li>
+<li><p>Particular fields or subjects may have reputable and established datasets that not only can make your research more credible but also easier through the use of existing analytic tools and techniques others have developed for similar research!</p></li>
+</ol>
+<p>Point 1 (i.e., using official/licensed data authors for choice statistics) is especially key for social science research (where less direct experimentation and independent data collection may be performed). For US GDP data, a quick web query of <em>“Who measures US GDP?”</em> informs us that the Bureau of Economic Analysis (BEA) is responsible for its publication while the Bureau of Labor Statistics collects the raw data used for GDP calculation (<a class="reference external" href="https://www.investopedia.com/ask/answers/031715/how-does-united-states-government-measure-economic-growth.asp#:~:text=The%20U.S.%20government%20collects%20and,GDP%20and%20the%20national%20income.">source 1</a>, <a class="reference external" href="https://www.commerce.gov/data-and-reports/economic-indicators">source 2</a>).</p>
+</section>
+<section id="discussion-2">
+<h3><em><strong>DISCUSSION 2:</strong></em><a class="headerlink" href="#discussion-2" title="Permalink to this headline">#</a></h3>
+<p>One of our datasources was the BEA, but it’s still a good idea to perform a trace and identify the most base-level resource used to generate each of our potential datasets. After all, multiple or all of them could be re-releases of BEA data, making them equally reputable! For our remaining datasets:</p>
+<ul class="simple">
+<li><p>FRED GDP data is co-opted from the <a class="reference external" href="https://fred.stlouisfed.org/series/GDP#:~:text=NOTES-,Source%3A%20U.S.%20Bureau%20of%20Economic%20Analysis,-Release%3A%20Gross">BEA</a>’s release; and</p></li>
+<li><p>The GDP data from <a class="reference external" href="http://macrotrends.net">macrotrends.net</a> is sourced from the <a class="reference external" href="https://www.macrotrends.net/countries/USA/united-states/gdp-gross-domestic-product#:~:text=Data%20Source%3A%20World%20Bank">World Bank</a>, which in turns computes their GDP measures from World Bank and OECD (Organisation for Economic Co-operation and Development) <a class="reference external" href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2019&amp;locations=US&amp;start=1990#:~:text=Also%20Show,Details">national accounts data</a>.</p></li>
+</ul>
+<p>If you’re okay with it, go ahead and trust me that the BEA and World Bank are fairly reputable sources. Now that we’ve done some initial data exploration and sourcing inspections, let’s summarize what we know and return to the original question underlying all data sourcing practices: <em>which dataset do we choose, and why?</em></p>
+<center>
+                                                   <strong>Table 1. GDP dataset characteristics</strong>
+<br><br>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Listed source</p></th>
+<th class="head"><p>Base source</p></th>
+<th class="head"><p>Collecting organization</p></th>
+<th class="head"><p>Data type</p></th>
+<th class="head"><p>Timeframe</p></th>
+<th class="head"><p>Notable features</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BEA</p></td>
+<td><p>BEA</p></td>
+<td><p>Government</p></td>
+<td><p>Cross-sectional</p></td>
+<td><p>Point-in-time, 2022 Q2</p></td>
+<td><p>GDP by sector</p></td>
+</tr>
+<tr class="row-odd"><td><p>FRED</p></td>
+<td><p>BEA</p></td>
+<td><p>Government</p></td>
+<td><p>Timeseries</p></td>
+<td><p>Annual, 1947-2022</p></td>
+<td><p>Seasonally adjusted</p></td>
+</tr>
+<tr class="row-even"><td><p>MacroTrends</p></td>
+<td><p>Worldbank, OECD</p></td>
+<td><p>International Body</p></td>
+<td><p>Timeseries</p></td>
+<td><p>Annual, 1960-2022</p></td>
+<td><p>Add. calcs like % change</p></td>
+</tr>
+</tbody>
+</table>
+</center></section>
+<section id="discussion-3">
+<h3><em><strong>DISCUSSION 3:</strong></em><a class="headerlink" href="#discussion-3" title="Permalink to this headline">#</a></h3>
+<p>Considering that all of potential data sources come from similarly reputable authors, which one should we use? And by now, you may have noticed that I’ve been purposely vague as to what this data will be used for - intentionally, I promise! And that’s because, if author credibility is established, which dataset you choose to use <em>ultimately depends on your specific application.</em></p>
+<p>Perhaps you require a by-sector breakdown of GDP, and would like to opt for the BEA data (which can be transformed into cross-sectional timeseries data, aka panel data, by merging with other datasets). Or, if you just need some numbers to run a quick analysis for your own use, FRED data could be the best. And if you need slightly richer timeseries data, MacroTrends could be the ideal source.</p>
+<p>Other than original author credibility, here are some other metrics you may consider using when sourcing data:</p>
+<br>
+<center>
+<strong>Figure 1. Data sourcing criteria</strong>
+<br><br>
+<img src="../imgs/datasource_criteria.svg" width="700"/>
+</center> </section>
+<section id="conclusion">
+<h3><em><strong>1.3. - CONCLUSION:</strong></em><a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h3>
+<p>Now you might be asking yourself, source tracebacks and verfication are well and good, but rather time-consuming. If you need to decide between only 3-10 datasets, this case-by-case assessment is feasible, but what if you’re starting a project from the ground up? There could be hundreds if not thousands of datasets you need to evaluate. Surely there’s a quicker way to do some sort of preliminary filtering of source viability…</p>
+</section>
+</section>
+<section id="understanding-author-incentives-and-purpose">
+<h2>1.4. Understanding author incentives and purpose<a class="headerlink" href="#understanding-author-incentives-and-purpose" title="Permalink to this headline">#</a></h2>
+<p>…and wouldn’t you believe it, there is! We can consider the research <em>intended purpose and incentives</em> of “generic research entity types.”</p>
+<section id="preface">
+<h3><em><strong>PREFACE:</strong></em><a class="headerlink" href="#preface" title="Permalink to this headline">#</a></h3>
+<p>Two quick notes before we get started:</p>
+<p>1. What is a “generic research entity type?” Well, it’s a (bit of an awkward) name for a type of individual/group that would conduct research and publish data. A non-exhaustive list includes:</p>
+<ul class="simple">
+<li><p><strong>Academic</strong> - students, professors, research aides, organized labs and groups, reserach institutes, etc.</p></li>
+<li><p><strong>Governmental</strong> - state and local governments, individual bureaucrats, federal departments and associations (e.g., Dept. of Defense, NASA), international bodies like the U.N.</p></li>
+<li><p><strong>Commerical</strong> - companies and corporations (espeically advisory companies - e.g.,  management consulting firms)</p></li>
+</ul>
+<p>Going forward, I’ll refer to these generics as “reseacher types” with the caveat that we aren’t necessarily referring to individual researchers. Name suggestions for this concept are welcome!</p>
+<p>2. Also, we can certainly do the forthcoming data sourcing practice on a dataset-by-dataset level (and I would encourage you to do so)!</p>
+<ul class="simple">
+<li><p>But, applying this practice in the context of research entity-types rather than specific entities can be a useful way to expedite the data sourcing process, as different entities belonging to the same researcher type can have similar/shared purposes and incentives.</p></li>
+</ul>
+<p>Now we’re ready to dive in!</p>
+<div>
+<img src="../imgs/incentives.png" width="500"/>
+<figcaption><em> When you're a [research entity], everything looks like a [carrot], or something like that... </em></figcaption>
+<div> 
+<br></section>
+<section id="discussion-4">
+<h3><em><strong>DISCUSSION 4:</strong></em><a class="headerlink" href="#discussion-4" title="Permalink to this headline">#</a></h3>
+<p>What does it mean to consider the intended purpose and incentives of a generic entity? For me, it’s all about answering two key questions:</p>
+<ul class="simple">
+<li><p>To identify an <strong>intended purpose,</strong> I ask myself: <em>“How did the person/group/researcher type who published this data want it to be used?”</em></p></li>
+<li><p>To identify <strong>incentives,</strong> I ask myself: <em>“Why did this person/group/researcher type conduct the research that gave rise to this data resource in the first place?</em></p></li>
+</ul>
+<p>Take a few minutes to brainstorm some potential answers to these questions in the context of researcher types, and then take a look at the following table!</p>
+<center>
+                                                   <strong>Table 2. Research type incentives</strong> 
+<br><br>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Researcher type</strong></p></th>
+<th class="head"><p><strong>Researcher sub-type</strong></p></th>
+<th class="head"><p><strong>Potential incentives</strong></p></th>
+<th class="head"><p><strong>Potential intended purposes</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Academic</p></td>
+<td><p>Professor</p></td>
+<td><p>Boosting reputation, securing tenure, “scooping” competitors</p></td>
+<td><p>To suggest a causal relationship between ___ and ___</p></td>
+</tr>
+<tr class="row-odd"><td><p>Academic</p></td>
+<td><p>Student</p></td>
+<td><p>Jockeying for authorship position, ensuring lab employment</p></td>
+<td><p>(Commonly aligned with a supervising faculty/lab)</p></td>
+</tr>
+<tr class="row-even"><td><p>Governmental</p></td>
+<td><p>Department of Defense</p></td>
+<td><p>Lobbying for funding, influencing other dept.’s spending &amp; efforts</p></td>
+<td><p>To demonstrate a security vulnerability to ___ from ___</p></td>
+</tr>
+<tr class="row-odd"><td><p>Governmental</p></td>
+<td><p>U.N.</p></td>
+<td><p>Motivating international sanctions, initiatives, coalition-building, etc.</p></td>
+<td><p>To coordinate the policies of ___ and ___</p></td>
+</tr>
+<tr class="row-even"><td><p>Commercial</p></td>
+<td><p>Financial Analyst</p></td>
+<td><p>Identifying investment opportunities, improving perceived performance</p></td>
+<td><p>To encourage/expedite internal or external financial decisions</p></td>
+</tr>
+<tr class="row-odd"><td><p>Commercial</p></td>
+<td><p>Management Consulting Firm</p></td>
+<td><p>Generating &amp; securing additional clientele through discovered needs</p></td>
+<td><p>To be read and create demand for their services</p></td>
+</tr>
+</tbody>
+</table>
+</center><p>This is in no way a complete list (where would you make changes? additions? deletions?) - but hopefully it can help you see that researchers may be operating with conscious/unconscious biases when collecting the data that ultimately underpins their research. Then, how should this knowledge impact your data sourcing process?</p>
+<ul class="simple">
+<li><p>Always keep in mind that most research (and supporting data) suffers from <em>publication bias,</em> or the failure to publish the results of a study on the basis of the direction and/or strength of the study findings.</p></li>
+<li><p>Relatedly, studies can suffer from a <em>“newsworthy bias,”</em> where individuals only publish research and accompanying data which demonstrates an interesting or notable result, which can already suggest anomalies in the collected data.</p></li>
+<li><p>Opting for alternate researcher types when there are egregious conflicts on interest (e.g., climate studies data collected by petroleum companies) is a logical first step. Most of the time, maintaining a weak preference for academic &amp; governmental sources is recommended.</p></li>
+<li><p>More generally, you can select data sources such that the original dataset’s intended purpose and related incentives are orthogonal to your current study’s purpose; i.e., if you wanted to collect data on non-exercise cancer risk factors, you could think about using the covariates data from another study that proposes a link between cancer risk and being sedentary.</p></li>
+</ul>
+</section>
+<section id="discussion-5">
+<h3><em><strong>DISCUSSION 5:</strong></em><a class="headerlink" href="#discussion-5" title="Permalink to this headline">#</a></h3>
+<p>Of special note is the fact that for both researcher types and specific researchers within a type, incentives and intended purpose of analogous studies (and their related data) <em>can change over time</em> - this is especially important to consider in the context of timeseries analysis. To understand how changing incentives and intended purpose can impact collected data, let’s see an example:</p>
+<div>
+<img src="../imgs/small_business.png" width="500"/>
+<div><br>
+<p>We’re going to zoom in on the contribution of portion of national GDP generated by small businesses. Essentially all of the recent studies and available data on small business GDP (SGDP) is spearheaded by one author within one organization, the federal government’s Small Business Administration. Here’s some info about two reports released by this same author:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.richschwinn.com/index/sgdp_v1.8_SBA.pdf">Report 1</a>:</p>
+<ul>
+<li><p>Published: April 2007</p></li>
+<li><p>Data timeframe: 1998-2004</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://permanent.fdlp.gov/websites/www.sba.gov/advo/research/rs299.pdf">Report 2</a>:</p>
+<ul>
+<li><p>Published: December 2017</p></li>
+<li><p>Data timeframe: 1998-2014</p></li>
+</ul>
+</li>
+</ul>
+<p><em>(Note: All data used in the following dicussion were sourced from these reports.)</em></p>
+<p>As part of both reports, SGDP as a percentage of GDP (both nominal figures) is calculated. In the overlapping timeframes of the two reports (i.e., 1998-2004), would we expect there to be dramatic differences in the SGDP as a percentage of GDP data? Why? Could incentives and intended purpose changed - how so?</p>
+<p>Let’s take a look with some code:</p>
+</section>
+<section id="coding-exercise-author-incentives-sgdp">
+<h3><em><strong>CODING EXERCISE: AUTHOR INCENTIVES &amp; SGDP</strong></em><a class="headerlink" href="#coding-exercise-author-incentives-sgdp" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># required imports: </span>
+<span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                  <span class="c1"># use: some calculations</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     <span class="c1"># use: data viz. </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA SOURCING: CHANGING INCENTIVES AND INTENDED PURPOSE &quot;&quot;&quot;</span>
+<span class="c1"># importing the data (index column has year values): </span>
+<span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> 
+<span class="n">sgdp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;sgdp_sba.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 2017 subset of data: </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2017_report_sgdp_share&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>year
+1998    49.2
+1999    49.1
+2000    48.5
+2001    48.8
+2002    47.1
+2003    47.0
+2004    46.5
+2005    45.5
+2006    45.4
+2007    45.4
+2008    45.0
+2009    44.7
+2010    44.4
+2011    44.3
+2012    44.2
+2013    43.6
+2014    43.5
+Name: 2017_report_sgdp_share, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># some scatter plots of the data: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2007_report_sgdp_share&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2007: SGDP SHARE OF GDP (%)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2017_report_sgdp_share&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2017: SGDP SHARE OF GDP (%)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2007 best fit line: </span>
+<span class="n">xvals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1998</span><span class="p">,</span> <span class="mi">2004</span><span class="p">]</span>
+<span class="n">yvals</span> <span class="o">=</span> <span class="p">[</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1998</span><span class="p">]][</span><span class="s1">&#39;2007_report_sgdp_share&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sgdp_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">2004</span><span class="p">]][</span><span class="s1">&#39;2007_report_sgdp_share&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;seagreen&#39;</span><span class="p">)</span>
+
+<span class="c1"># 2017 best fit line: </span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">sgdp_data</span><span class="p">[</span><span class="s1">&#39;2017_report_sgdp_share&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">sgdp_data</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+
+<span class="c1"># formatting options: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;SGDP DATA: 2007 vs. 2017 REPORT&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;SGDP SHARE OF NON-FARM GDP (%)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/chp1_dataSourcing_42_0.png" src="../../_images/chp1_dataSourcing_42_0.png" />
+</div>
+</div>
+</section>
+<section id="discussion-6">
+<h3><em><strong>DISCUSSION 6:</strong></em><a class="headerlink" href="#discussion-6" title="Permalink to this headline">#</a></h3>
+<p>Even from this quick visualization, major discrepancies are apparent:</p>
+<ul class="simple">
+<li><p>The 2007 report contained only initial and ending figures for SGDP share as a % of GDP, while the 2017 report offered data points for all years reviewed in the report.</p></li>
+<li><p>The trend in SGDP share is directionally opposite for the two reports.</p></li>
+<li><p>The two reports aim to measure the same metric, but have differing figures for their shared years of measurement (1998, 2004).</p></li>
+</ul>
+<p>What might be the cause of the lack of granular data in the 2007 report? How about the apparent switch in the trend of SGDP share? Is there reason to suspect a shift in intended purpose and incentives (recall that both reports were sanctioned by the Small Business Administration, and their respective years of publication)?</p>
+</section>
+<section id="id1">
+<h3><em><strong>1.4. - CONCLUSION:</strong></em><a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<p>Ultimately, while we aren’t here to play whistleblower, in this case and almost all others, it’s worth noting that which dataset you elect to use may have great impact on your research results - especially when it comes to multiple data resources claiming to measure the same metric; i.e., suppose you wanted to investigate small business health in the decade before and after the Great Recession. How would which dataset you use impact your results? How so?</p>
+<p>In short, incentives &amp; intended purposes of research can change across researcher types, for the same researcher type, and even for the same researcher. These changes may not give rise to drastically misreported or conflicting data - but in research, the details matter. So, it’s always worth thinking about what incentives and intended purpose can imply for data resources, and your research.</p>
+</section>
+</section>
+<section id="validating-data-and-data-generation-approaches">
+<h2>1.5. Validating data and data generation approaches<a class="headerlink" href="#validating-data-and-data-generation-approaches" title="Permalink to this headline">#</a></h2>
+<p>The final issue in data sourcing we’ll be discussing is the validation of data and its associated dataset generation approach:</p>
+<section id="discussion-7">
+<h3><em><strong>DISCUSSION 7:</strong></em><a class="headerlink" href="#discussion-7" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>A data generation approach is simply the methodology used to collect and compute a given data resource. In a way, this topic is best described as a data sourcing meta-issue since:</p>
+<ul>
+<li><p>Validating either data itself and/or its generation approach can lend additional credence to a data source (helping you to decide between multiple data authors); and</p></li>
+<li><p>Understanding which data generation approach was used and why can be informative as to research incentives and intended purpose.</p></li>
+</ul>
+</li>
+<li><p>And just like understanding data author incentives and intended purpose, grappling with this issue can be thought of answering two questions:</p>
+<ul>
+<li><p>Does the approach this researcher, agency, etc. uses to compute this metric or dataset commonly accepted and reasonable?</p></li>
+<li><p>If it is, does this data author provide the necessary data resources and instructions for you to re-generate the associated dataset? (If you do, does your dataset match theirs?)</p></li>
+</ul>
+</li>
+</ul>
+<p>To better understand this topic, let’s explore it in the context of GDP data!</p>
+</section>
+<section id="discussion-8">
+<h3><em><strong>DISCUSSION 8:</strong></em><a class="headerlink" href="#discussion-8" title="Permalink to this headline">#</a></h3>
+<p>GDP can be measured in <a class="reference external" href="https://www.imf.org/external/pubs/ft/fandd/basics/gdp.htm#:~:text=Theoretically%2C%20GDP%20can%20be%20viewed%20in%20three%20different%20ways%3A">three different ways</a>:</p>
+<ul class="simple">
+<li><p>The <em>production approach</em> sums the value-added at each stage of production for all goods and services (where value-added is defined as the sales value minus the value of intermediate inputs);</p></li>
+<li><p>The <em>expenditure approach</em> sums the value of all purchases made by final users (i.e., the consumption of households, the investment of companies, and the purchases of goods and services by goverment entities and foreign consumers).</p></li>
+<li><p>The <em>income approach</em> sums all of the incomes generated by production (including but not limited to the compensation employees receive and the operating surplus of companies).</p></li>
+</ul>
+<p>In <em>theory</em>, each of these approaches should generate the same GDP figures/data:</p>
+<ul>
+<li><p>Consider the expenditure and income approaches - in a simplified economy with  consumers and businesses, every dollar a consumer receives as income (income approach) will be accounted for as a dollar spent on a good or service from some business (expenditure approach).</p></li>
+<li><p>This relationship is neatly captured in a diagram shown in introductory economics classes across the world, the circular flow diagram:</p>
+  <div>
+  <img src="../imgs/circularflow.png" width="400"/>
+  <figcaption><em>Is it really this simple? We shall see...</em></caption>
+  <div> 
+</li>
+</ul>
+<p>The BEA publishes official GDP data using the <a class="reference external" href="https://www.bea.gov/resources/methodologies/measuring-the-economy">expenditure approach</a> (see Page 4, Section “Income”), but also measures and releases GDP figures generated using the income approach as GDI (<strong>G</strong>ross <strong>D</strong>omestic <strong>I</strong>ncome) data. Let’s see how the theoretical 1:1 relationship holds up in practice (data from <a class="reference external" href="https://fred.stlouisfed.org/series/GDI">FRED</a>):</p>
+</section>
+<section id="coding-exercise-data-generation-gdp-computation-approaches">
+<h3><em><strong>CODING EXERCISE: DATA GENERATION &amp; GDP COMPUTATION APPROACHES</strong></em><a class="headerlink" href="#coding-exercise-data-generation-gdp-computation-approaches" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># required imports: </span>
+<span class="kn">import</span> <span class="nn">os</span>                           <span class="c1"># use: file management and access </span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                  <span class="c1"># use: some calculations</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                 <span class="c1"># use: data intake and manipulation </span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>     <span class="c1"># use: data viz. </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; DATA SOURCING: DATA GENERATION APPROACHES &quot;&quot;&quot;</span>
+<span class="c1"># importing the data (index column has year values): </span>
+<span class="n">datasets_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;sample_datasets&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> 
+<span class="n">gdp_approaches_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasets_dir</span> <span class="o">+</span> <span class="s1">&#39;gdp_diff_approaches.csv&#39;</span> <span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="c1"># let&#39;s take a subset of the data:</span>
+<span class="n">gdp_approaches_data</span> <span class="o">=</span> <span class="n">gdp_approaches_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+
+<span class="c1"># data structure: index, date, gdp, gdi (billions of nominal dollars)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gdp_approaches_data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          date        gdp        gdi
+292   1/1/2020  21481.367  21755.875
+293   4/1/2020  19477.444  19620.204
+294   7/1/2020  21138.574  20908.535
+295  10/1/2020  21477.597  21972.571
+296   1/1/2021  22038.226  22547.899
+297   4/1/2021  22740.959  23132.650
+298   7/1/2021  23202.344  23833.203
+299  10/1/2021  24002.815  24619.857
+300   1/1/2022  24386.734  25223.141
+301   4/1/2022  24882.878  25860.059
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># scatter plots of the data: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;GDP: EXPENDITURES APPR.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdi&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;GDP: INCOME APPR.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># formatting options: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;GDP DATA: INCOME VS. EXPENDITURES APPROACH&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;GDP&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/chp1_dataSourcing_56_0.png" src="../../_images/chp1_dataSourcing_56_0.png" />
+</div>
+</div>
+<p>The two approaches seem to generate reasonably similar figures, but let’s get a better picture of just the differences in measurements over time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute the diff: </span>
+<span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdp_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdi&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdp&#39;</span><span class="p">]</span>
+
+<span class="c1"># plot the diff: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">gdp_approaches_data</span><span class="p">[</span><span class="s1">&#39;gdp_diff&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dodgerblue&#39;</span><span class="p">)</span>
+
+<span class="c1"># formatting options: </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;GDP DATA: INCOME VS. EXPENDITURES APPROACH&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;GDI LESS GDP (BILLIONS OF $)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/chp1_dataSourcing_58_0.png" src="../../_images/chp1_dataSourcing_58_0.png" />
+</div>
+</div>
+<p>As we can see, for the past 7 fiscal quarters, GDI has consisently been measured as ~500+ billion dollars <em>greater</em> than GDP. Why is this? In the case of GDP, the disparity between the measurements resulting from different approaches is generally the product of multiple factors:</p>
+<ul class="simple">
+<li><p>Meta-issues like differences in the accuracy and timeliness of contributing data resources can give rise to meaningful differences.</p></li>
+<li><p>Structural differences in how the approaches operate can also contribute to the divergence:</p>
+<ul>
+<li><p>For instance, if an individual saves a portion of their income in cash, the value of these savings are reflected in the income approach data but not the expenditure approach data for the same year.</p></li>
+<li><p>Individuals might save their income as inflation appears to be rising (as an inflationary hedge) and/or as economic conditions appear to worsen - <a class="reference external" href="https://fortune.com/2021/12/03/inflation-no-longer-transitory-higher-prices-fed-chair-powell-treasury-yellen/">does this sound familiar</a>?</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="discussion-9">
+<h3><em><strong>DISCUSSION 9:</strong></em><a class="headerlink" href="#discussion-9" title="Permalink to this headline">#</a></h3>
+<p>Thus, in <em>practice</em>, GDP measurements (and data more generally) generated through different approaches can differ substantially.</p>
+<ul class="simple">
+<li><p>And, while a real-life example is not readily available, one could imagine how selectively using GDP data generated by different approaches could be a means to exaggerate an economic conclusion:</p>
+<ul>
+<li><p>For example, a researcher could use expenditure-approach GDP data during a period of economic recession (where there is typically deflated consumer expenditure and increased savings) and then use income-approach GDP data during the post-recession years (where there is typically an influx of expenditures purchased using saved cash) to depict stronger-than-actual economic recovery. <br></br></p></li>
+</ul>
+</li>
+<li><p>Still, it’s important to note that, while GDP as measured by the expenditure approach is more commonly used, both GDP and GDI are well-established measures. In any research scenario where multiple approaches to data generation or collection exist, if the sources are similarly reputable, you should seek appropriate justification for the approach(es) used.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3><em><strong>1.5. - CONCLUSION:</strong></em><a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<p>As a final note, when a data generation approach is offered, you can also attempt to generate a data resource yourself:</p>
+<ul class="simple">
+<li><p>While this practice is likely one of the strongest forms of data validation possible, it also is limited by varying degrees of applicablity; your ability to do so is contingent on the availability of the supporting/underlying datasets - e.g., you likely wouldn’t be able to attempt this practice for a behavioral experiment, a mass measurement project like GDP, etc.</p></li>
+<li><p>Also, this practice is not at all necessary to conduct good, grounded research. It can be particularly valuable when you wish to co-opt a methodology or dataset that is relatively new in a field, but even then is not a requisite depending on the rigorousness of the original datasource.</p></li>
+</ul>
+<p>Ultimately, data and data generation approach validation are like the dessert of the data sourcing meal - not essential, but it certainly helps round things out!</p>
+</section>
+</section>
+<section id="chapter-takeaways">
+<h2>1.6. <em>Chapter Takeaways</em><a class="headerlink" href="#chapter-takeaways" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p>When identifying a dataset to work with, remember that usability is not the only criterion of interest — always traceback each resource’s original author and verify that author’s credibility.</p></li>
+<li><p>Always consider the incentives and intended purpose of the work through which data is acquired; doing so can help you identify a reliable data resource more quickly, while also foreshadowing implications for the data itself (and your research should you use it).</p></li>
+<li><p>Be sure to identify and evaluate the data generation approach used to create an external data resource — especially for figures/metrics where multiple data resources are available. When possible and valuable, consider replicating the data generation process to fortify your usage of the data resource.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "roflauren-roflauren/GearUp-MessyData",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./fall_2022\chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Software and Services for Data Science (SSDS) at Stanford Libraries<br/>
+  
+      &copy; Copyright 2022-2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
